@@ -1,0 +1,1 @@
+{"uuid":"e980765b-b8ae-4a2b-bdf2-ccbab666ac40","name":"BookRoom.initData","children":["81eca905-60db-43cd-a5d0-58f572266527"],"description":"","befores":[{"name":"initData","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1732523972524,"stop":1732523977785}],"afters":[],"start":1732523972524,"stop":1732523977785}
