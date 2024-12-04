@@ -1,4 +1,4 @@
-package Gwesty.Page;
+package Gwesty.Page.UserPage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

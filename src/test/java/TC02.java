@@ -1,4 +1,4 @@
-import Gwesty.Page.*;
+import Gwesty.Page.UserPage.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
@@ -38,7 +38,7 @@ public class TC02 {
 
     @Test
     public void test() {
-        homePage.selectRoomPage();
+        //homePage.selectRoomPage();
         softAssert.assertTrue(roomPage.isRoomsLabelDisplayed());
 
         roomPage.openDetailRoomByIndex(2);

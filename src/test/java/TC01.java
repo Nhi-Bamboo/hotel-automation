@@ -1,5 +1,5 @@
-import Gwesty.Page.HomePage;
-import Gwesty.Page.RoomPage;
+import Gwesty.Page.UserPage.HomePage;
+import Gwesty.Page.UserPage.RoomPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
