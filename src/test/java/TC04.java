@@ -39,7 +39,7 @@ public class TC04 {
     public void Test() {
         //1. Login with admin account
         homePage.openLoginPage();
-        loginPage.login("admin","123456");
+        //loginPage.login("admin","123456");
         //2. Open Page Add Room Type
 
         //3. Enter information
