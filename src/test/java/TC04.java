@@ -52,6 +52,7 @@ public class TC04 {
         addRoomTypePage.enterDescription("Phong tieu chuan");
         //4. Click button [Submit]
         addRoomTypePage.clickSubmitButton();
+        // tìm room type vừa tạo
         viewAllRoomTypePage.enterSearch("Standard");
         softAssert.assertTrue(viewAllRoomTypePage.isRoomTypeDisplayed("Standard"),"Khong tim thay room type vua tao");
         System.out.println(viewAllRoomTypePage.quantityOfRoomType("Standard"));
