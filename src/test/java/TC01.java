@@ -1,5 +1,5 @@
-import Gwesty.Page.*;
-import com.github.javafaker.Faker;
+import Gwesty.Page.HomePage;
+import Gwesty.Page.RoomPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
