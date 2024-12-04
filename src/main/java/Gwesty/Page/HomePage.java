@@ -2,6 +2,10 @@ package Gwesty.Page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage {
     By loginButtonLocator = By.linkText("Login");
@@ -11,7 +15,8 @@ public class HomePage {
     By childrenBoxLocator = By.xpath("//input[@name='children']");
     By searchButtonLocator = By.xpath("//input[@class='btn btn-success btn-block']");
     By roomsMenuLocator = By.linkText("Rooms");
-
+    By userNameTextBoxLocator = By.name("email");
+    By accountAndSettingLocator = By.id("NavebarProfileDrop");
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -19,7 +24,9 @@ public class HomePage {
     WebDriver driver;
 
     public void openLoginPage(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.findElement(loginButtonLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userNameTextBoxLocator));
     }
 
     public void enterCheckInDay(String dateCI){
@@ -54,6 +61,9 @@ public class HomePage {
 
     public void selectRoomPage(){
         driver.findElement(roomsMenuLocator).click();
+    }
+    public void clickSettingAccount() {
+        driver.findElement(accountAndSettingLocator).click();
     }
 
 }
