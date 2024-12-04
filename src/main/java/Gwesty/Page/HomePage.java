@@ -3,6 +3,7 @@ package Gwesty.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -17,6 +18,7 @@ public class HomePage {
     By roomsMenuLocator = By.linkText("Rooms");
     By userNameTextBoxLocator = By.name("email");
     By accountAndSettingLocator = By.id("NavebarProfileDrop");
+    By goToAdminButtonLocator = By.xpath("//a[text()='Go to Admin']");
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -62,8 +64,9 @@ public class HomePage {
     public void selectRoomPage(){
         driver.findElement(roomsMenuLocator).click();
     }
-    public void clickSettingAccount() {
+    public void openPageAdmin() {
         driver.findElement(accountAndSettingLocator).click();
+        driver.findElement(goToAdminButtonLocator).click();
     }
 
 

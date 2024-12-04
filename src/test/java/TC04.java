@@ -10,7 +10,7 @@ public class TC04 {
     WebDriver driver;
     HomePage homePage;
     LoginPage loginPage;
-    RoomPage roomPage;
+    AdminPage adminPage;
     RoomDetailPage roomDetailPage;
     BookNowPage bookNowPage;
     CheckoutPage checkoutPage;
@@ -21,7 +21,7 @@ public class TC04 {
         driver = new EdgeDriver();
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
-        roomPage = new RoomPage(driver);
+        adminPage = new AdminPage(driver);
         roomDetailPage = new RoomDetailPage(driver);
         bookNowPage = new BookNowPage(driver);
         checkoutPage = new CheckoutPage(driver);
@@ -41,8 +41,10 @@ public class TC04 {
         homePage.openLoginPage();
         loginPage.login("admin","123456");
         //2. Open Page Add Room Type
-
+        homePage.openPageAdmin();
+        adminPage.OpenAddRoomTypesPage();
         //3. Enter information
+
         //4. Click button [Submit]
     }
 }
