@@ -1,4 +1,6 @@
+import Gwesty.Page.AdminPage.AddRoomTypePage;
 import Gwesty.Page.AdminPage.AdminPage;
+import Gwesty.Page.AdminPage.ViewAllRoomTypePage;
 import Gwesty.Page.UserPage.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -12,10 +14,8 @@ public class TC04 {
     HomePage homePage;
     LoginPage loginPage;
     AdminPage adminPage;
-    RoomDetailPage roomDetailPage;
-    BookNowPage bookNowPage;
-    CheckoutPage checkoutPage;
-    SearchRoomsPage searchRoomsPage;
+    AddRoomTypePage addRoomTypePage;
+    ViewAllRoomTypePage viewAllRoomTypePage;
     SoftAssert softAssert;
     @BeforeMethod
     public void initData() {
@@ -23,10 +23,8 @@ public class TC04 {
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         adminPage = new AdminPage(driver);
-        roomDetailPage = new RoomDetailPage(driver);
-        bookNowPage = new BookNowPage(driver);
-        checkoutPage = new CheckoutPage(driver);
-        searchRoomsPage = new SearchRoomsPage(driver);
+        addRoomTypePage = new AddRoomTypePage(driver);
+        viewAllRoomTypePage = new ViewAllRoomTypePage(driver);
         softAssert = new SoftAssert();
 
         driver.manage().window().maximize();
@@ -34,7 +32,7 @@ public class TC04 {
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+//        driver.quit();
     }
     @Test
     public void Test() {
@@ -43,9 +41,20 @@ public class TC04 {
         loginPage.login("admin","123456");
         //2. Open Page Add Room Type
         homePage.openPageAdmin();
-        adminPage.OpenAddRoomTypesPage();
-        //3. Enter information
+        adminPage.clickMenu("Room Types");
+        adminPage.clickSubMenu("Add Room Type");
 
+        //3. Enter information
+        addRoomTypePage.enterTitle("Standard");
+        addRoomTypePage.enterPrice("500");
+        addRoomTypePage.enterAdultCapacity("1");
+        addRoomTypePage.enterChildrenCapacity("1");
+        addRoomTypePage.enterDescription("Phong tieu chuan");
         //4. Click button [Submit]
+        addRoomTypePage.clickSubmitButton();
+        viewAllRoomTypePage.enterSearch("Standard");
+        softAssert.assertTrue(viewAllRoomTypePage.isRoomTypeDisplayed("Standard"),"Khong tim thay room type vua tao");
+        System.out.println(viewAllRoomTypePage.quantityOfRoomType("Standard"));
+        softAssert.assertAll();
     }
 }
