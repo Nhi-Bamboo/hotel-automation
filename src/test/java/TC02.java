@@ -9,66 +9,55 @@ import org.testng.asserts.SoftAssert;
 public class TC02 {
     WebDriver driver;
     HomePage homePage;
+    LoginPage loginPage;
+    MyBookingsPage myBookingsPage;
     RoomPage roomPage;
     RoomDetailPage roomDetailPage;
     BookNowPage bookNowPage;
     CheckoutPage checkoutPage;
-    SearchRoomsPage searchRoomsPage;
+    ConfirmPage confirmPage;
     SoftAssert softAssert;
 
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
         homePage = new HomePage(driver);
+        loginPage = new LoginPage(driver);
+        myBookingsPage = new MyBookingsPage(driver);
         roomPage = new RoomPage(driver);
         roomDetailPage = new RoomDetailPage(driver);
         bookNowPage = new BookNowPage(driver);
         checkoutPage = new CheckoutPage(driver);
-        searchRoomsPage = new SearchRoomsPage(driver);
+        confirmPage = new ConfirmPage(driver);
         softAssert = new SoftAssert();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
+
+        homePage.openLoginPage();
+        loginPage.login("yennhi","123456");
+        homePage.selectRoomPage();
+        roomPage.openDetailRoomByIndex(1);
+        roomDetailPage.bookingRoom("2025/01/09","2025/01/10",1,0);
+        bookNowPage.checkCheckBoxAgree();
+        bookNowPage.clickSubmitButton();
+        checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225","123");
     }
 
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+       driver.quit();
     }
 
     @Test
     public void test() {
-        //homePage.selectRoomPage();
-        softAssert.assertTrue(roomPage.isRoomsLabelDisplayed());
-
-        roomPage.openDetailRoomByIndex(2);
-        softAssert.assertTrue(roomDetailPage.isRoomsDetailLabelDisplayed());
-
-        roomDetailPage.bookingRoom("2025/12/15","2025/12/16",1,0);
-
-        softAssert.assertTrue(bookNowPage.isBookNowLabelDisplayed());
-
-        bookNowPage.enterNameTextBox("Yến Nhi");
-        bookNowPage.enterEmailTextBox("cus@gmail.com");
-        bookNowPage.enterPhoneTextBox("0912345678");
-        bookNowPage.enterAddressTextBox("Vietnam");
-        bookNowPage.clickCheckBoxAgree();
-        bookNowPage.openSubmitButton();
-
-        checkoutPage.enterCardNumberBox("2222333344445555");
-        checkoutPage.enterNameOnCardBox("JOHN HENRY");
-        checkoutPage.enterExpiryDateBox("1225");
-        checkoutPage.enterCvvNumberBox("123");
-        checkoutPage.openPayNowButton();
-        //softAssert.assertTrue(checkoutPage.isMessageDisplayed());
-
-        checkoutPage.selectRoomsPage();
-        roomPage.openDetailRoomByIndex(2);
-
-        roomDetailPage.bookingRoom("2025/12/15","2025/12/16",1,0);
-
-        softAssert.assertTrue(searchRoomsPage.isMessageDisplayed());
-
+        String idB = confirmPage.getIDBooking();
+        System.out.println(idB);
+        homePage.clickAccountSetting();
+        homePage.openMyBookingsPage();
+        myBookingsPage.clickCancelButtonById(idB);
+        myBookingsPage.cancelBooking();
+        myBookingsPage.verifyCancelBooking(idB,softAssert);
         softAssert.assertAll();
 
     }

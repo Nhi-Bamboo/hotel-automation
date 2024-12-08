@@ -9,8 +9,6 @@ public class CheckoutPage {
     By expiryDateBoxLocator = By.name("expiry");
     By cvvNumberBoxLocator = By.id("cvvcode");
     By payNowButtonLocator = By.xpath("//input[@value='Pay Now']");
-    By messageSuccessfulLocator = By.xpath("//div[@class='alert alert-success']");
-    By roomsMenuLocator = By.linkText("Rooms");
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
@@ -31,19 +29,19 @@ public class CheckoutPage {
     }
 
     public void enterCvvNumberBox(String cvv){
-        driver.findElement(cvvNumberBoxLocator).clear();
         driver.findElement(cvvNumberBoxLocator).sendKeys(cvv);
     }
 
-    public void openPayNowButton(){
+    public void clickPayNowButton(){
         driver.findElement(payNowButtonLocator).click();
     }
 
-    public boolean isMessageDisplayed(){
-        return driver.findElement(messageSuccessfulLocator).isDisplayed();
+    public void paymentByCreditCard(String cardNumber, String nameCard, String expiryDate, String cvv){
+         enterCardNumberBox(cardNumber);
+         enterNameOnCardBox(nameCard);
+         enterExpiryDateBox(expiryDate);
+         enterCvvNumberBox(cvv);
+         clickPayNowButton();
     }
 
-    public void selectRoomsPage(){
-         driver.findElement(roomsMenuLocator).click();
-    }
 }

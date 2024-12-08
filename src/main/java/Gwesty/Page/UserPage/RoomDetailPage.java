@@ -37,7 +37,7 @@ public class RoomDetailPage {
         driver.findElement(childrenLocator).sendKeys(String.valueOf(children));
     }
 
-    public void openBookNowButton(){
+    public void clickBookNowButton(){
         driver.findElement(bookNowButtonLocator).click();
     }
 
@@ -46,8 +46,9 @@ public class RoomDetailPage {
         enterCheckOutDay(co);
         enterAdult(a);
         enterChildren(c);
-        openBookNowButton();
+        clickBookNowButton();
     }
+
     public boolean isRoomsDetailLabelDisplayed(){
         return driver.findElement(roomsDetailLabelLocator).isDisplayed();
     }

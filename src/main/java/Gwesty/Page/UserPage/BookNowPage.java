@@ -19,27 +19,42 @@ public class BookNowPage {
     WebDriver driver;
 
     public void enterNameTextBox(String name){
+        driver.findElement(nameTextBoxLocator).clear();
         driver.findElement(nameTextBoxLocator).sendKeys(name);
     }
 
     public void enterEmailTextBox(String email){
+        driver.findElement(emailTextBoxLocator).clear();
         driver.findElement(emailTextBoxLocator).sendKeys(email);
     }
 
     public void enterPhoneTextBox(String phone){
+        driver.findElement(phoneTextBoxLocator).clear();
         driver.findElement(phoneTextBoxLocator).sendKeys(phone);
     }
 
     public void enterAddressTextBox(String address){
+        driver.findElement(addressTextBoxLocator).clear();
         driver.findElement(addressTextBoxLocator).sendKeys(address);
     }
 
-    public void clickCheckBoxAgree(){
-        driver.findElement(checkBoxAgreeLocator).click();
+    public void checkCheckBoxAgree(){
+        if (!driver.findElement(checkBoxAgreeLocator).isSelected()){
+            driver.findElement(checkBoxAgreeLocator).click();
+        }
     }
 
-    public void openSubmitButton(){
+    public void clickSubmitButton(){
         driver.findElement(submitButtonLocator).click();
+    }
+
+    public void addGuestInformation(String name, String e, String phone, String address){
+        enterNameTextBox(name);
+        enterEmailTextBox(e);
+        enterPhoneTextBox(phone);
+        enterAddressTextBox(address);
+        checkCheckBoxAgree();
+        clickSubmitButton();
     }
 
     public boolean isBookNowLabelDisplayed(){

@@ -11,13 +11,16 @@ public class HomePage {
     By loginButtonLocator = By.linkText("Login");
     By checkInBoxLocator = By.id("check-in");
     By checkOutBoxLocator = By.id("check-out");
-    By adultBoxLocator = By.xpath("//input[@name='adult']");
-    By childrenBoxLocator = By.xpath("//input[@name='children']");
+    By adultBoxLocator = By.name("adult");
+    By childrenBoxLocator = By.name("children");
     By searchButtonLocator = By.xpath("//input[@class='btn btn-success btn-block']");
     By roomsMenuLocator = By.linkText("Rooms");
     By userNameTextBoxLocator = By.name("email");
     By accountAndSettingLocator = By.id("NavebarProfileDrop");
-    By goToAdminButtonLocator = By.xpath("//a[text()='Go to Admin']");
+    By goToAdminButtonLocator = By.linkText("Go to Admin");
+    By accountSettingLocator = By.id("NavebarProfileDrop");
+    By myBookingsLocator = By.linkText("My Bookings");
+    By myAccountLocator = By.linkText("My Account");
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -49,7 +52,7 @@ public class HomePage {
     }
 
     public void clickSearchButton(){
-        //driver.findElement(searchButtonLocator).click();
+        driver.findElement(searchButtonLocator).click();
     }
 
     public void searchRooms(String checkIn, String checkOut, int ad, int child){
@@ -67,6 +70,19 @@ public class HomePage {
         driver.findElement(accountAndSettingLocator).click();
         driver.findElement(goToAdminButtonLocator).click();
     }
+
+    public void clickAccountSetting(){
+        driver.findElement(accountSettingLocator).click();
+    }
+
+    public void openMyBookingsPage(){
+        driver.findElement(myBookingsLocator).click();
+    }
+
+    public void openMyAccountPage(){
+        driver.findElement(myAccountLocator).click();
+    }
+
 
 
 }
