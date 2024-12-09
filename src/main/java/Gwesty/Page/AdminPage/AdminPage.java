@@ -17,6 +17,7 @@ public class AdminPage {
     public void clickMenu(String option) {
         String xpathMenu = String.format("//span[@class='title'][text()='%s']",option);
         driver.findElement(By.xpath(xpathMenu)).click();
+        //waiting
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated((submenu)));
     }
