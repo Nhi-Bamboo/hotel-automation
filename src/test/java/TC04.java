@@ -60,7 +60,7 @@ public class TC04 {
         // tìm room type vừa tạo
         viewAllRoomTypePage.searchByTitle("Standard");
         int latestQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
-        softAssert.assertEquals(latestQuantity-initialQuantity==1,true,"Room type chưa duoc tao.");
+        softAssert.assertEquals(latestQuantity-initialQuantity==1,true,"Room type tao khong thanh cong.");
         softAssert.assertAll();
     }
 }
