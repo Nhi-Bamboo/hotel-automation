@@ -44,7 +44,7 @@ public class TC06 {
         homePage.openPageAdmin();
         adminPage.clickMenu("Booking");
         //3. Select the booking with the status 'ONLINE_PENDING'
-        bookingPage.searchByID("4210-544100101");
+        bookingPage.searchByID("5046-998000043");
         //4. Click button [Eye icon]
         bookingPage.openBookingDetail();
 

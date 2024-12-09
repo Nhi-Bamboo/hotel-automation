@@ -43,12 +43,12 @@ public class TC11 {
         //3. Click [Add CreditCard]
         adminPage.clickSubMenu("Add CreditCard");
         //4. Input valid all fields.
-        addCreditCardPage.enterCreditCardInformation("7777777777777777","THUONG",11,2025,999,900000);
+        addCreditCardPage.enterCreditCardInformation("7777777777778888","THUONG",11,2025,999,900000);
         //5. Click the [SUBMIT] button.
         addCreditCardPage.clickSubmitButton();
         //verify
         viewAllCreditCardPage.searchByCreditCardNumber("7777");
-        softAssert.assertEquals(viewAllCreditCardPage.isCreditCardNumberDisplayed("7777 7777 7777 7777"),true,"Khong tao moi thanh cong");
+        softAssert.assertEquals(viewAllCreditCardPage.isCreditCardNumberDisplayed("7777 7777 7777 8888"),true,"Khong tao moi thanh cong");
         softAssert.assertAll();
     }
 }

@@ -44,7 +44,7 @@ public class TC07 {
         homePage.openPageAdmin();
         adminPage.clickMenu("Booking");
         //3. Select the booking with the status 'STAYING'
-        bookingPage.searchByID("1524-780600032");
+        bookingPage.searchByID("5253-857700041");
         //4. Click button [Eye icon]
         bookingPage.openBookingDetail();
         //5. Click button [CHECKOUT]
