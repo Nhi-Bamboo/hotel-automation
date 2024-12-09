@@ -44,7 +44,7 @@ public class TC07 {
         homePage.openPageAdmin();
         adminPage.clickMenu("Booking");
         //3. Select the booking with the status 'STAYING'
-        bookingPage.searchByID("6975-491100036");
+        bookingPage.searchByID("1524-780600032");
         //4. Click button [Eye icon]
         bookingPage.openBookingDetail();
         //5. Click button [CHECKOUT]
@@ -56,10 +56,7 @@ public class TC07 {
         bookingDetailPage.clickNextButton();
         //8. Select and input valid values in the Payment Method form
         bookingDetailPage.selectPaymentMethod("CreditCard");
-        bookingDetailPage.enterCardNumber("9999999999999999");
-        bookingDetailPage.enterName("THUONG");
-        bookingDetailPage.enterExpiryDate("10/10");
-        bookingDetailPage.enterCCVNumber(999);
+        bookingDetailPage.enterPaymentInformation("9999999999999999","THUONG","10/10",999);
         //9. Click button [SUBMIT]
         bookingDetailPage.clickSubMitButtonOfPaymentForm();
         //kiêểm tra button success

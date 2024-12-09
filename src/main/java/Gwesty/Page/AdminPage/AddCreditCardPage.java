@@ -47,6 +47,14 @@ public class AddCreditCardPage {
         String n = String.valueOf(number);
         driver.findElement(balanceTextboxLocator).sendKeys(n);
     }
+    public void enterCreditCardInformation(String number, String name,int month, int year, int cvv, int balance) {
+        enterCreditCardNumber(number);
+        enterOwnerName(name);
+        selectExpiryMonth(month);
+        selectExpiryYear(year);
+        enterCVVCode(cvv);
+        enterBalance(balance);
+    }
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

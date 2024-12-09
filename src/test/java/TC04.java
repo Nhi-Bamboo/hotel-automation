@@ -54,24 +54,13 @@ public class TC04 {
         //3. Open Page View All Room Type
         adminPage.clickSubMenu("Add Room Type");
         //3. Enter information
-        addRoomTypePage.enterTitle("Standard");
-        addRoomTypePage.enterPrice(500);
-        addRoomTypePage.enterAdultCapacity(1);
-        addRoomTypePage.enterChildrenCapacity(1);
-        addRoomTypePage.enterDescription("Phong tieu chuan");
+        addRoomTypePage.enterRoomTypeInformation("Standard",500,1,1,"Phong tieu chuan");
         //4. Click button [Submit]
         addRoomTypePage.clickSubmitButton();
         // tìm room type vừa tạo
         viewAllRoomTypePage.searchByTitle("Standard");
         int latestQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
-        boolean kq;
-        if (latestQuantity-initialQuantity==1) {
-            kq=true;
-        }
-        else {
-            kq=false;
-        }
-        softAssert.assertEquals(kq,true,"Room type chưa duoc tao.");
+        softAssert.assertEquals(latestQuantity-initialQuantity==1,true,"Room type chưa duoc tao.");
         softAssert.assertAll();
     }
 }

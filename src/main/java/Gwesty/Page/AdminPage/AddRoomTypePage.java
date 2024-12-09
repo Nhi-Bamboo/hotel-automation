@@ -41,6 +41,18 @@ public class AddRoomTypePage {
     public void enterDescription(String description) {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
     }
+    public void enterRoomTypeInformation(String title, int price, int adult, int children, String description ) {
+        //enter title
+        enterTitle(title);
+        //enter price
+        enterPrice(price);
+        //enter adult
+        enterAdultCapacity(adult);
+        //enter children
+        enterChildrenCapacity(children);
+        //enter description
+        enterDescription(description);
+    }
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

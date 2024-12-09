@@ -49,7 +49,6 @@ public class BookingDetailPage {
        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
        wait.until(ExpectedConditions.visibilityOfElementLocated((cardNumberTextboxLocator)));
     }
-
     public void enterCardNumber(String number){
         driver.findElement(cardNumberTextboxLocator).sendKeys(number);
     }
@@ -59,9 +58,15 @@ public class BookingDetailPage {
     public void enterExpiryDate(String date) {
         driver.findElement(expiryDateTextboxLocator).sendKeys(date);
     }
-    public void enterCCVNumber(int cvv) {
+    public void enterCVVNumber(int cvv) {
         String n = String.valueOf(cvv);
         driver.findElement(cvvNumberTextboxLocator).sendKeys(n);
+    }
+    public void enterPaymentInformation(String number, String name, String date, int cvv) {
+        enterCardNumber(number);
+        enterName(name);
+        enterExpiryDate(date);
+        enterCVVNumber(cvv);
     }
     public void clickSubMitButtonOfPaymentForm() {
         driver.findElement(submitButtonOfPaymentFormLocator).click();
