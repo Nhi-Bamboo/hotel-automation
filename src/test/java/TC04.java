@@ -37,7 +37,7 @@ public class TC04 {
     }
     @AfterMethod
     public void cleanUp() {
-//        driver.quit();
+        driver.quit();
     }
     @Test
     public void Test() {
