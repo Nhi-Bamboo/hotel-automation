@@ -22,16 +22,19 @@ public class AddRoomTypePage {
     public void enterTitle(String title) {
         driver.findElement(titleTextboxLocator).sendKeys(title);
     }
-    public void enterPrice(String price) {
-        driver.findElement(priceTextboxLocator).sendKeys(price);
+    public void enterPrice(int price) {
+        String p = String.valueOf(price);
+        driver.findElement(priceTextboxLocator).sendKeys(p);
     }
-    public void enterAdultCapacity(String number) {
-        String xpathSelectNumber = String.format("//ul[@data-mdl-for='list2']/li[@data-val='%s']",number);
+    public void enterAdultCapacity(int number) {
+        String n = String.valueOf(number);
+        String xpathSelectNumber = String.format("//ul[@data-mdl-for='list2']/li[@data-val='%s']",n);
         driver.findElement(adultCapacityTextboxLocator).click();
         driver.findElement(By.xpath(xpathSelectNumber)).click();
     }
-    public void enterChildrenCapacity(String number) {
-        String xpathSelectNumber = String.format("//ul[@data-mdl-for='list3']/li[@data-val='%s']",number);
+    public void enterChildrenCapacity(int number) {
+        String n = String.valueOf(number);
+        String xpathSelectNumber = String.format("//ul[@data-mdl-for='list3']/li[@data-val='%s']",n);
         driver.findElement(childrenCapacityTextboxLocator).click();
         driver.findElement(By.xpath(xpathSelectNumber)).click();
     }

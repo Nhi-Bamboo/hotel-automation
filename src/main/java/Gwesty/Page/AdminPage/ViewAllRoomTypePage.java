@@ -13,16 +13,18 @@ public class ViewAllRoomTypePage {
     public ViewAllRoomTypePage(WebDriver driver) {
         this.driver = driver;
     }
-    public void enterSearch(String keyword) {
+    public void searchByTitle(String keyword) {
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
+
     }
     public boolean isRoomTypeDisplayed(String title) {
-        String xpathTitle = String.format("//tr[@class='gradeX odd']/td[text()='%s']",title);
+        String xpathTitle = String.format("//tbody/tr[@role='row']/td[text()='%s']",title);
         return driver.findElement(By.xpath(xpathTitle)).isDisplayed();
     }
     public int quantityOfRoomType(String title) {
-        String xpathTitle = String.format("//tr[@class='gradeX odd']/td[text()='%s']",title);
-        List<WebElement> items = driver.findElements(By.id(xpathTitle));
+        String xpathTitle = String.format("//tbody/tr[@role='row']/td[text()='%s']", title);
+        List<WebElement> items = driver.findElements(By.xpath(xpathTitle));
         return items.size();
     }
+
 }

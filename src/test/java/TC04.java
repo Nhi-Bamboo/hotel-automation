@@ -2,12 +2,17 @@ import Gwesty.Page.AdminPage.AddRoomTypePage;
 import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.AdminPage.ViewAllRoomTypePage;
 import Gwesty.Page.UserPage.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.time.Duration;
 
 public class TC04 {
     WebDriver driver;
@@ -39,23 +44,34 @@ public class TC04 {
         //1. Login with admin account
         homePage.openLoginPage();
         loginPage.login("admin","123456");
-        //2. Open Page Add Room Type
+        //2. Open Page View All Room Type
         homePage.openPageAdmin();
         adminPage.clickMenu("Room Types");
+        adminPage.clickSubMenu("View\n" +
+                "\t\t\t\t\t\t\t\t\t\tAll Room Types");
+        viewAllRoomTypePage.searchByTitle("Standard");
+        int initialQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
+        //3. Open Page View All Room Type
         adminPage.clickSubMenu("Add Room Type");
-
         //3. Enter information
         addRoomTypePage.enterTitle("Standard");
-        addRoomTypePage.enterPrice("500");
-        addRoomTypePage.enterAdultCapacity("1");
-        addRoomTypePage.enterChildrenCapacity("1");
+        addRoomTypePage.enterPrice(500);
+        addRoomTypePage.enterAdultCapacity(1);
+        addRoomTypePage.enterChildrenCapacity(1);
         addRoomTypePage.enterDescription("Phong tieu chuan");
         //4. Click button [Submit]
         addRoomTypePage.clickSubmitButton();
         // tìm room type vừa tạo
-        viewAllRoomTypePage.enterSearch("Standard");
-        softAssert.assertTrue(viewAllRoomTypePage.isRoomTypeDisplayed("Standard"),"Khong tim thay room type vua tao");
-        System.out.println(viewAllRoomTypePage.quantityOfRoomType("Standard"));
+        viewAllRoomTypePage.searchByTitle("Standard");
+        int latestQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
+        boolean kq;
+        if (latestQuantity-initialQuantity==1) {
+            kq=true;
+        }
+        else {
+            kq=false;
+        }
+        softAssert.assertEquals(kq,true,"Room type chưa duoc tao.");
         softAssert.assertAll();
     }
 }
