@@ -47,8 +47,7 @@ public class TC04 {
         //2. Open Page View All Room Type
         homePage.openPageAdmin();
         adminPage.clickMenu("Room Types");
-        adminPage.clickSubMenu("View\n" +
-                "\t\t\t\t\t\t\t\t\t\tAll Room Types");
+        adminPage.clickSubMenu("View All Room Types");
         viewAllRoomTypePage.searchByTitle("Standard");
         int initialQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
         //3. Open Page View All Room Type

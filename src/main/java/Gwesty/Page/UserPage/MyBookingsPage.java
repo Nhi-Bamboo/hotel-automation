@@ -40,7 +40,7 @@ public class MyBookingsPage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cancelBookingButtonLocator));
         String xpathValue = String.format("//*[contains(text(),'#%s')]", id);
         dynamicIdBookingLocator = By.xpath(xpathValue);
-        return driver.findElement(dynamicIdBookingLocator).isDisplayed();
+        return driver.findElements(dynamicIdBookingLocator).size() > 0;
     }
 
     public int getBookingCount() {
@@ -53,15 +53,5 @@ public class MyBookingsPage {
         return driver.findElement(noBookingsMessageLocator).isDisplayed();
     }
 
-    //Kiem tra so luong booking
-    public void verifyCancelBooking(String id, SoftAssert softAssert) {
-        int bookingCount = getBookingCount();
-        System.out.println("Booking count: " + bookingCount);
-        if (bookingCount == 0) {
-            softAssert.assertTrue(isNoBookingMessageDisplayed(),"Message ko hiển thị");
-            System.out.println(driver.findElement(noBookingsMessageLocator).getText());
-        } else {
-            softAssert.assertFalse(isIdBookingDisplayed(id),"ID vẫn hiển thị");
-        }
-    }
+
 }

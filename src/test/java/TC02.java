@@ -57,7 +57,7 @@ public class TC02 {
         homePage.openMyBookingsPage();
         myBookingsPage.clickCancelButtonById(idB);
         myBookingsPage.cancelBooking();
-        myBookingsPage.verifyCancelBooking(idB,softAssert);
+        softAssert.assertFalse(myBookingsPage.isIdBookingDisplayed(idB),"Booking is displayed");
         softAssert.assertAll();
 
     }

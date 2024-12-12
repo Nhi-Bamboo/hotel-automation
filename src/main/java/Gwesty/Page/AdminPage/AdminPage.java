@@ -14,16 +14,22 @@ public class AdminPage {
     public AdminPage(WebDriver driver) {
         this.driver = driver;
     }
-    public void clickMenu(String option) {
+    private void clickMenu(String option) {
         String xpathMenu = String.format("//span[@class='title'][text()='%s']",option);
         driver.findElement(By.xpath(xpathMenu)).click();
-        //waiting
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated((submenu)));
     }
-    public void clickSubMenu(String option) {
-        String xpathSubMenu = String.format("//span[@class='title'][text()='%s']",option);
+    private void clickSubMenu(String option) {
+        String xpathSubMenu = String.format("//span[@class='title'][normalize-space(text())='%s']",option);
         driver.findElement(By.xpath(xpathSubMenu)).click();
     }
+
+    public void openAllRoomTypePage(){
+        clickMenu("Room");
+        clickSubMenu("View All Room Types");
+    }
+
+    //public void openAddRoomType()
 
 }

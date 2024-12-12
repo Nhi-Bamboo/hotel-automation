@@ -1,6 +1,4 @@
-import Gwesty.Page.AdminPage.AdminPage;
-import Gwesty.Page.AdminPage.BookingDetailPage;
-import Gwesty.Page.AdminPage.BookingPage;
+import Gwesty.Page.AdminPage.*;
 import Gwesty.Page.UserPage.HomePage;
 import Gwesty.Page.UserPage.LoginPage;
 import org.openqa.selenium.WebDriver;
@@ -10,23 +8,28 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class TC06 {
+import java.util.Random;
+
+public class TC05 {
     WebDriver driver;
-    SoftAssert softAssert;
     HomePage homePage;
     LoginPage loginPage;
     AdminPage adminPage;
-    BookingPage bookingPage;
-    BookingDetailPage bookingDetailPage;
+    AddRoomPage addRoomPage;
+    AllRoomsPage allRoomsPage;
+    SoftAssert softAssert;
+
+
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         adminPage = new AdminPage(driver);
+        addRoomPage = new AddRoomPage(driver);
+        allRoomsPage = new AllRoomsPage(driver);
         softAssert = new SoftAssert();
-        bookingPage = new BookingPage(driver);
-        bookingDetailPage = new BookingDetailPage(driver);
+
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
     }
@@ -36,21 +39,23 @@ public class TC06 {
     }
     @Test
     public void Test() {
-        //"Pre-condition: Users have been booked a room
-        //1. Login with admin account
         homePage.openLoginPage();
         loginPage.login("admin","123456");
-        //2. Open Page All Bookings
         homePage.openPageAdmin();
-        adminPage.clickMenu("Booking");
-        //3. Select the booking with the status 'ONLINE_PENDING'
-        bookingPage.searchByID("5046-998000043");
-        //4. Click button [Eye icon]
-        bookingPage.openBookingDetail();
+        adminPage.openAllRoomTypePage();
 
-        //5. Click button [MAKE CONFIRM]";
-        bookingDetailPage.clickMakeConfirmButton();
-        softAssert.assertTrue(bookingDetailPage.isCheckOutButtonDisplayed(),"Khong hien thi button check out!");
+        //random 6 - 7 chữ số
+
+        allRoomsPage.searchByRoomNumber(roomNo);
+        //int initial = allRoomsPage.quantityOfRoom(roomNo);
+
+        adminPage.clickSubMenu("Add Room");
+        addRoomPage.addRoomInformation(roomNo,"Junior Suite",5,"abc123");
+
+        allRoomsPage.searchByRoomNumber(roomNo);
+        //int latest = allRoomsPage.quantityOfRoom(roomNo);
+
+        softAssert.assertEquals(latest, initial + 1,"Failed");
         softAssert.assertAll();
     }
 }

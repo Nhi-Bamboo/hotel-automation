@@ -15,7 +15,7 @@ public class BookingDetailPage {
     By roomCheckBoxLocator = By.xpath("//div[@class='custom-control custom-checkbox']/label");
     By submitButtonLocator = By.id("btn-submit");
     By nextButtonLocator = By.id("btn-send");
-    By submitButtonOfPaymentFormLocator = By.xpath("//form[@id='payment-form']/div/div/button[@type='submit']");
+    By submitButtonOfPaymentFormLocator = By.xpath("//form[@id='payment-form']//button[@type='submit']");
     By payMethodLocator = By.id("payMethod");
     By cardNumberTextboxLocator = By.name("cardNumber");
     By nameTextboxLocator = By.name("ownerName");

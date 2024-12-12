@@ -17,10 +17,12 @@ public class ViewAllRoomTypePage {
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
 
     }
+
     public boolean isRoomTypeDisplayed(String title) {
         String xpathTitle = String.format("//tbody/tr[@role='row']/td[text()='%s']",title);
         return driver.findElement(By.xpath(xpathTitle)).isDisplayed();
     }
+
     public int quantityOfRoomType(String title) {
         String xpathTitle = String.format("//tbody/tr[@role='row']/td[text()='%s']", title);
         List<WebElement> items = driver.findElements(By.xpath(xpathTitle));

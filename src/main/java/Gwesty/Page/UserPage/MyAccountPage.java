@@ -10,8 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class MyAccountPage {
-    By editPhotoButtonLocator = By.xpath("//label[@for='upload']");
-    By fileInputLocator = By.name("fileDatas");
+
     By fullNameTextBoxLocator = By.id("name");
     By emailTextBoxLocator = By.id("email");
     By phoneTextBoxLocator = By.id("phone");
@@ -23,15 +22,6 @@ public class MyAccountPage {
     }
 
     WebDriver driver;
-
-    public void clickEditPhotoButton() {
-        driver.findElement(editPhotoButtonLocator).click();
-    }
-
-    // Chọn ảnh từ máy tính
-    public void chooseImage(String imagePath) {
-        driver.findElement(fileInputLocator).sendKeys(imagePath);
-    }
 
     public void enterFullName(String name){
         driver.findElement(fullNameTextBoxLocator).clear();
@@ -57,17 +47,7 @@ public class MyAccountPage {
         driver.findElement(updateButtonLocator).click();
     }
 
-    public void editAccountInformation(String imagePath, String name, String email, String phone, String address) {
-        //edit photo
-        clickEditPhotoButton();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(fileInputLocator));
-
-        chooseImage(imagePath);
-
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(fileInputLocator));
-
+    public void editAccountInformation( String name, String email, String phone, String address) {
         //edit information
         enterFullName(name);
         enterEmail(email);

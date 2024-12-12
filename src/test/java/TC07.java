@@ -48,7 +48,7 @@ public class TC07 {
         //4. Click button [Eye icon]
         bookingPage.openBookingDetail();
         //5. Click button [CHECKOUT]
-        softAssert.assertEquals(bookingDetailPage.isCheckOutButtonDisplayed(),true,"Khong hien thi Checkout button");
+        softAssert.assertTrue(bookingDetailPage.isCheckOutButtonDisplayed(),"Khong hien thi Checkout button");
         bookingDetailPage.clickCheckOutButton();
         //6. Select room
         bookingDetailPage.clickRoomCheckBox();
@@ -59,8 +59,8 @@ public class TC07 {
         bookingDetailPage.enterPaymentInformation("9999999999999999","THUONG","10/10",999);
         //9. Click button [SUBMIT]
         bookingDetailPage.clickSubMitButtonOfPaymentForm();
-        //kiêểm tra button success
-        softAssert.assertEquals(bookingDetailPage.isSuccessButtonDisplayed(),true,"Khong hien thi status Success");
+        //kiểm tra button success
+        softAssert.assertTrue(bookingDetailPage.isSuccessButtonDisplayed(),"Khong hien thi status Success");
         softAssert.assertAll();
     }
 }

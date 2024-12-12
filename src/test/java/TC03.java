@@ -41,13 +41,11 @@ public class TC03 {
         homePage.clickAccountSetting();
         homePage.openMyAccountPage();
 
-        String imagePath = "C:\\Users\\caonh\\OneDrive\\Pictures\\2.jpg";
-        myAccountPage.editAccountInformation(imagePath,
-                                                faker.name().fullName(),
+        myAccountPage.editAccountInformation(   faker.name().fullName(),
                                                 faker.internet().emailAddress(),
                                                 faker.phoneNumber().cellPhone().replace("-",""),
                                                 faker.address().fullAddress());
-
+        //kiểm tra thành cng
         softAssert.assertAll();
 
     }
