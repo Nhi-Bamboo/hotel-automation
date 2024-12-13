@@ -2,6 +2,7 @@ import Gwesty.Page.AdminPage.AddRoomTypePage;
 import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.AdminPage.ViewAllRoomTypePage;
 import Gwesty.Page.UserPage.*;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -22,6 +23,12 @@ public class TC04 {
     AddRoomTypePage addRoomTypePage;
     ViewAllRoomTypePage viewAllRoomTypePage;
     SoftAssert softAssert;
+    Faker faker;
+    String roomTitle;
+    float price;
+    int adult;
+    int children;
+    String description;
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -41,25 +48,34 @@ public class TC04 {
     }
     @Test
     public void Test() {
+        faker = new Faker();
+        roomTitle = faker.name().title();
+        price = 500.0f;
+        adult = 1;
+        children = 1;
+        description = "Phong tieu chuan";
         //1. Login with admin account
         homePage.openLoginPage();
         loginPage.login("admin","123456");
         //2. Open Page View All Room Type
         homePage.openPageAdmin();
-        adminPage.clickMenu("Room Types");
-        adminPage.clickSubMenu("View All Room Types");
-        viewAllRoomTypePage.searchByTitle("Standard");
-        int initialQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
-        //3. Open Page View All Room Type
-        adminPage.clickSubMenu("Add Room Type");
-        //3. Enter information
-        addRoomTypePage.enterRoomTypeInformation("Standard",500,1,1,"Phong tieu chuan");
-        //4. Click button [Submit]
+        adminPage.openAllRoomTypePage();
+        viewAllRoomTypePage.searchByTitle(roomTitle);
+        int initialQuantity = viewAllRoomTypePage.quantityOfRoomType(roomTitle);
+        //3. add new
+        viewAllRoomTypePage.clickAddNewButton();
+        //4. Enter information
+        addRoomTypePage.enterRoomTypeInformation(roomTitle,price,adult,children,description);
+        //5. Click button [Submit]
         addRoomTypePage.clickSubmitButton();
         // tìm room type vừa tạo
-        viewAllRoomTypePage.searchByTitle("Standard");
-        int latestQuantity = viewAllRoomTypePage.quantityOfRoomType("Standard");
-        softAssert.assertEquals(latestQuantity-initialQuantity==1,true,"Room type tao khong thanh cong.");
+        viewAllRoomTypePage.searchByTitle(roomTitle);
+        int latestQuantity = viewAllRoomTypePage.quantityOfRoomType(roomTitle);
+        softAssert.assertTrue(latestQuantity-initialQuantity==1,"Room type tao khong thanh cong!");
+        softAssert.assertEquals(viewAllRoomTypePage.getRoomTypesTitle(),roomTitle,"Title Room Types khong trung khop!");
+        softAssert.assertEquals(viewAllRoomTypePage.getAdultCapacity(),adult,"Adult Capacity khong trung khop!");
+        softAssert.assertEquals(viewAllRoomTypePage.getChildrenCapacity(),children,"Children Capacity khong trung khop!");
+        softAssert.assertEquals(viewAllRoomTypePage.getPrice(),price,"Price khong trung khop!");
         softAssert.assertAll();
     }
 }

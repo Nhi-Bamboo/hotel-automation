@@ -19,29 +19,29 @@ public class AddRoomTypePage {
     public AddRoomTypePage(WebDriver driver) {
         this.driver = driver;
     }
-    public void enterTitle(String title) {
+    private void enterTitle(String title) {
         driver.findElement(titleTextboxLocator).sendKeys(title);
     }
-    public void enterPrice(int price) {
+    private void enterPrice(float price) {
         String p = String.valueOf(price);
         driver.findElement(priceTextboxLocator).sendKeys(p);
     }
-    public void enterAdultCapacity(int number) {
+    private void enterAdultCapacity(int number) {
         String n = String.valueOf(number);
         String xpathSelectNumber = String.format("//ul[@data-mdl-for='list2']/li[@data-val='%s']",n);
         driver.findElement(adultCapacityTextboxLocator).click();
         driver.findElement(By.xpath(xpathSelectNumber)).click();
     }
-    public void enterChildrenCapacity(int number) {
+    private void enterChildrenCapacity(int number) {
         String n = String.valueOf(number);
         String xpathSelectNumber = String.format("//ul[@data-mdl-for='list3']/li[@data-val='%s']",n);
         driver.findElement(childrenCapacityTextboxLocator).click();
         driver.findElement(By.xpath(xpathSelectNumber)).click();
     }
-    public void enterDescription(String description) {
+    private void enterDescription(String description) {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
     }
-    public void enterRoomTypeInformation(String title, int price, int adult, int children, String description ) {
+    public void enterRoomTypeInformation(String title, float price, int adult, int children, String description ) {
         //enter title
         enterTitle(title);
         //enter price

@@ -10,7 +10,7 @@ public class RoomPage {
     By roomLocator = By.xpath("//div[@class='most_pop_item_blog clearfix']");
     By roomsLabelLocator = By.xpath("//h2[text()='Rooms']");
     By viewDetailRoomLocator = By.linkText("View Details");
-
+    By viewDetailButtonLocator = By.xpath("//a[text()='View Details']");
     public RoomPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -30,5 +30,8 @@ public class RoomPage {
         return driver.findElement(roomsLabelLocator).isDisplayed();
     }
 
+    public void clickViewDetailByIndex(int i) {
+        driver.findElements(viewDetailButtonLocator).get(i-1).click();
+    }
 
 }

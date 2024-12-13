@@ -10,7 +10,6 @@ public class RoomDetailPage {
     By childrenLocator = By.id("children");
     By bookNowButtonLocator = By.xpath("//input[@value='Book Now']");
     By roomsDetailLabelLocator = By.xpath("//h2[text()='Room Details']");
-
     public RoomDetailPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -35,6 +34,12 @@ public class RoomDetailPage {
     public void enterChildren(int children){
         driver.findElement(childrenLocator).clear();
         driver.findElement(childrenLocator).sendKeys(String.valueOf(children));
+    }
+    public void enterBookingInformation(String checkin, String checkout, int adult, int children) {
+        enterCheckInDay(checkin);
+        enterCheckOutDay(checkout);
+        enterAdult(adult);
+        enterChildren(children);
     }
 
     public void clickBookNowButton(){

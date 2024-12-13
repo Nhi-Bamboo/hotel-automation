@@ -39,9 +39,9 @@ public class TC11 {
         loginPage.login("admin","123456");
         //2. Click [CreditCard]
         homePage.openPageAdmin();
-        adminPage.clickMenu("CreditCard");
+//        adminPage.clickMenu("CreditCard");
         //3. Click [Add CreditCard]
-        adminPage.clickSubMenu("Add CreditCard");
+//        adminPage.clickSubMenu("Add CreditCard");
         //4. Input valid all fields.
         addCreditCardPage.enterCreditCardInformation("7777777777778888","THUONG",11,2025,999,900000);
         //5. Click the [SUBMIT] button.

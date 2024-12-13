@@ -17,19 +17,21 @@ public class AdminPage {
     private void clickMenu(String option) {
         String xpathMenu = String.format("//span[@class='title'][text()='%s']",option);
         driver.findElement(By.xpath(xpathMenu)).click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated((submenu)));
     }
     private void clickSubMenu(String option) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated((submenu)));
         String xpathSubMenu = String.format("//span[@class='title'][normalize-space(text())='%s']",option);
         driver.findElement(By.xpath(xpathSubMenu)).click();
     }
 
     public void openAllRoomTypePage(){
-        clickMenu("Room");
+        clickMenu("Room Types");
         clickSubMenu("View All Room Types");
     }
 
-    //public void openAddRoomType()
+    public void openBookingPage() {
+        clickMenu("Booking");
+    }
 
 }
