@@ -26,10 +26,23 @@ public class AdminPage {
     }
 
     public void openAllRoomTypePage(){
-        clickMenu("Room");
+        clickMenu("Room Types");
         clickSubMenu("View All Room Types");
     }
 
-    //public void openAddRoomType()
+    public void openAddRoomTypePage(){
+        clickMenu("Room Types");
+        clickSubMenu("Add Room Type");
+    }
+
+    public void openAllRoomPage(){
+        clickMenu("Rooms");
+        clickSubMenu("View All Rooms");
+    }
+
+    public void openAddRoomPage(){
+        clickMenu("Rooms");
+        clickSubMenu("Add Room");
+    }
 
 }

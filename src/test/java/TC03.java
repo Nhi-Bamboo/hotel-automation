@@ -14,6 +14,10 @@ public class TC03 {
     MyAccountPage myAccountPage;
     SoftAssert softAssert;
     Faker faker;
+    String name;
+    String email;
+    String phone;
+    String address;
 
     @BeforeMethod
     public void initData() {
@@ -41,11 +45,20 @@ public class TC03 {
         homePage.clickAccountSetting();
         homePage.openMyAccountPage();
 
-        myAccountPage.editAccountInformation(   faker.name().fullName(),
-                                                faker.internet().emailAddress(),
-                                                faker.phoneNumber().cellPhone().replace("-",""),
-                                                faker.address().fullAddress());
-        //kiểm tra thành cng
+        name =  faker.name().fullName();
+        email = faker.internet().emailAddress();
+        phone = faker.phoneNumber().cellPhone().replace("-","").replace(".","");
+        address = faker.address().fullAddress();
+
+        myAccountPage.editAccountInformation(name, email, phone, address);
+
+        //kiểm tra thông tin sau khi nhấn update da lưu đúng hay chưa?
+
+        softAssert.assertEquals(myAccountPage.getFullNameTextBoxValue(),name,"Update name failed");
+        softAssert.assertEquals(myAccountPage.getEmailTextBoxValue(),email,"Update email failed");
+        softAssert.assertEquals(myAccountPage.getPhoneTextBoxValue(),phone,"Update phone failed");
+        softAssert.assertEquals(myAccountPage.getAddressTextBoxValue(),address,"Update address failed");
+
         softAssert.assertAll();
 
     }

@@ -48,12 +48,27 @@ public class MyAccountPage {
     }
 
     public void editAccountInformation( String name, String email, String phone, String address) {
-        //edit information
         enterFullName(name);
         enterEmail(email);
         enterPhone(phone);
         enterAddress(address);
         clickUpdateButton();
+    }
+
+    public String getFullNameTextBoxValue(){
+        return driver.findElement(fullNameTextBoxLocator).getAttribute("Value");
+    }
+
+    public String getEmailTextBoxValue(){
+        return driver.findElement(emailTextBoxLocator).getAttribute("Value");
+    }
+
+    public String getPhoneTextBoxValue(){
+        return driver.findElement(phoneTextBoxLocator).getAttribute("Value");
+    }
+
+    public String getAddressTextBoxValue(){
+        return driver.findElement(addressTextBoxLocator).getAttribute("Value");
     }
 
 }

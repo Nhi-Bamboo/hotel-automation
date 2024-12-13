@@ -16,8 +16,12 @@ public class TC05 {
     LoginPage loginPage;
     AdminPage adminPage;
     AddRoomPage addRoomPage;
-    AllRoomsPage allRoomsPage;
+    SearchOnPage searchOnPage;
+    ViewAllRoomsPage viewAllRoomsPage;
     SoftAssert softAssert;
+    Random random;
+    int randomRoomNumber;
+    int randomFloor;
 
 
     @BeforeMethod
@@ -27,11 +31,15 @@ public class TC05 {
         loginPage = new LoginPage(driver);
         adminPage = new AdminPage(driver);
         addRoomPage = new AddRoomPage(driver);
-        allRoomsPage = new AllRoomsPage(driver);
+        searchOnPage = new SearchOnPage(driver);
+        viewAllRoomsPage = new ViewAllRoomsPage(driver);
         softAssert = new SoftAssert();
+        random = new Random();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
+
+
     }
     @AfterMethod
     public void cleanUp() {
@@ -42,20 +50,21 @@ public class TC05 {
         homePage.openLoginPage();
         loginPage.login("admin","123456");
         homePage.openPageAdmin();
-        adminPage.openAllRoomTypePage();
+        adminPage.openAddRoomPage();
 
         //random 6 - 7 chữ số
+        randomRoomNumber = 100000 + random.nextInt(9900000);
+        randomFloor = 1 + random.nextInt(10);
 
-        allRoomsPage.searchByRoomNumber(roomNo);
-        //int initial = allRoomsPage.quantityOfRoom(roomNo);
+        //Add room
+        addRoomPage.addRoomInformation(randomRoomNumber,"Junior Suite",randomFloor,"abc123");
 
-        adminPage.clickSubMenu("Add Room");
-        addRoomPage.addRoomInformation(roomNo,"Junior Suite",5,"abc123");
+        //Search room
+        searchOnPage.searchByRoomNumber(randomRoomNumber);
 
-        allRoomsPage.searchByRoomNumber(roomNo);
-        //int latest = allRoomsPage.quantityOfRoom(roomNo);
+        //Kiểm tra room đã tạo có hiển thị đúng thông tin hay không?
+        softAssert.assertTrue(viewAllRoomsPage.isRoomDisplayed(randomRoomNumber,"Junior Suite",randomFloor,1),"failed");
 
-        softAssert.assertEquals(latest, initial + 1,"Failed");
         softAssert.assertAll();
     }
 }
