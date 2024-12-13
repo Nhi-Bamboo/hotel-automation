@@ -9,6 +9,11 @@ import java.util.List;
 public class ViewAllRoomTypePage {
     WebDriver driver;
     By searchTextboxLocator = By.xpath("//input[@type='search']");
+    By addNewButtonLocator = By.id("addRow");
+    By roomTypesTitleLocator = By.xpath("//tr[@class='gradeX odd']/td[1]");
+    By adultCapacityLocator = By.xpath("//tr[@class='gradeX odd']/td[2]");
+    By childrenCapacityLocator = By.xpath("//tr[@class='gradeX odd']/td[3]");
+    By priceLocator = By.xpath("//tr[@class='gradeX odd']/td[4]");
 
     public ViewAllRoomTypePage(WebDriver driver) {
         this.driver = driver;
@@ -28,5 +33,23 @@ public class ViewAllRoomTypePage {
         List<WebElement> items = driver.findElements(By.xpath(xpathTitle));
         return items.size();
     }
+    public void clickAddNewButton() {
+        driver.findElement(addNewButtonLocator).click();
+    }
 
+    public String getRoomTypesTitle() {
+        return driver.findElement(roomTypesTitleLocator).getText();
+    }
+
+    public int getAdultCapacity() {
+        return Integer.parseInt(driver.findElement(adultCapacityLocator).getText());
+    }
+
+    public int getChildrenCapacity() {
+        return Integer.parseInt(driver.findElement(childrenCapacityLocator).getText());
+    }
+
+    public float getPrice() {
+        return Float.parseFloat(driver.findElement(priceLocator).getText());
+    }
 }

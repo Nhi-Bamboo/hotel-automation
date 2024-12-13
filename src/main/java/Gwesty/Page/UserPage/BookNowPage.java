@@ -60,4 +60,11 @@ public class BookNowPage {
     public boolean isBookNowLabelDisplayed(){
         return driver.findElement(bookNowLabelLocator).isDisplayed();
     }
+
+    public void enterBookingNowInformation(String name, String email, String phone, String address) {
+        enterNameTextBox(name);
+        enterEmailTextBox(email);
+        enterPhoneTextBox(phone);
+        enterAddressTextBox(address);
+    }
 }

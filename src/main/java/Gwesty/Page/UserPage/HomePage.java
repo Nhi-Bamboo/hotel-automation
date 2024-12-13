@@ -21,6 +21,8 @@ public class HomePage {
     By accountSettingLocator = By.id("NavebarProfileDrop");
     By myBookingsLocator = By.linkText("My Bookings");
     By myAccountLocator = By.linkText("My Account");
+    By bookNowButtonLocator = By.xpath("//a[text()='Book Now']");
+    By logOutButtonLocator = By.xpath("//a[text()='Log Out']");
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -82,7 +84,14 @@ public class HomePage {
     public void openMyAccountPage(){
         driver.findElement(myAccountLocator).click();
     }
+    public void Logout() {
+        clickAccountSetting();
+        driver.findElement(logOutButtonLocator).click();
+    }
 
+    public void clickBookNowButton() {
+        driver.findElement(bookNowButtonLocator).click();
+    }
 
 
 }

@@ -22,6 +22,7 @@ public class BookingDetailPage {
     By expiryDateTextboxLocator = By.name("expiry");
     By cvvNumberTextboxLocator = By.name("cvvcode");
     By successButtonLocator = By.xpath("//div/a[text()='SUCCESS']");
+    By bookingStatusLocator = By.xpath("//th/b[text()='Booking Status ']/../following-sibling::td/span");
     public BookingDetailPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -73,5 +74,9 @@ public class BookingDetailPage {
     }
     public boolean isSuccessButtonDisplayed() {
         return driver.findElement(successButtonLocator).isDisplayed();
+    }
+
+    public String getBookingStatus() {
+        return driver.findElement(bookingStatusLocator).getText().trim();
     }
 }
