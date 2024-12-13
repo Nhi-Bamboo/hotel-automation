@@ -47,7 +47,7 @@ public class TC03 {
 
         name =  faker.name().fullName();
         email = faker.internet().emailAddress();
-        phone = faker.phoneNumber().cellPhone().replace("-","").replace(".","");
+        phone = faker.phoneNumber().cellPhone().replace("-","").replace(".","").replace("(","").replace(")","");
         address = faker.address().fullAddress();
 
         myAccountPage.editAccountInformation(name, email, phone, address);

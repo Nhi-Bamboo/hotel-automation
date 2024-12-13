@@ -34,4 +34,9 @@ public class AdminPage {
         clickMenu("Booking");
     }
 
+    public void openAddRoomPage(){
+        clickMenu("Rooms");
+        clickSubMenu("Add Room");
+    }
+
 }
