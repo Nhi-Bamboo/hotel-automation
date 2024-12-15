@@ -56,19 +56,19 @@ public class MyAccountPage {
     }
 
     public String getFullNameTextBoxValue(){
-        return driver.findElement(fullNameTextBoxLocator).getAttribute("Value");
+        return driver.findElement(fullNameTextBoxLocator).getAttribute("value");
     }
 
     public String getEmailTextBoxValue(){
-        return driver.findElement(emailTextBoxLocator).getAttribute("Value");
+        return driver.findElement(emailTextBoxLocator).getAttribute("value");
     }
 
     public String getPhoneTextBoxValue(){
-        return driver.findElement(phoneTextBoxLocator).getAttribute("Value");
+        return driver.findElement(phoneTextBoxLocator).getAttribute("value");
     }
 
     public String getAddressTextBoxValue(){
-        return driver.findElement(addressTextBoxLocator).getAttribute("Value");
+        return driver.findElement(addressTextBoxLocator).getAttribute("value");
     }
 
 }

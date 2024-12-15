@@ -20,7 +20,7 @@ public class AdminPage {
     }
     private void clickSubMenu(String option) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated((submenu)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(submenu));
         String xpathSubMenu = String.format("//span[@class='title'][normalize-space(text())='%s']",option);
         driver.findElement(By.xpath(xpathSubMenu)).click();
     }
