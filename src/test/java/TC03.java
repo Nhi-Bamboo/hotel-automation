@@ -35,7 +35,7 @@ public class TC03 {
 
     @AfterMethod
     public void cleanUp() {
-        //driver.quit();
+        driver.quit();
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TC03 {
 
         myAccountPage.editAccountInformation(name, email, phone, address);
 
-        //kiểm tra thông tin sau khi nhấn update da lưu đúng hay chưa?
+        //kiểm tra thông tin sau khi nhấn update đã lưu đúng hay chưa?
 
         softAssert.assertEquals(myAccountPage.getFullNameTextBoxValue(),name,"Update name failed");
         softAssert.assertEquals(myAccountPage.getEmailTextBoxValue(),email,"Update email failed");

@@ -19,9 +19,9 @@ public class AdminPage {
         driver.findElement(By.xpath(xpathMenu)).click();
     }
     private void clickSubMenu(String option) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(submenu));
         String xpathSubMenu = String.format("//span[@class='title'][normalize-space(text())='%s']",option);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathSubMenu)));
         driver.findElement(By.xpath(xpathSubMenu)).click();
     }
 
@@ -38,8 +38,5 @@ public class AdminPage {
         clickMenu("Rooms");
         clickSubMenu("Add Room");
     }
-    public void openViewAllCreditCard() {
-        clickMenu("CreditCard");
-        clickSubMenu("View All CreditCard");
-    }
+
 }
