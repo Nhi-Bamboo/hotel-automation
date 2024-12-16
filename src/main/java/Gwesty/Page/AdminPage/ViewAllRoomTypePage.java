@@ -28,7 +28,7 @@ public class ViewAllRoomTypePage {
         return driver.findElement(By.xpath(xpathTitle)).isDisplayed();
     }
 
-    public int quantityOfRoomType(String title) {
+    public int countRoomTypesByTitle(String title) {
         String xpathTitle = String.format("//tbody/tr[@role='row']/td[text()='%s']", title);
         List<WebElement> items = driver.findElements(By.xpath(xpathTitle));
         return items.size();

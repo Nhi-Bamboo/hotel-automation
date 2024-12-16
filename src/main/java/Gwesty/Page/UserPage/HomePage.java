@@ -1,6 +1,7 @@
 package Gwesty.Page.UserPage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,6 +24,10 @@ public class HomePage {
     By myAccountLocator = By.linkText("My Account");
     By bookNowButtonLocator = By.xpath("//a[text()='Book Now']");
     By logOutButtonLocator = By.xpath("//a[text()='Log Out']");
+    By homeNavBarLocator = By.xpath("//ul[@class='navbar-nav']/li/a[text()='Home']");
+    By searchBookingIdButtonLocator = By.xpath("//form[@id='searchForm']/span");
+    By searchBookingIdTextboxLocator = By.id("search");
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -93,5 +98,15 @@ public class HomePage {
         driver.findElement(bookNowButtonLocator).click();
     }
 
+    public void openHomePage() {
+        driver.findElement(homeNavBarLocator).click();
+    }
+
+    public void searchByBookingId(String booking) {
+        driver.findElement(searchBookingIdButtonLocator).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchBookingIdTextboxLocator));
+        driver.findElement(searchBookingIdTextboxLocator).sendKeys(booking+ Keys.ENTER);
+    }
 
 }

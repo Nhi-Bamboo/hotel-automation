@@ -42,12 +42,12 @@ public class AddCreditCardPage {
         String c = String.valueOf(cvv);
         driver.findElement(cvvCodeTextboxLocator).sendKeys(c);
     }
-    public void enterBalance(int number) {
+    public void enterBalance(float number) {
         driver.findElement(balanceTextboxLocator).clear();
         String n = String.valueOf(number);
         driver.findElement(balanceTextboxLocator).sendKeys(n);
     }
-    public void enterCreditCardInformation(String number, String name,int month, int year, int cvv, int balance) {
+    public void enterCreditCardInformation(String number, String name,int month, int year, int cvv, float balance) {
         enterCreditCardNumber(number);
         enterOwnerName(name);
         selectExpiryMonth(month);
@@ -60,5 +60,22 @@ public class AddCreditCardPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated((pageTitleLocator)));
     }
+
+    public String formatCreditCardNumber(String creditCardNumber) {
+        if (creditCardNumber.length()>16) {
+            creditCardNumber = creditCardNumber.substring(0,16);
+        }
+        creditCardNumber = creditCardNumber.replaceAll("\\D", "");
+        String cardNumber = "";
+        for (int i=0;i<creditCardNumber.length();i=i+4) {
+            if (i + 4 <= creditCardNumber.length()) {
+                cardNumber += creditCardNumber.substring(i, i + 4) + " ";
+            } else {
+                cardNumber += creditCardNumber.substring(i); // Xử lý phần dư
+            }
+        }
+        return cardNumber;
+    }
+
 
 }

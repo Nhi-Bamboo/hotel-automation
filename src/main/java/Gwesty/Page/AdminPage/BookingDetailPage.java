@@ -38,7 +38,7 @@ public class BookingDetailPage {
        wait.until(ExpectedConditions.visibilityOfElementLocated((submitButtonLocator)));
 
     }
-    public void clickRoomCheckBox() {
+    public void checkFirstRoom() {
         driver.findElement(roomCheckBoxLocator).click();
     }
     public void clickNextButton() {

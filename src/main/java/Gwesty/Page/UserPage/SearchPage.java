@@ -3,9 +3,8 @@ package Gwesty.Page.UserPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ConfirmPage {
-    By messageSuccessfulLocator = By.xpath("//div[@class='alert alert-success']");
-    By pageNameLocator = By.xpath("//h2[text()='Confirm']");
+public class SearchPage {
+    WebDriver driver;
     By idBookingLocator = By.xpath("//span[contains(text(),'Id: ')]");
     By roomTypeTitleLocator = By.xpath("//div[@class='row']/div/h5");
     By numberOfRoomLocator = By.xpath("//div[@class='row']/div/p/span[@class='float-left']");
@@ -14,18 +13,8 @@ public class ConfirmPage {
     By numberOfAdultLocator = By.xpath("//p[@class='getsts_cont']/span[1]");
     By numberOfChildrenLocator = By.xpath("//p[@class='getsts_cont']/span[2]");
 
-    public ConfirmPage(WebDriver driver) {
+    public SearchPage(WebDriver driver) {
         this.driver = driver;
-    }
-
-    WebDriver driver;
-
-    public boolean isMessageDisplayed(){
-        return driver.findElement(messageSuccessfulLocator).isDisplayed();
-    }
-
-    public boolean isPageNameDisplayed(){
-        return driver.findElement(pageNameLocator).isDisplayed();
     }
 
     public String getIDBooking(){

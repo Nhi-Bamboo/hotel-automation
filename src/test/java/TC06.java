@@ -39,13 +39,6 @@ public class TC06 {
         checkoutPage = new CheckoutPage(driver);
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
-    }
-    @AfterMethod
-    public void cleanUp() {
-        driver.quit();
-    }
-    @Test
-    public void Test() {
         //"Pre-condition: Users have been booked a room
         homePage.openLoginPage();
         loginPage.login("thuongnth","123456");
@@ -57,6 +50,14 @@ public class TC06 {
         checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10","999");
         idBooking = confirmPage.getIDBooking();
         homePage.Logout();
+    }
+    @AfterMethod
+    public void cleanUp() {
+        driver.quit();
+    }
+    @Test
+    public void Test() {
+
         //1. Login with admin account
         homePage.openLoginPage();
         loginPage.login("admin","123456");
