@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Locale;
+
 public class TC03 {
     WebDriver driver;
     HomePage homePage;
@@ -26,10 +28,15 @@ public class TC03 {
         loginPage = new LoginPage(driver);
         myAccountPage = new MyAccountPage(driver);
         softAssert = new SoftAssert();
-        faker = new Faker();
+        faker = new Faker(new Locale("vi-VN"));
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
+
+        name =  faker.name().fullName();
+        email = faker.internet().emailAddress();
+        phone = faker.phoneNumber().cellPhone();
+        address = faker.address().fullAddress();
 
     }
 
@@ -44,11 +51,6 @@ public class TC03 {
         loginPage.login("yennhi","123456");
         homePage.clickAccountSetting();
         homePage.openMyAccountPage();
-
-        name =  faker.name().fullName();
-        email = faker.internet().emailAddress();
-        phone = faker.phoneNumber().cellPhone().replace("-","").replace(".","").replace("(","").replace(")","");
-        address = faker.address().fullAddress();
 
         myAccountPage.editAccountInformation(name, email, phone, address);
 

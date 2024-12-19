@@ -39,6 +39,7 @@ public class TC13 {
         roomPage = new RoomPage(driver);
         checkoutPage = new CheckoutPage(driver);
         searchPage = new SearchPage(driver);
+
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
         //"Pre-condition: Users have been booked a room

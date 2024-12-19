@@ -13,6 +13,7 @@ public class SearchPage {
     By numberOfAdultLocator = By.xpath("//p[@class='getsts_cont']/span[1]");
     By numberOfChildrenLocator = By.xpath("//p[@class='getsts_cont']/span[2]");
 
+
     public SearchPage(WebDriver driver) {
         this.driver = driver;
     }

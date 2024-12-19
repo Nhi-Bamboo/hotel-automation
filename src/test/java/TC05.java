@@ -39,6 +39,9 @@ public class TC05 {
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
+        //random 6 - 7 chữ số
+        randomRoomNumber = 100000 + random.nextInt(9900000);
+        randomFloor = 1 + random.nextInt(10);
 
     }
     @AfterMethod
@@ -51,10 +54,6 @@ public class TC05 {
         loginPage.login("admin","123456");
         homePage.openPageAdmin();
         adminPage.openAddRoomPage();
-
-        //random 6 - 7 chữ số
-        randomRoomNumber = 100000 + random.nextInt(9900000);
-        randomFloor = 1 + random.nextInt(10);
 
         //Add room
         addRoomPage.addRoomInformation(randomRoomNumber,"Junior Suite",randomFloor,"abc123");

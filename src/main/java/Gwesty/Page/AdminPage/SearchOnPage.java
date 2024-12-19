@@ -23,6 +23,14 @@ public class SearchOnPage {
 
     }
 
+    public void searchByID(String id) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBoxLocator));
+        driver.findElement(searchTextBoxLocator).sendKeys(id);
+
+    }
+
+
 
 
 }
