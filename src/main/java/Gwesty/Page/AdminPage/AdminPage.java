@@ -39,4 +39,13 @@ public class AdminPage {
         clickSubMenu("Add Room");
     }
 
+    public void openViewAllCreditCard() {
+        clickMenu("CreditCard");
+        clickSubMenu("View All CreditCard");
+    }
+
+    public void openViewAllServices() {
+        clickMenu("Service");
+        clickSubMenu("View All Services");
+    }
 }

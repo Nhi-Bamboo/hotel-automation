@@ -1,7 +1,6 @@
-import Gwesty.Page.AdminPage.AdminPage;
-import Gwesty.Page.AdminPage.BookingDetailPage;
-import Gwesty.Page.AdminPage.BookingPage;
+import Gwesty.Page.AdminPage.*;
 import Gwesty.Page.UserPage.*;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
@@ -9,21 +8,29 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class TC13 {
+public class TC15 {
     WebDriver driver;
     SoftAssert softAssert;
     HomePage homePage;
     LoginPage loginPage;
     AdminPage adminPage;
+    AddServicePage addServicePage;
+    ViewAllServicesPage viewAllServicesPage;
     BookingPage bookingPage;
     BookingDetailPage bookingDetailPage;
+    AddGuestDetailsPage addGuestDetailsPage;
     RoomPage roomPage;
     RoomDetailPage roomDetailPage;
     BookNowPage bookNowPage;
     CheckoutPage checkoutPage;
     ConfirmPage confirmPage;
-    SearchPage searchPage;
+    Faker faker;
+
     String idBooking;
+    String fullName;
+    String address;
+    int idNumber;
+
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -31,15 +38,18 @@ public class TC13 {
         loginPage = new LoginPage(driver);
         adminPage = new AdminPage(driver);
         softAssert = new SoftAssert();
+        faker = new Faker();
+
+        addServicePage = new AddServicePage(driver);
+        viewAllServicesPage = new ViewAllServicesPage(driver);
         bookingPage = new BookingPage(driver);
         bookingDetailPage = new BookingDetailPage(driver);
+        addGuestDetailsPage = new AddGuestDetailsPage(driver);
+        roomPage = new RoomPage(driver);
         roomDetailPage = new RoomDetailPage(driver);
         bookNowPage = new BookNowPage(driver);
-        confirmPage = new ConfirmPage(driver);
-        roomPage = new RoomPage(driver);
         checkoutPage = new CheckoutPage(driver);
-        searchPage = new SearchPage(driver);
-
+        confirmPage = new ConfirmPage(driver);
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
@@ -48,15 +58,20 @@ public class TC13 {
         loginPage.login("thuongnth","123456");
 
         homePage.selectRoomPage();
-
         roomPage.openDetailRoomByIndex(1);
 
-        roomDetailPage.bookingRoom("2025/12/18","2025/12/19",1,0);
+        roomDetailPage.bookingRoom("2025/12/22","2025/12/23",1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
         checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10","999");
+
         idBooking = confirmPage.getIDBooking();
+        homePage.Logout();
+
+        fullName = faker.name().fullName();
+        address = faker.address().fullAddress();
+        idNumber = faker.number().numberBetween(100,999);
     }
     @AfterMethod
     public void cleanUp() {
@@ -64,13 +79,35 @@ public class TC13 {
     }
     @Test
     public void Test() {
-        homePage.openHomePage();
-        homePage.searchByBookingId(idBooking);
+    //Verify that add guest in room successfully when input valid all fields
+        //1. Log in
+        homePage.openLoginPage();
+        loginPage.login("admin","123456");
 
-        softAssert.assertEquals(searchPage.getIDBooking(),idBooking,"ID Booking khong trung khop!");
+        //2. Click [Booking]
+        homePage.openPageAdmin();
+        adminPage.openBookingPage();
 
-        softAssert.assertEquals(searchPage.getRoomTypeTitle(), confirmPage.getRoomTypeTitle(),"Room type khong trung khop!");
+        //3. Click [Eye icon] button
+        bookingPage.searchByID(idBooking);
+        bookingPage.openBookingDetail();
 
-        softAssert.assertEquals(searchPage.getAdult(),String.valueOf(1)+" Adult","Adult Khong trung khop!");
+        //4. Click [Guest In Room]
+        bookingDetailPage.clickGuestInRoom();
+
+        //5. Click [ADD NEW +] button
+        bookingDetailPage.clickAddNewGuestInRoomButtonLocator();
+
+        //6. Input valid all fields.
+        addGuestDetailsPage.enterGuestInRoomInformation(fullName,"Male",1,address,"ID CARD",idNumber);
+
+        //7. Click the [SUBMIT] button.
+        addGuestDetailsPage.clickSubmitButton();
+
+        //8. Click [Guest In Room] in Booking Details
+        bookingDetailPage.clickGuestInRoom();
+
+        //9.Click [Guest In Room] in siderbar menu
     }
 }
+

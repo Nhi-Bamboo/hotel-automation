@@ -22,7 +22,9 @@ public class TC06 {
     BookNowPage bookNowPage;
     CheckoutPage checkoutPage;
     ConfirmPage confirmPage;
+
     String idBooking;
+
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -37,17 +39,23 @@ public class TC06 {
         confirmPage = new ConfirmPage(driver);
         roomPage = new RoomPage(driver);
         checkoutPage = new CheckoutPage(driver);
+
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
+
         //"Pre-condition: Users have been booked a room
         homePage.openLoginPage();
         loginPage.login("thuongnth","123456");
+
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1);
+
         roomDetailPage.bookingRoom("2025/12/15","2025/12/16",1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
+
         checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10","999");
+
         idBooking = confirmPage.getIDBooking();
         homePage.Logout();
     }
@@ -61,18 +69,24 @@ public class TC06 {
         //1. Login with admin account
         homePage.openLoginPage();
         loginPage.login("admin","123456");
+
         //2. Open Page All Bookings
         homePage.openPageAdmin();
         adminPage.openBookingPage();
+
         //3. Select the booking with the status 'ONLINE_PENDING'
         bookingPage.searchByID(idBooking);
+
         //4. Click button [Eye icon]
         bookingPage.openBookingDetail();
 
         //5. Click button [MAKE CONFIRM]";
         bookingDetailPage.clickMakeConfirmButton();
+
         softAssert.assertTrue(bookingDetailPage.isCheckOutButtonDisplayed(),"Khong hien thi button check out!");
+
         softAssert.assertEquals(bookingDetailPage.getBookingStatus(),"STAYING","Booking Status khong dung!");
+
         softAssert.assertAll();
     }
 }

@@ -39,35 +39,41 @@ public class TC07 {
         bookNowPage = new BookNowPage(driver);
         checkoutPage = new CheckoutPage(driver);
         confirmPage = new ConfirmPage(driver);
+
         faker = new Faker();
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 //        /Pre-condition: Users have been booked and checkin a room
-        //"Pre-condition: Users have been booked a room
         homePage.openLoginPage();
         loginPage.login("thuongnth","123456");
+
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1);
+
         roomDetailPage.bookingRoom("2025/12/15","2025/12/16",1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
+
         checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10","999");
         idBooking = confirmPage.getIDBooking();
         homePage.Logout();
+
         //1. Login with admin account
         homePage.openLoginPage();
         loginPage.login("admin","123456");
+
         //2. Open Page All Bookings
         homePage.openPageAdmin();
         adminPage.openBookingPage();
+
         //3. Select the booking with the status 'ONLINE_PENDING'
         bookingPage.searchByID(idBooking);
+
         //4. Click button [Eye icon]
         bookingPage.openBookingDetail();
 
         //5. Click button [MAKE CONFIRM]";
         bookingDetailPage.clickMakeConfirmButton();
-        //TC07
     }
     @AfterMethod
     public void cleanUp() {
@@ -76,20 +82,27 @@ public class TC07 {
     @Test
     public void Test() {
 
-        //5. Click button [CHECKOUT]
+        //1. Click button [CHECKOUT]
         bookingDetailPage.clickCheckOutButton();
-        //6. Select room
+
+
+        //2. Select room
         bookingDetailPage.checkFirstRoom();
-        //7. Click button [Next]
+
+        //3. Click button [Next]
         bookingDetailPage.clickNextButton();
-        //8. Select and input valid values in the Payment Method form
+
+        //4. Select and input valid values in the Payment Method form
         bookingDetailPage.selectPaymentMethod("CreditCard");
+
         bookingDetailPage.enterPaymentInformation("9999999999999999","THUONG","10/10",999);
-        //9. Click button [SUBMIT]
-        bookingDetailPage.clickSubMitButtonOfPaymentForm();
+        //5. Click button [SUBMIT]bookingDetailPage.clickSubMitButtonOfPaymentForm();
+
         //kiểm tra button success
         softAssert.assertTrue(bookingDetailPage.isSuccessButtonDisplayed(),"Khong hien thi status Success");
+
         softAssert.assertEquals(bookingDetailPage.getBookingStatus(),"SUCCESS","Booking Status khong dung!");
+
         softAssert.assertAll();
     }
 }

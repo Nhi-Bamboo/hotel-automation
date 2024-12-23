@@ -61,21 +61,4 @@ public class AddCreditCardPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated((pageTitleLocator)));
     }
 
-    public String formatCreditCardNumber(String creditCardNumber) {
-        if (creditCardNumber.length()>16) {
-            creditCardNumber = creditCardNumber.substring(0,16);
-        }
-        creditCardNumber = creditCardNumber.replaceAll("\\D", "");
-        String cardNumber = "";
-        for (int i=0;i<creditCardNumber.length();i=i+4) {
-            if (i + 4 <= creditCardNumber.length()) {
-                cardNumber += creditCardNumber.substring(i, i + 4) + " ";
-            } else {
-                cardNumber += creditCardNumber.substring(i); // Xử lý phần dư
-            }
-        }
-        return cardNumber;
-    }
-
-
 }

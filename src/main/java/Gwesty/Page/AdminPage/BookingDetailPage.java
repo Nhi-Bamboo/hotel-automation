@@ -25,6 +25,10 @@ public class BookingDetailPage {
     By successButtonLocator = By.xpath("//div/a[text()='SUCCESS']");
     By bookingStatusLocator = By.xpath("//th/b[text()='Booking Status ']/../following-sibling::td/span");
 
+    //guest in room
+    By guestInRoomNavLocator = By.xpath("//ul[@id='nav']/li/a[text()='Guest In Room']");
+    By addNewButtonLocator = By.xpath("//a[text()=' Add New ']");
+
     //form add service
     By selectServiceLocator = By.xpath("//select[@name='service']");
     By quantityTextBoxLocator = By.name("qty");
@@ -185,6 +189,16 @@ public class BookingDetailPage {
             return true;
         }
         return false;
+    }
+
+    public void clickGuestInRoom() {
+        driver.findElement(guestInRoomNavLocator).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(addNewButtonLocator));
+    }
+
+    public void clickAddNewGuestInRoomButtonLocator() {
+        driver.findElement(addNewButtonLocator).click();
     }
 
 }
