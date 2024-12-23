@@ -72,15 +72,17 @@ public class TC11 {
         //5. Click the [SUBMIT] button.
         addCreditCardPage.clickSubmitButton();
         //verify
+
+        CreditCard c = viewAllCreditCardPage.getCreditCardByIndex(1);
         viewAllCreditCardPage.searchByCreditCard(creditCardNumber);
 
-        softAssert.assertEquals(viewAllCreditCardPage.getCreditCardNumber(),creditCardNumber,"Credit card number khong trung khop");
+        softAssert.assertEquals(viewAllCreditCardPage.getCreditCardNumber(1),creditCardNumber,"Credit card number khong trung khop");
 
-        softAssert.assertEquals(viewAllCreditCardPage.getOwnerName(),ownerName.toUpperCase(),"Owner Name khong trung khop!");
+        softAssert.assertEquals(viewAllCreditCardPage.getOwnerName(1),ownerName.toUpperCase(),"Owner Name khong trung khop!");
 
-        softAssert.assertEquals(viewAllCreditCardPage.getExpiryDate(),month+"/"+year,"Expiry Date khong trung khop!");
+        softAssert.assertEquals(viewAllCreditCardPage.getExpiryDate(1),month+"/"+year,"Expiry Date khong trung khop!");
 
-        softAssert.assertEquals(viewAllCreditCardPage.getBalance(),balance,"Balance khong trung khop!");
+        softAssert.assertEquals(viewAllCreditCardPage.getBalance(1),balance,"Balance khong trung khop!");
         softAssert.assertAll();
     }
 }

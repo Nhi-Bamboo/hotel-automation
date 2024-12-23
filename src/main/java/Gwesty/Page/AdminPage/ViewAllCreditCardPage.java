@@ -1,15 +1,16 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.CreditCard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ViewAllCreditCardPage {
     WebDriver driver;
     By searchTextboxLocator = By.xpath("//input[@type='search']");
-    By creditCardNumberLocator = By.xpath("//tr[@class='gradeX odd']/td[1]");
-    By ownerNameLocator = By.xpath("//tr[@class='gradeX odd']/td[2]");
-    By expiryDateLocator = By.xpath("//tr[@class='gradeX odd']/td[3]");
-    By balanceLocator = By.xpath("//tr[@class='gradeX odd']/td[4]");
+    By creditCardNumberLocator = By.xpath("//tr/td[1]");
+    By ownerNameLocator = By.xpath("//tr/td[2]");
+    By expiryDateLocator = By.xpath("//tr/td[3]");
+    By balanceLocator = By.xpath("//tr/td[4]");
     By addNewButtonLocator = By.id("addRow");
 
     public ViewAllCreditCardPage(WebDriver driver) {
@@ -25,23 +26,32 @@ public class ViewAllCreditCardPage {
         return driver.findElement(By.xpath(xpathNumber)).isDisplayed();
     }
 
-    public String getCreditCardNumber() {
-        return driver.findElement(creditCardNumberLocator).getText();
+    public String getCreditCardNumber(int i) {
+        return driver.findElements(creditCardNumberLocator).get(i-1).getText();
     }
 
-    public String getOwnerName() {
-        return driver.findElement(ownerNameLocator).getText();
+    public String getOwnerName(int i) {
+        return driver.findElements(ownerNameLocator).get(i-1).getText();
     }
 
-    public String getExpiryDate() {
-        return driver.findElement(expiryDateLocator).getText();
+    public String getExpiryDate(int i) {
+        return driver.findElements(expiryDateLocator).get(i-1).getText();
     }
 
-    public float getBalance() {
-        return Float.parseFloat(driver.findElement(balanceLocator).getText());
+    public float getBalance(int i) {
+        return Float.parseFloat(driver.findElements(balanceLocator).get(i-1).getText());
     }
 
     public void clickAddNewButton () {
         driver.findElement(addNewButtonLocator).click();
+    }
+
+    public CreditCard getCreditCardByIndex(int i) {
+        CreditCard c = new CreditCard();
+        c.setNumber(getCreditCardNumber(i));
+        c.setName(getOwnerName(i));
+        c.setDate(getExpiryDate(i));
+        c.setBalance(getBalance(i));
+        return c;
     }
 }

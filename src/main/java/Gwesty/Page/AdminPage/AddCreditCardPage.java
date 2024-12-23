@@ -1,5 +1,6 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.CreditCard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;

@@ -3,11 +3,14 @@ package Gwesty.Model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Objects;
+
 public class CreditCard {
     WebDriver driver;
-    String cardNumber="";
+    String number;
     String  name;
-    String month;
+    String date;
+    float balance;
 
     By creditCardNumberLocator = By.xpath("//tr[@class='gradeX odd']/td[1]");
     By ownerNameLocator = By.xpath("//tr[@class='gradeX odd']/td[2]");
@@ -15,13 +18,56 @@ public class CreditCard {
     By balanceLocator = By.xpath("//tr[@class='gradeX odd']/td[4]");
 
     public String getNumber() {
-        return cardNumber;
+        return number;
     }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public float getBalance() {
+        return balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreditCard creditCard = (CreditCard) o;
+        return Float.compare(balance, creditCard.balance) == 0 && Objects.equals(number, creditCard.number) && Objects.equals(name, creditCard.name) && Objects.equals(date, creditCard.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, name, date, balance);
+    }
+
 
     public String getFormatNumber(String creditCardNumber) {
         if (creditCardNumber.length() > 16) {
             creditCardNumber = creditCardNumber.substring(0, 16);
         }
+        String cardNumber="";
         creditCardNumber = creditCardNumber.replaceAll("\\D", "");
         for (int i = 0; i < creditCardNumber.length(); i = i + 4) {
             if (i + 4 <= creditCardNumber.length()) {
@@ -33,6 +79,8 @@ public class CreditCard {
         return cardNumber;
     }
 
+    public static void main(String[] args) {
 
+    }
 
 }
