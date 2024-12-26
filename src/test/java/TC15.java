@@ -1,3 +1,4 @@
+import Gwesty.Model.GuestInRoom;
 import Gwesty.Page.AdminPage.*;
 import Gwesty.Page.UserPage.*;
 import com.github.javafaker.Faker;
@@ -25,11 +26,13 @@ public class TC15 {
     CheckoutPage checkoutPage;
     ConfirmPage confirmPage;
     Faker faker;
+    GuestInRoom guestInRoom;
 
     String idBooking;
     String fullName;
     String address;
     int idNumber;
+    String gender;
 
     @BeforeMethod
     public void initData() {
@@ -60,7 +63,7 @@ public class TC15 {
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1);
 
-        roomDetailPage.bookingRoom("2025/12/22","2025/12/23",1,0);
+        roomDetailPage.bookingRoom("2025/12/25","2025/12/26",1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
@@ -70,12 +73,23 @@ public class TC15 {
         homePage.Logout();
 
         fullName = faker.name().fullName();
+        gender= faker.demographic().sex();
         address = faker.address().fullAddress();
         idNumber = faker.number().numberBetween(100,999);
+
+        guestInRoom = new GuestInRoom();
+        guestInRoom.setRoom(0);
+        guestInRoom.setId(idNumber);
+        guestInRoom.setFullName(fullName);
+        guestInRoom.setGender(gender);
+        guestInRoom.setDateOfBirth(null);
+        guestInRoom.setAddress(address);
+        guestInRoom.setType("ID CARD");
+
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+//        driver.quit();
     }
     @Test
     public void Test() {
@@ -99,8 +113,11 @@ public class TC15 {
         bookingDetailPage.clickAddNewGuestInRoomButtonLocator();
 
         //6. Input valid all fields.
-        addGuestDetailsPage.enterGuestInRoomInformation(fullName,"Male",1,address,"ID CARD",idNumber);
-
+        addGuestDetailsPage.addGuestInRoomInformation(guestInRoom);
+        guestInRoom.setRoom(addGuestDetailsPage.getRoom());
+        guestInRoom.setType(null);
+        guestInRoom.setDateOfBirth(addGuestDetailsPage.getYear()+"-"+addGuestDetailsPage.getMonth()+"-"+addGuestDetailsPage.getDate());
+        System.out.println(addGuestDetailsPage.getYear()+"-"+addGuestDetailsPage.getMonth()+"-"+addGuestDetailsPage.getDate());
         //7. Click the [SUBMIT] button.
         addGuestDetailsPage.clickSubmitButton();
 
@@ -108,6 +125,10 @@ public class TC15 {
         bookingDetailPage.clickGuestInRoom();
 
         //9.Click [Guest In Room] in siderbar menu
+        GuestInRoom viewGuestInRoom = bookingDetailPage.getGuestInRoomByIndex(1);
+
+        softAssert.assertEquals(viewGuestInRoom,guestInRoom,"Khong trung khop!");
+        softAssert.assertAll();
     }
 }
 

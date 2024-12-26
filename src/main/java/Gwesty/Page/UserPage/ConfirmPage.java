@@ -1,5 +1,7 @@
 package Gwesty.Page.UserPage;
 
+import Gwesty.Model.Booking;
+import Gwesty.Model.CreditCard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -54,5 +56,17 @@ public class ConfirmPage {
 
     public String getChildren() {
         return driver.findElement(numberOfChildrenLocator).getText();
+    }
+
+    public Booking getConfirmBookingInformation() {
+        Booking b = new Booking();
+        b.setIdBooking(getIDBooking());
+        b.setTitle(getRoomTypeTitle());
+        b.setNumberOfRoom(getNumberOfRoom());
+        b.setCheckIn(getCheckIn());
+        b.setChidren(getCheckOut());
+        b.setAdult(getAdult());
+        b.setChidren(getChildren());
+        return b;
     }
 }

@@ -1,5 +1,6 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.GuestInRoom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +11,12 @@ import java.time.Duration;
 public class AddGuestDetailsPage {
     WebDriver driver;
     WebDriverWait wait;
+    String month="";
+    String year="";
+    int room;
+    String date="";
+    GuestInRoom guestInRoom;
+
     By fullNameTextBoxLocator = By.id("name");
     By genderTextBoxLocator = By.name("sex");
     By dateOfBirthDatepickerLocator = By.id("dateOfBirth");
@@ -20,6 +27,10 @@ public class AddGuestDetailsPage {
     By identifyTypeLocator = By.name("idType");
     By identifyNumberTextBoxLocator = By.name("idNo");
     By submitButtonLocator = By.xpath("//button[@type='submit']");
+    By monthOfCalendarLocator = By.xpath("//div[@class='dtp-picker-month']");
+    By dateOfCalendarLocator = By.xpath("//div[@class='dtp-actual-num']");
+    By guestInRoomNavLocator = By.xpath("//ul[@id='nav']/li/a[text()='Guest In Room']");
+
 
     public AddGuestDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -34,15 +45,18 @@ public class AddGuestDetailsPage {
         driver.findElement(By.xpath(xpath)).click();
     }
 
-    public void selectDateOfBirth(int date) {
+    public void selectCurrentDate() {
         driver.findElement(dateOfBirthDatepickerLocator).click();
-        String d = String.valueOf(date);
-        String xpath = String.format("//td[@data-date='%s']",d);
+//        String d = String.valueOf(date);
+//        String xpath = String.format("//td[@data-date='%s']",d);
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(monthOfCalendarLocator));
+        month = driver.findElement(monthOfCalendarLocator).getText().replaceAll("\\d", "");
+        year = driver.findElement(monthOfCalendarLocator).getText().replaceAll("\\D", "");
+        date = driver.findElement(dateOfCalendarLocator).getText();
 
-        driver.findElement(By.xpath(xpath)).click();
+//        driver.findElement(By.xpath(xpath)).click();
         driver.findElement(okButtonOfDatePickerLocator).click();
 
     }
@@ -51,6 +65,7 @@ public class AddGuestDetailsPage {
         driver.findElement(roomNumberTextBoxLocator).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstRoomNumberLocator));
+        room = Integer.parseInt(driver.findElement(firstRoomNumberLocator).getText());
         driver.findElement(firstRoomNumberLocator).click();
     }
 
@@ -72,7 +87,7 @@ public class AddGuestDetailsPage {
     public void enterGuestInRoomInformation(String name, String gender, int date, String address, String type, int num) {
         enterFullName(name);
         selectGender(gender);
-        selectDateOfBirth(date);
+        selectCurrentDate();
         selectFirstRoomNumber();
         enterAddress(address);
         selectIdentifyType(type);
@@ -81,6 +96,36 @@ public class AddGuestDetailsPage {
 
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(guestInRoomNavLocator));
     }
+
+    public String getMonth() {
+        guestInRoom = new GuestInRoom();
+        return guestInRoom.convertMonthToNumber(month);
+    }
+
+    public String getYear() {
+        return year.trim();
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void addGuestInRoomInformation(GuestInRoom guest) {
+        enterFullName(guest.getFullName());
+        selectGender(guest.getGender());
+        selectCurrentDate();
+        selectFirstRoomNumber();
+        enterAddress(guest.getAddress());
+        selectIdentifyType(guest.getType());
+        enterIdentifyNumber(guest.getId());
+    }
+
 }
 

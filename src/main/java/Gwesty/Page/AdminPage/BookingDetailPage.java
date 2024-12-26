@@ -1,5 +1,6 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.GuestInRoom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,6 +29,12 @@ public class BookingDetailPage {
     //guest in room
     By guestInRoomNavLocator = By.xpath("//ul[@id='nav']/li/a[text()='Guest In Room']");
     By addNewButtonLocator = By.xpath("//a[text()=' Add New ']");
+    By roomNumberLocator = By.xpath("//table[@id='example1']/tbody/tr[@role='row']/td[1]");
+    By idNumberLocator = By.xpath("//table[@id='example1']/tbody/tr[@role='row']/td[2]");
+    By fullNameLocator = By.xpath("//table[@id='example1']/tbody/tr[@role='row']/td[3]");
+    By genderLocator = By.xpath("//table[@id='example1']/tbody/tr[@role='row']/td[4]");
+    By dateOfBirthLocator = By.xpath("//table[@id='example1']/tbody/tr[@role='row']/td[5]");
+    By addressLocator = By.xpath("//table[@id='example1']/tbody/tr[@role='row']/td[6]");
 
     //form add service
     By selectServiceLocator = By.xpath("//select[@name='service']");
@@ -191,6 +198,7 @@ public class BookingDetailPage {
         return false;
     }
 
+    //guest in room
     public void clickGuestInRoom() {
         driver.findElement(guestInRoomNavLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -201,4 +209,40 @@ public class BookingDetailPage {
         driver.findElement(addNewButtonLocator).click();
     }
 
+    public int getRoomNumber(int i) {
+        return Integer.parseInt(driver.findElements(roomNumberLocator).get(i-1).getText());
+    }
+
+    public int getIdentifyNumber(int i) {
+        return Integer.parseInt(driver.findElements(roomNumberLocator).get(i-1).getText());
+    }
+
+    public String getFullName(int i) {
+        return driver.findElements(fullNameLocator).get(i-1).getText();
+    }
+
+    public String getGender(int i) {
+        return driver.findElements(genderLocator).get(i-1).getText();
+    }
+
+    public String getDateOfBirth(int i)  {
+        return driver.findElements(dateOfBirthLocator).get(i-1).getText();
+    }
+
+    public String getAddress(int i) {
+        return driver.findElements(addressLocator).get(i-1).getText();
+
+    }
+
+    public GuestInRoom getGuestInRoomByIndex(int i) {
+        GuestInRoom guest = new GuestInRoom();
+        guest.setRoom(getRoomNumber(i));
+        guest.setId(getIdentifyNumber(i));
+        guest.setFullName(getFullName(i));
+        guest.setGender(getGender(i));
+        guest.setDateOfBirth(getDateOfBirth(i));
+        guest.setAddress(getAddress(i));
+        return guest;
+    }
 }
+

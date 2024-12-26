@@ -19,8 +19,9 @@ public class TC11 {
     AddCreditCardPage addCreditCardPage;
     ViewAllCreditCardPage viewAllCreditCardPage;
     String creditCardNumber;
-    CreditCard creditCard;
     String ownerName;
+
+    CreditCard creditCard;
     int month;
     int year;
     int cvv;
@@ -36,20 +37,31 @@ public class TC11 {
         faker = new Faker();
         addCreditCardPage = new AddCreditCardPage(driver);
         viewAllCreditCardPage = new ViewAllCreditCardPage(driver);
+
+        creditCard = new CreditCard();
+
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
         creditCardNumber = faker.finance().creditCard();
         creditCardNumber = creditCard.getFormatNumber(creditCardNumber);
-        ownerName = faker.name().firstName();
+        ownerName = faker.name().firstName().toUpperCase();
+        System.out.println(ownerName);
         month = faker.number().numberBetween(1, 13);
         year = faker.number().numberBetween(2000,2100);
         cvv = faker.number().numberBetween(100,1000);
         balance = faker.number().numberBetween(10000,100000);
+
+        creditCard = new CreditCard();
+        creditCard.setNumber(creditCardNumber);
+        creditCard.setName(ownerName);
+        creditCard.setMonth(month);
+        creditCard.setYear(year);
+        creditCard.setBalance(balance);
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+//        driver.quit();
     }
     @Test
     public void Test() {
@@ -68,21 +80,17 @@ public class TC11 {
 
         System.out.println(creditCardNumber);
 
-        addCreditCardPage.enterCreditCardInformation(creditCardNumber,ownerName,month,year,cvv,balance);
+        addCreditCardPage.addCreditCardInformation(creditCard);
+
         //5. Click the [SUBMIT] button.
         addCreditCardPage.clickSubmitButton();
+
         //verify
-
-        CreditCard c = viewAllCreditCardPage.getCreditCardByIndex(1);
         viewAllCreditCardPage.searchByCreditCard(creditCardNumber);
+        CreditCard c = viewAllCreditCardPage.getCreditCardByIndex(1);
 
-        softAssert.assertEquals(viewAllCreditCardPage.getCreditCardNumber(1),creditCardNumber,"Credit card number khong trung khop");
+        softAssert.assertEquals(c,creditCard);
 
-        softAssert.assertEquals(viewAllCreditCardPage.getOwnerName(1),ownerName.toUpperCase(),"Owner Name khong trung khop!");
-
-        softAssert.assertEquals(viewAllCreditCardPage.getExpiryDate(1),month+"/"+year,"Expiry Date khong trung khop!");
-
-        softAssert.assertEquals(viewAllCreditCardPage.getBalance(1),balance,"Balance khong trung khop!");
         softAssert.assertAll();
     }
 }

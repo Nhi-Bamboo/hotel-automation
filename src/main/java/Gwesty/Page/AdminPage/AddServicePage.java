@@ -1,5 +1,7 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.CreditCard;
+import Gwesty.Model.Service;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -23,7 +25,7 @@ public class AddServicePage {
         driver.findElement(unitTextboxLocator).sendKeys(unit);
     }
 
-    private void enterPrice(int price) {
+    private void enterPrice(float price) {
         String p = String.valueOf(price);
         driver.findElement(priceTextboxLocator).sendKeys(p);
     }
@@ -41,5 +43,12 @@ public class AddServicePage {
 
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
+    }
+
+    public void addServiceInformation(Service service) {
+        enterServiceName(service.getName());
+        enterUnit(service.getUnit());
+        enterPrice(service.getPrice());
+        enterDescription(service.getDescription());
     }
 }

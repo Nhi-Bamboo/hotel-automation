@@ -1,3 +1,5 @@
+import Gwesty.Model.Booking;
+import Gwesty.Model.CreditCard;
 import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.AdminPage.BookingDetailPage;
 import Gwesty.Page.AdminPage.BookingPage;
@@ -62,10 +64,10 @@ public class TC13 {
 
         checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10","999");
         idBooking = confirmPage.getIDBooking();
-        roomType = confirmPage.getRoomTypeTitle();
-        numberOfRoom = confirmPage.getNumberOfRoom();
-        checkIn = confirmPage.getCheckIn();
-        checkOut = confirmPage.getCheckOut();
+//        roomType = confirmPage.getRoomTypeTitle();
+//        numberOfRoom = confirmPage.getNumberOfRoom();
+//        checkIn = confirmPage.getCheckIn();
+//        checkOut = confirmPage.getCheckOut();
     }
     @AfterMethod
     public void cleanUp() {
@@ -73,21 +75,12 @@ public class TC13 {
     }
     @Test
     public void Test() {
+        Booking confirm = confirmPage.getConfirmBookingInformation();
         homePage.openHomePage();
         homePage.searchByBookingId(idBooking);
+        Booking search = searchPage.getSearchBookingInformation();
 
-        softAssert.assertEquals(searchPage.getIDBooking(),idBooking,"ID Booking khong trung khop!");
-
-        softAssert.assertEquals(searchPage.getRoomTypeTitle(), roomType,"Room type khong trung khop!");
-
-        softAssert.assertEquals(searchPage.getNumberOfRoom(), numberOfRoom,"So luong phong khong trung khop!");
-
-        softAssert.assertEquals(searchPage.getCheckIn(), checkIn,"Check in khong trung khop!");
-
-        softAssert.assertEquals(searchPage.getCheckOut(), checkOut,"Check out khong trung khop!");
-
-        softAssert.assertEquals(searchPage.getAdult(),String.valueOf(1)+" Adult","Adult Khong trung khop!");
-
-        softAssert.assertEquals(searchPage.getChildren(),String.valueOf(0)+" Children","Children Khong trung khop!");
+        softAssert.assertEquals(search,confirm,"Thong tin khong trung khop!");
+        softAssert.assertAll();
     }
 }

@@ -1,5 +1,7 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.CreditCard;
+import Gwesty.Model.Service;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +12,10 @@ public class ViewAllServicesPage {
     WebDriver driver;
     By addRowButtonLocator = By.id("addRow");
     By searchTextboxLocator = By.xpath("//input[@type='search']");
+    By serviceNameLocator = By.xpath("//tr/td[1]");
+    By unitServiceLocator = By.xpath("//tr/td[2]");
+    By priceServiceLocator = By.xpath("//tr/td[3]");
+    By descriptionLocator = By.xpath("//tr/td[4]");
 
     public ViewAllServicesPage(WebDriver driver) {
         this.driver = driver;
@@ -29,4 +35,28 @@ public class ViewAllServicesPage {
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
     }
 
+    public String getServiceName(int i ) {
+        return driver.findElements(serviceNameLocator).get(i-1).getText();
+    }
+
+    public String getUnit(int i) {
+        return driver.findElements(unitServiceLocator).get(i-1).getText();
+    }
+
+    public float getPrice(int i) {
+        return Float.parseFloat(driver.findElements(priceServiceLocator).get(i-1).getText());
+    }
+
+    public String getDescription(int i) {
+        return driver.findElements(descriptionLocator).get(i-1).getText();
+    }
+
+    public Service getServiceByIndex(int i) {
+        Service s = new Service();
+        s.setName(getServiceName(i));
+        s.setUnit(getUnit(i));
+        s.setPrice(getPrice(i));
+        s.setDescription(getDescription(i));
+        return s;
+    }
 }

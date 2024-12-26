@@ -38,6 +38,18 @@ public class ViewAllCreditCardPage {
         return driver.findElements(expiryDateLocator).get(i-1).getText();
     }
 
+    // Method to get expiry month
+    public int getExpiryMonth(int i) {
+        String date = driver.findElements(expiryDateLocator).get(i-1).getText();
+        return Integer.parseInt(date.split("/")[0]); // Extract month
+    }
+
+    // Method to get expiry year
+    public int getExpiryYear(int i) {
+        String date = driver.findElements(expiryDateLocator).get(i-1).getText();
+        return Integer.parseInt(date.split("/")[1]); // Extract year
+    }
+
     public float getBalance(int i) {
         return Float.parseFloat(driver.findElements(balanceLocator).get(i-1).getText());
     }
@@ -50,8 +62,11 @@ public class ViewAllCreditCardPage {
         CreditCard c = new CreditCard();
         c.setNumber(getCreditCardNumber(i));
         c.setName(getOwnerName(i));
-        c.setDate(getExpiryDate(i));
+        c.setMonth(getExpiryMonth(i));
+        c.setYear(getExpiryYear(i));
         c.setBalance(getBalance(i));
         return c;
     }
+
+
 }

@@ -1,21 +1,19 @@
 package Gwesty.Model;
 
+import Gwesty.Page.AdminPage.AddCreditCardPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Objects;
 
 public class CreditCard {
-    WebDriver driver;
-    String number;
-    String  name;
-    String date;
+    String number="";
+    String name;
+    int month;
+    int year;
+    int cvv;
     float balance;
 
-    By creditCardNumberLocator = By.xpath("//tr[@class='gradeX odd']/td[1]");
-    By ownerNameLocator = By.xpath("//tr[@class='gradeX odd']/td[2]");
-    By expiryDateLocator = By.xpath("//tr[@class='gradeX odd']/td[3]");
-    By balanceLocator = By.xpath("//tr[@class='gradeX odd']/td[4]");
 
     public String getNumber() {
         return number;
@@ -33,12 +31,29 @@ public class CreditCard {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
+
+    public Integer getMonth() {
+        return month;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(int cvv) {
+        this.cvv = cvv;
     }
 
     public float getBalance() {
@@ -54,33 +69,43 @@ public class CreditCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreditCard creditCard = (CreditCard) o;
-        return Float.compare(balance, creditCard.balance) == 0 && Objects.equals(number, creditCard.number) && Objects.equals(name, creditCard.name) && Objects.equals(date, creditCard.date);
+        return Float.compare(balance, creditCard.balance) == 0 &&
+                Float.compare(cvv, creditCard.cvv) == 0 &&
+                Objects.equals(number, creditCard.number) &&
+                Objects.equals(name, creditCard.name) &&
+                Integer.compare(month, creditCard.month) == 0 &&
+                Integer.compare(year, creditCard.year) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, name, date, balance);
+        return Objects.hash(number, name, month, year, cvv, balance);
     }
-
 
     public String getFormatNumber(String creditCardNumber) {
         if (creditCardNumber.length() > 16) {
             creditCardNumber = creditCardNumber.substring(0, 16);
         }
-        String cardNumber="";
         creditCardNumber = creditCardNumber.replaceAll("\\D", "");
         for (int i = 0; i < creditCardNumber.length(); i = i + 4) {
             if (i + 4 <= creditCardNumber.length()) {
-                cardNumber += creditCardNumber.substring(i, i + 4) + " ";
+                number += creditCardNumber.substring(i, i + 4) + " ";
             } else {
-                cardNumber += creditCardNumber.substring(i); // Xử lý phần dư
+                number += creditCardNumber.substring(i); // Xử lý phần dư
             }
         }
-        return cardNumber;
+        return number;
     }
 
-    public static void main(String[] args) {
-
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "number='" + number + '\'' +
+                ", name='" + name + '\'' +
+                ", month=" + month +
+                ", year=" + year +
+                ", cvv=" + cvv +
+                ", balance=" + balance +
+                '}';
     }
-
 }

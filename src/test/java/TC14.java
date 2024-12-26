@@ -1,3 +1,4 @@
+import Gwesty.Model.Service;
 import Gwesty.Page.AdminPage.*;
 import Gwesty.Page.UserPage.HomePage;
 import Gwesty.Page.UserPage.LoginPage;
@@ -18,6 +19,7 @@ public class TC14 {
     AddServicePage addServicePage;
     ViewAllServicesPage viewAllServicesPage;
     Faker faker;
+    Service service;
 
     String serviceName;
     String unit;
@@ -40,6 +42,12 @@ public class TC14 {
         unit = faker.name().lastName();
         price = faker.number().numberBetween(100,500);
         description = faker.lorem().sentence();
+
+        service = new Service();
+        service.setName(serviceName);
+        service.setUnit(unit);
+        service.setPrice(price);
+        service.setDescription(description);
     }
     @AfterMethod
     public void cleanUp() {
@@ -62,7 +70,7 @@ public class TC14 {
         viewAllServicesPage.clickAddRowButton();
 
         //4. Input valid all fields.
-        addServicePage.enterServiceInformation(serviceName,unit,price,description);
+        addServicePage.addServiceInformation(service);
 
         //5. Click the [SUBMIT] button.
         addServicePage.clickSubmitButton();
@@ -70,7 +78,10 @@ public class TC14 {
         viewAllServicesPage.searchServiceByName(serviceName);
         int latestQuantity = viewAllServicesPage.countServiceByName(serviceName);
 
+        Service searchService = viewAllServicesPage.getServiceByIndex(1);
+
         // verify
+        softAssert.assertEquals(searchService,service,"Thong tin khong trung khop");
         softAssert.assertEquals(latestQuantity-initialQuantity,1,"Tao moi khong thanh cong!");
     }
 }

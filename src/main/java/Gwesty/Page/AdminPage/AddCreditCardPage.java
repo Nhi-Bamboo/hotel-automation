@@ -48,18 +48,25 @@ public class AddCreditCardPage {
         String n = String.valueOf(number);
         driver.findElement(balanceTextboxLocator).sendKeys(n);
     }
-    public void enterCreditCardInformation(String number, String name,int month, int year, int cvv, float balance) {
-        enterCreditCardNumber(number);
-        enterOwnerName(name);
-        selectExpiryMonth(month);
-        selectExpiryYear(year);
-        enterCVVCode(cvv);
-        enterBalance(balance);
-    }
+//    public void enterCreditCardInformation(String number, String name,int month, int year, int cvv, float balance) {
+//        enterCreditCardNumber(number);
+//        enterOwnerName(name);
+//        selectExpiryMonth(month);
+//        selectExpiryYear(year);
+//        enterCVVCode(cvv);
+//        enterBalance(balance);
+//    }
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated((pageTitleLocator)));
     }
 
+    public void addCreditCardInformation(CreditCard card) {
+        enterCreditCardNumber(card.getNumber());
+        enterOwnerName(card.getName());
+        selectExpiryMonth(card.getMonth());
+        selectExpiryYear(card.getYear());
+        enterBalance(card.getBalance());
+    }
 }
