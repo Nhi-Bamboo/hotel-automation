@@ -3,6 +3,10 @@ package Gwesty.Page.AdminPage;
 import Gwesty.Model.Promotion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AddPromotionPage {
 
@@ -11,8 +15,6 @@ public class AddPromotionPage {
     By startDateFieldLocator = By.name("startdate");
     By endDateFieldLocator = By.name("enddate");
     By typeDropdownLocator = By.name("type");
-    By percentageTypeLocator = By.xpath("//li[@class='mdl-menu__item'][text()='PERCENTAGE']");
-    By fixedTypeLocator = By.xpath("//li[@class='mdl-menu__item'][text()='FIXED']");
     By valueFieldLocator = By.name("value");
     By descriptionFieldLocator = By.name("description");
     By calendarPopupLocator = By.xpath("//table[@class='table dtp-picker-days']//tbody"); // Popup chọn ngày
@@ -102,14 +104,16 @@ public class AddPromotionPage {
         }
 
         // Chọn ngày
-        driver.findElement(By.xpath("//td/a[text()='" + targetDay + "']")).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[normalize-space()='" + targetDay + "']")));
+        driver.findElement(By.xpath("//td[normalize-space()='" + targetDay + "']")).click();
 
         // Nhấn OK để xác nhận
         driver.findElement(oKButtonLocator).click();
     }
 
     public void selectEndDate(String date) {
-        driver.findElement(endDateFieldLocator).click();
+        driver.findElement(endDateFieldLocator).click(); // Mở popup lịch
         selectDateFromCalendar(date);
     }
 
@@ -117,11 +121,6 @@ public class AddPromotionPage {
         driver.findElement(typeDropdownLocator).click();
         String xpathType = String.format("//li[@class='mdl-menu__item'][text()='%s']",type);
         driver.findElement(By.xpath(xpathType)).click();
-    }
-
-    public void selectTypeFixed() {
-        driver.findElement(typeDropdownLocator).click();
-        driver.findElement(fixedTypeLocator).click();
     }
 
     public void enterValue(int value) {

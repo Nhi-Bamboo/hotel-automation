@@ -1,5 +1,6 @@
 package Gwesty.Model;
 
+import java.time.Month;
 import java.util.Objects;
 
 public class GuestInRoom {
@@ -94,6 +95,7 @@ public class GuestInRoom {
     }
 
     public String convertMonthToNumber(String month) {
+        Month.valueOf(month).getValue();
         switch (month.toUpperCase().trim()) {
             case "JANUARY":
                 return "01";

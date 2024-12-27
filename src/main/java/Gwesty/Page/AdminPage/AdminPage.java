@@ -21,10 +21,15 @@ public class AdminPage {
     private void clickMenu(String option) {
         String xpathMenu = String.format("//span[@class='title'][text()='%s']",option);
         driver.findElement(By.xpath(xpathMenu)).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     private void clickSubMenu(String option) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(submenu));
+
         String xpathSubMenu = String.format("//span[@class='title'][normalize-space(text())='%s']",option);
         driver.findElement(By.xpath(xpathSubMenu)).click();
     }
