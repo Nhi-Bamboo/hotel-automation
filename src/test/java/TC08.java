@@ -99,7 +99,7 @@ public class TC08 {
 
     @AfterMethod
     public void cleanUp() {
-        //driver.quit();
+        driver.quit();
     }
 
     @Test

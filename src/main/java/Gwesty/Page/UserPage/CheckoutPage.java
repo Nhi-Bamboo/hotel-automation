@@ -56,7 +56,7 @@ public class CheckoutPage {
         enterCardNumberBox(creditCard.getNumber());
         enterNameOnCardBox(creditCard.getName());
         enterExpiryDateByMonthAndYear(creditCard);
-        enterCvvNumberBox(creditCard.getCvvCode());
+        enterCvvNumberBox(creditCard.getCvv());
         clickPayNowButton();
     }
 

@@ -72,7 +72,7 @@ public class TC12 {
         creditCard.setName(addCreditCardPage.getOwnerName());
         creditCard.setMonth(addCreditCardPage.getExpiryMonth());
         creditCard.setYear(addCreditCardPage.getExpiryYear());
-        creditCard.setCvvCode(addCreditCardPage.getCvvCode());
+        creditCard.setCvv(addCreditCardPage.getCvvCode());
         creditCard.setBalance(addCreditCardPage.getBalance());
 
         // 2. Mở tab mới: Trang user
