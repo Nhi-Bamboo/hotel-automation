@@ -15,8 +15,6 @@ public class TC15 {
     HomePage homePage;
     LoginPage loginPage;
     AdminPage adminPage;
-    AddServicePage addServicePage;
-    ViewAllServicesPage viewAllServicesPage;
     BookingPage bookingPage;
     BookingDetailPage bookingDetailPage;
     AddGuestDetailsPage addGuestDetailsPage;
@@ -43,8 +41,6 @@ public class TC15 {
         softAssert = new SoftAssert();
         faker = new Faker();
 
-        addServicePage = new AddServicePage(driver);
-        viewAllServicesPage = new ViewAllServicesPage(driver);
         bookingPage = new BookingPage(driver);
         bookingDetailPage = new BookingDetailPage(driver);
         addGuestDetailsPage = new AddGuestDetailsPage(driver);
@@ -89,7 +85,7 @@ public class TC15 {
     }
     @AfterMethod
     public void cleanUp() {
-//        driver.quit();
+        driver.quit();
     }
     @Test
     public void Test() {

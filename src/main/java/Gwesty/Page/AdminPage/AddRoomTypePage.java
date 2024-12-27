@@ -1,5 +1,7 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.CreditCard;
+import Gwesty.Model.RoomType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -41,21 +43,17 @@ public class AddRoomTypePage {
     private void enterDescription(String description) {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
     }
-    public void enterRoomTypeInformation(String title, double price, int adult, int children, String description ) {
-        //enter title
-        enterTitle(title);
-        //enter price
-        enterPrice(price);
-        //enter adult
-        enterAdultCapacity(adult);
-        //enter children
-        enterChildrenCapacity(children);
-        //enter description
-        enterDescription(description);
-    }
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextboxLocator));
+    }
+
+    public void addRoomTypeInformation(RoomType roomType) {
+        enterTitle(roomType.getRoomTypeTitle());
+        enterPrice(roomType.getPrice());
+        enterAdultCapacity(roomType.getAdult());
+        enterChildrenCapacity(roomType.getChildren());
+        enterDescription(roomType.getDescription());
     }
 }

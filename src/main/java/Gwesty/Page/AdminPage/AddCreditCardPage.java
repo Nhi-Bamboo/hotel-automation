@@ -24,42 +24,35 @@ public class AddCreditCardPage {
         this.driver = driver;
     }
 
-    public void enterCreditCardNumber(String number) {
+    private void enterCreditCardNumber(String number) {
         driver.findElement(creditCardNumberTextboxLocator).sendKeys(number);
     }
 
-    public void enterOwnerName(String name) {
+    private void enterOwnerName(String name) {
         driver.findElement(ownerNameTextboxLocator).sendKeys(name);
     }
 
-    public void selectExpiryMonth(int month) {
+    private void selectExpiryMonth(int month) {
         String m = String.valueOf(month);
         String xpathMonth = String.format("//ul[@data-mdl-for='list1']/li[@data-val='%s']",m);
         driver.findElement(expiryMonthSelectorBoxLocator).click();
         driver.findElement(By.xpath(xpathMonth)).click();
     }
-    public void selectExpiryYear(int year) {
+    private void selectExpiryYear(int year) {
         driver.findElement(expiryYearSelectorBoxLocator).clear();
         String y = String.valueOf(year);
         driver.findElement(expiryYearSelectorBoxLocator).sendKeys(y);
     }
-    public void enterCVVCode(int cvv) {
+    private void enterCVVCode(int cvv) {
         String c = String.valueOf(cvv);
         driver.findElement(cvvCodeTextboxLocator).sendKeys(c);
     }
-    public void enterBalance(double number) {
+    private void enterBalance(double number) {
         driver.findElement(balanceTextboxLocator).clear();
         String n = String.valueOf(number);
         driver.findElement(balanceTextboxLocator).sendKeys(n);
     }
-    public void enterCreditCardInformation(String number, String name,int month, int year, int cvv, float balance) {
-        enterCreditCardNumber(number);
-        enterOwnerName(name);
-        selectExpiryMonth(month);
-        selectExpiryYear(year);
-        enterCVVCode(cvv);
-        enterBalance(balance);
-    }
+
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

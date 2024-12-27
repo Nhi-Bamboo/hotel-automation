@@ -4,6 +4,10 @@ import Gwesty.Model.CreditCard;
 import Gwesty.Model.Service;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AddServicePage {
     WebDriver driver;
@@ -28,17 +32,12 @@ public class AddServicePage {
     private void enterPrice(double price) {
         String p = String.valueOf(price);
         driver.findElement(priceTextboxLocator).sendKeys(p);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(descriptionTextboxLocator));
     }
 
     private void enterDescription(String description) {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
-    }
-
-    public void enterServiceInformation(String name, String unit, double price, String description) {
-        enterServiceName(name);
-        enterUnit(unit);
-        enterPrice(price);
-        enterDescription(description);
     }
 
     public void clickSubmitButton() {

@@ -24,13 +24,13 @@ public class AddRoomPage {
         driver.findElement(roomNumberTextBoxLocator).sendKeys(String.valueOf(rn));
     }
 
-    public void selectRoomType(String roomType){
+    private void selectRoomType(String roomType){
         driver.findElement(roomTypeTextBoxLocator).click();
         String xpath = String.format("//li[@class='mdl-menu__item'][text()='%s']",roomType);
         driver.findElement(By.xpath(xpath)).click();
     }
 
-    public void enterFloor (int floor){
+    private void enterFloor (int floor){
         driver.findElement(floorTextBoxLocator).clear();
         driver.findElement(floorTextBoxLocator).sendKeys(String.valueOf(floor));
     }

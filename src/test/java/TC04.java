@@ -1,3 +1,5 @@
+import Gwesty.Model.CreditCard;
+import Gwesty.Model.RoomType;
 import Gwesty.Page.AdminPage.AddRoomTypePage;
 import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.AdminPage.ViewAllRoomTypePage;
@@ -18,6 +20,7 @@ public class TC04 {
     AddRoomTypePage addRoomTypePage;
     ViewAllRoomTypePage viewAllRoomTypePage;
     SoftAssert softAssert;
+    RoomType roomType;
 
     Faker faker;
     String roomTypeTitle;
@@ -41,10 +44,18 @@ public class TC04 {
 
         faker = new Faker();
         roomTypeTitle = faker.name().title();
-        price = 500.0;
+        price = faker.number().numberBetween(100,500);
         adult = 1;
         children = 1;
         description = "Phong tieu chuan";
+
+        roomType = new RoomType();
+        roomType.setRoomTypeTitle(roomTypeTitle);
+        roomType.setPrice(price);
+        roomType.setAdult(adult);
+        roomType.setChildren(children);
+
+        roomType.setDescription(description);
     }
 
     @AfterMethod
@@ -68,26 +79,20 @@ public class TC04 {
         viewAllRoomTypePage.clickAddNewButton();
 
         //4. Enter information
-        addRoomTypePage.enterRoomTypeInformation(roomTypeTitle, price, adult, children, description);
+        addRoomTypePage.addRoomTypeInformation(roomType);
 
         //5. Click button [Submit]
         addRoomTypePage.clickSubmitButton();
+        roomType.setDescription(null);
 
         // tìm room type vừa tạo
         viewAllRoomTypePage.searchByTitle(roomTypeTitle);
+        RoomType room = viewAllRoomTypePage.getRoomTypeByIndex(1);
         int latestQuantity = viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle);
 
         //assert equal
         softAssert.assertEquals(viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle) - initialQuantity,1, "Room type tao khong thanh cong!");
-
-        softAssert.assertEquals(viewAllRoomTypePage.getRoomTypesTitle(), roomTypeTitle, "Title Room Types khong trung khop!");
-
-        softAssert.assertEquals(viewAllRoomTypePage.getAdultCapacity(), adult, "Adult Capacity khong trung khop!");
-
-        softAssert.assertEquals(viewAllRoomTypePage.getChildrenCapacity(), children, "Children Capacity khong trung khop!");
-
-        softAssert.assertEquals(viewAllRoomTypePage.getPrice(), price, "Price khong trung khop!");
-
+        softAssert.assertEquals(room,roomType,"Thong tin khong trung khop!");
         softAssert.assertAll();
     }
 }

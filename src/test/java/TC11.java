@@ -46,7 +46,6 @@ public class TC11 {
         creditCardNumber = faker.finance().creditCard();
         creditCardNumber = creditCard.getFormatNumber(creditCardNumber);
         ownerName = faker.name().firstName().toUpperCase();
-        System.out.println(ownerName);
         month = faker.number().numberBetween(1, 13);
         year = faker.number().numberBetween(2000,2100);
         cvv = faker.number().numberBetween(100,1000);
@@ -61,7 +60,7 @@ public class TC11 {
     }
     @AfterMethod
     public void cleanUp() {
-//        driver.quit();
+        driver.quit();
     }
     @Test
     public void Test() {
@@ -78,7 +77,6 @@ public class TC11 {
 
         //4. Input valid all fields.
 
-        System.out.println(creditCardNumber);
 
         addCreditCardPage.addCreditCardInformation(creditCard);
 

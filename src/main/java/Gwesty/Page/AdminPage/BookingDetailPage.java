@@ -240,27 +240,27 @@ public class BookingDetailPage {
         driver.findElement(addNewButtonLocator).click();
     }
 
-    public int getRoomNumber(int i) {
+    private int getRoomNumber(int i) {
         return Integer.parseInt(driver.findElements(roomNumberLocator).get(i-1).getText());
     }
 
-    public int getIdentifyNumber(int i) {
+    private int getIdentifyNumber(int i) {
         return Integer.parseInt(driver.findElements(idNumberLocator).get(i-1).getText());
     }
 
-    public String getFullName(int i) {
+    private String getFullName(int i) {
         return driver.findElements(fullNameLocator).get(i-1).getText();
     }
 
-    public String getGender(int i) {
+    private String getGender(int i) {
         return driver.findElements(genderLocator).get(i-1).getText();
     }
 
-    public String getDateOfBirth(int i)  {
+    private String getDateOfBirth(int i)  {
         return driver.findElements(dateOfBirthLocator).get(i-1).getText();
     }
 
-    public String getAddress(int i) {
+    private String getAddress(int i) {
         return driver.findElements(addressLocator).get(i-1).getText();
 
     }

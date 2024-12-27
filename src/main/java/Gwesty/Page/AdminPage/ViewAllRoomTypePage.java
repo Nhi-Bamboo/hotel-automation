@@ -1,5 +1,7 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.CreditCard;
+import Gwesty.Model.RoomType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,8 +40,8 @@ public class ViewAllRoomTypePage {
         driver.findElement(addNewButtonLocator).click();
     }
 
-    public String getRoomTypesTitle() {
-        return driver.findElement(roomTypesTitleLocator).getText();
+    public String getRoomTypesTitle(int i) {
+        return driver.findElements(roomTypesTitleLocator).get(i-1).getText();
     }
 
     public String getRoomTypesTitleByIndex(int i) {
@@ -47,17 +49,25 @@ public class ViewAllRoomTypePage {
         return list.get(i-1).getText();
     }
 
-    public int getAdultCapacity() {
-        return Integer.parseInt(driver.findElement(adultCapacityLocator).getText());
+    public int getAdultCapacity(int i) {
+        return Integer.parseInt(driver.findElements(adultCapacityLocator).get(i-1).getText());
     }
 
-    public int getChildrenCapacity() {
-        return Integer.parseInt(driver.findElement(childrenCapacityLocator).getText());
+    public int getChildrenCapacity(int i) {
+        return Integer.parseInt(driver.findElements(childrenCapacityLocator).get(i-1).getText());
     }
 
-    public float getPrice() {
-        return Float.parseFloat(driver.findElement(priceLocator).getText());
+    public float getPrice(int i) {
+        return Float.parseFloat(driver.findElements(priceLocator).get(i-1).getText());
     }
 
+    public RoomType getRoomTypeByIndex(int i) {
+        RoomType r = new RoomType();
+        r.setRoomTypeTitle(getRoomTypesTitle(i));
+        r.setAdult(getAdultCapacity(i));
+        r.setChildren(getChildrenCapacity(i));
+        r.setPrice(getPrice(i));
+        return r;
+    }
 
 }
