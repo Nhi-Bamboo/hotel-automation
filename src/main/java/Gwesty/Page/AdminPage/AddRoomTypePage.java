@@ -22,7 +22,7 @@ public class AddRoomTypePage {
     private void enterTitle(String title) {
         driver.findElement(titleTextboxLocator).sendKeys(title);
     }
-    private void enterPrice(float price) {
+    private void enterPrice(double price) {
         String p = String.valueOf(price);
         driver.findElement(priceTextboxLocator).sendKeys(p);
     }
@@ -41,7 +41,7 @@ public class AddRoomTypePage {
     private void enterDescription(String description) {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
     }
-    public void enterRoomTypeInformation(String title, float price, int adult, int children, String description ) {
+    public void enterRoomTypeInformation(String title, double price, int adult, int children, String description ) {
         //enter title
         enterTitle(title);
         //enter price

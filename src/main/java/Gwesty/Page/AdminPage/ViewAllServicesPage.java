@@ -44,7 +44,7 @@ public class ViewAllServicesPage {
     }
 
     public double getPrice(int i) {
-        return Float.parseFloat(driver.findElements(priceServiceLocator).get(i-1).getText());
+        return Double.parseDouble(driver.findElements(priceServiceLocator).get(i-1).getText());
     }
 
     public String getDescription(int i) {

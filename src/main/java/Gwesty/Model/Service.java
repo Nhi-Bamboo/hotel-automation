@@ -4,10 +4,11 @@ import java.util.Objects;
 
 public class Service {
     //name + price
-    String name;
-    String unit;
-    double price;
-    String description;
+    private String name;
+    private double price;
+    private int quantity;
+    private String unit;
+    private String description;
 
     public String getName() {
         return name;
@@ -17,20 +18,28 @@ public class Service {
         this.name = name;
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getDescription() {
@@ -47,6 +56,7 @@ public class Service {
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
         return Double.compare(price, service.price) == 0 &&
+                quantity == service.quantity &&
                 Objects.equals(name, service.name) &&
                 Objects.equals(unit, service.unit) &&
                 Objects.equals(description, service.description);
@@ -54,6 +64,6 @@ public class Service {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, unit, price, description);
+        return Objects.hash(name, price, quantity, unit, description);
     }
 }

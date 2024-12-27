@@ -3,6 +3,9 @@ package Gwesty.Page.AdminPage;
 import Gwesty.Model.CreditCard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class ViewAllCreditCardPage {
     WebDriver driver;
@@ -12,12 +15,13 @@ public class ViewAllCreditCardPage {
     By expiryDateLocator = By.xpath("//tr/td[3]");
     By balanceLocator = By.xpath("//tr/td[4]");
     By addNewButtonLocator = By.id("addRow");
+    By editButtonLocator = By.xpath("//tr/td[5]/a");
 
     public ViewAllCreditCardPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void searchByCreditCard(String number) {
+    public void searchByCreditCardNumber(String number) {
         driver.findElement(searchTextboxLocator).sendKeys(number);
     }
 
@@ -26,6 +30,7 @@ public class ViewAllCreditCardPage {
         return driver.findElement(By.xpath(xpathNumber)).isDisplayed();
     }
 
+    //get in All CreditCard
     public String getCreditCardNumber(int i) {
         return driver.findElements(creditCardNumberLocator).get(i-1).getText();
     }
@@ -56,6 +61,11 @@ public class ViewAllCreditCardPage {
 
     public void clickAddNewButton () {
         driver.findElement(addNewButtonLocator).click();
+    }
+
+    public void openDetailCreditCardByIndex(int i){
+        List<WebElement> list = driver.findElements(editButtonLocator);
+        list.get(i-1).click();
     }
 
     public CreditCard getCreditCardByIndex(int i) {

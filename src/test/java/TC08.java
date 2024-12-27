@@ -1,7 +1,5 @@
-import Gwesty.Page.AdminPage.AdminPage;
-import Gwesty.Page.AdminPage.BookingDetailPage;
-import Gwesty.Page.AdminPage.BookingPage;
-import Gwesty.Page.AdminPage.SearchOnPage;
+import Gwesty.Model.Service;
+import Gwesty.Page.AdminPage.*;
 import Gwesty.Page.UserPage.*;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
@@ -27,11 +25,18 @@ public class TC08 {
     BookingPage bookingPage;
     SearchOnPage searchOnPage;
     BookingDetailPage bookingDetailPage;
+    ViewAllServicesPage viewAllServicesPage;
     SoftAssert softAssert;
-    Faker faker;
+    Faker vnFaker;
+    Faker engFaker;
     Random random;
     String idB;
     int randomQty;
+    int randomService;
+    String serviceName;
+    double servicePrice;
+    Service serviceAdded;
+    Service displayedService;
 
     @BeforeMethod
     public void initData() {
@@ -47,29 +52,49 @@ public class TC08 {
         bookingPage = new BookingPage(driver);
         searchOnPage = new SearchOnPage(driver);
         bookingDetailPage = new BookingDetailPage(driver);
+        viewAllServicesPage = new ViewAllServicesPage(driver);
         softAssert = new SoftAssert();
-        faker = new Faker(new Locale("vi-VN"));
+        vnFaker = new Faker(new Locale("vi-VN"));
+        engFaker = new Faker();
         random = new Random();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
         homePage.selectRoomPage();
-        roomPage.openDetailRoomByIndex(4);
+        roomPage.openDetailRoomByIndex(1 + random.nextInt(10));
         roomDetailPage.bookingRoom("2025/01/09","2025/01/10",1,0);
-        bookNowPage.addGuestInformation(faker.name().fullName(),faker.internet().emailAddress(),faker.phoneNumber().cellPhone(),faker.address().country());
-        checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225","123");
+        bookNowPage.addGuestInformation(vnFaker.name().fullName(),
+                                        engFaker.internet().emailAddress(),
+                                        vnFaker.phoneNumber().cellPhone().replace(" ",""),
+                                        vnFaker.address().country());
+        checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);
         idB = confirmPage.getIDBooking();
         System.out.println(idB);
 
         homePage.openLoginPage();
         loginPage.login("admin","123456");
         homePage.openPageAdmin();
+
+        //get service name + price
+        adminPage.openViewAllServices();
+        randomService = 1 + random.nextInt(10);
+        serviceName = viewAllServicesPage.getServiceName(randomService);
+        servicePrice = viewAllServicesPage.getPrice(randomService);
+
+        //gán set
+        randomQty = 1 + random.nextInt(10);
+        serviceAdded = new Service();
+        serviceAdded.setName(serviceName);
+        serviceAdded.setPrice(servicePrice);
+        serviceAdded.setQuantity(randomQty);
+
+        //make confirm booking
         adminPage.openBookingPage();
         searchOnPage.searchByID(idB);
         bookingPage.openBookingDetail();
         bookingDetailPage.clickMakeConfirmButton();
-        softAssert.assertEquals(bookingDetailPage.getBookingStatus(),"STAYING","The booking status is incorrect");
+
     }
 
     @AfterMethod
@@ -80,13 +105,28 @@ public class TC08 {
     @Test
     public void test() {
         bookingDetailPage.clickAddServiceButton();
-        randomQty = 1 + random.nextInt(10);
-        bookingDetailPage.addServiceForBooking("Hoi An Tour($60.0)",randomQty);
-        softAssert.assertTrue(bookingDetailPage.isServiceNameDisplayed("Hoi An Tour"),"The service name is incorrect!");
-        softAssert.assertTrue(bookingDetailPage.isServicePriceDisplayed(60.0),"The service price is incorrect!");
-        softAssert.assertTrue(bookingDetailPage.isServiceQuantityDisplayed(randomQty),"The service quantity is incorrect!");
 
+        bookingDetailPage.addService(serviceAdded);
 
+        displayedService = bookingDetailPage.getServiceByIndex(1);
+
+        softAssert.assertEquals(displayedService,serviceAdded,"Service does not match!!!");
+
+        softAssert.assertEquals(bookingDetailPage.getServiceTotalByIndex(1),
+                        displayedService.getPrice() * displayedService.getQuantity(),
+                        "Service Total is incorrect!!");
+
+        softAssert.assertEquals(bookingDetailPage.getSubTotalAmount(),
+                        bookingDetailPage.getTotalPaidNight() + bookingDetailPage.getTotalPaidService(),
+                        "Sub - Total amount is incorrect!!");
+
+        softAssert.assertEquals(bookingDetailPage.getTotalBooking(),
+                        bookingDetailPage.getSubTotalAmount() + bookingDetailPage.getTax() - bookingDetailPage.getDiscount(),
+                        "Total booking is incorrect!!" );
+
+        softAssert.assertEquals(bookingDetailPage.getDueBooking(),
+                        bookingDetailPage.getTotalBooking() - bookingDetailPage.getTotalPaidBooking(),
+                        "Due booking is incorrect!!" );
 
         softAssert.assertAll();
 

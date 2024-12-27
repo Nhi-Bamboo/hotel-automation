@@ -6,6 +6,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Random;
+
 public class TC01 {
     WebDriver driver;
     HomePage homePage;
@@ -16,6 +18,7 @@ public class TC01 {
     ConfirmPage confirmPage;
     LoginPage loginPage;
     SoftAssert softAssert;
+    Random random;
 
     @BeforeMethod
     public void initData() {
@@ -28,6 +31,7 @@ public class TC01 {
         confirmPage = new ConfirmPage(driver);
         loginPage = new LoginPage(driver);
         softAssert = new SoftAssert();
+        random = new Random();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
@@ -46,7 +50,7 @@ public class TC01 {
         homePage.selectRoomPage();
         softAssert.assertTrue(roomPage.isRoomsLabelDisplayed());
 
-        roomPage.openDetailRoomByIndex(2);
+        roomPage.openDetailRoomByIndex(1 + random.nextInt(10));
         softAssert.assertTrue(roomDetailPage.isRoomsDetailLabelDisplayed());
 
         roomDetailPage.bookingRoom("2025/01/25","2025/01/26",1,0);
@@ -56,7 +60,7 @@ public class TC01 {
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
-        checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225","123");
+        checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);
 
         softAssert.assertTrue(confirmPage.isPageNameDisplayed());
         softAssert.assertTrue(confirmPage.isMessageDisplayed());

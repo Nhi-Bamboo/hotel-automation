@@ -15,6 +15,7 @@ public class ConfirmPage {
     By checkOutLocator = By.xpath("//div[@class='conform_date clear']/ul/li[3]/p");
     By numberOfAdultLocator = By.xpath("//p[@class='getsts_cont']/span[1]");
     By numberOfChildrenLocator = By.xpath("//p[@class='getsts_cont']/span[2]");
+    By totalChargeLocator = By.xpath("//h6[text()='Total Charge']/following-sibling::strong");
 
     public ConfirmPage(WebDriver driver) {
         this.driver = driver;
@@ -68,5 +69,9 @@ public class ConfirmPage {
         b.setAdult(getAdult());
         b.setChidren(getChildren());
         return b;
+    }
+
+    public double getTotalCharge(){
+        return Double.parseDouble(driver.findElement(totalChargeLocator).getText().substring(1));
     }
 }

@@ -1,8 +1,11 @@
 package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.GuestInRoom;
+import Gwesty.Model.Service;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -44,6 +47,12 @@ public class BookingDetailPage {
     By totalPaidNightLocator = By.xpath("//b[text()='Total Paid Night']/../following-sibling::td/b");
     By totalPaidServiceLocator = By.xpath("//b[text()='Total Paid service']/../following-sibling::td/b");
     By subTotalAmountLocator = By.xpath("//p[contains(text(),'Sub - Total amount: $')]");
+    By discountLocator = By.xpath("//p[contains(text(),'Discount : $')]");
+    By taxLocator = By.xpath("//p[contains(text(),'Tax (10%) : $')]");
+    By totalBookingLocator = By.xpath("//b[text()='Total :']");
+    By totalPaidBookingLocator = By.xpath("//b[text()='Total Paid :']");
+    By dueBookingLocator = By.xpath("//b[text()='Due :']");
+
 
 
     public BookingDetailPage(WebDriver driver) {
@@ -116,25 +125,21 @@ public class BookingDetailPage {
     public String getBookingStatus() {
         return driver.findElement(bookingStatusLocator).getText().trim();
     }
+
     public void clickAddServiceButton(){
         driver.findElement(addServiceButtonLocator).click();
     }
 
-    /*public void selectService(String serviceName) {
-        driver.findElement(selectServiceLocator).click();
-        List<WebElement> listOptions = driver.findElements(By.tagName("option"));
+    public void selectService(Service service) {
+        WebElement dropdownElement = driver.findElement(selectServiceLocator);
+        //Cuộn phần tử vào vùng nhìn (viewport) trước khi thực hiện chọn
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dropdownElement);
 
-        for (WebElement option : listOptions) {
-            String optionText = option.getText(); // Lấy tên dịch vụ
-            if (optionText.equals(serviceName)) {
-                option.click(); // Click vào option để chọn dịch vụ
-                break;
-            }
-        }
-    }*/
-    public void selectService(String option) {
-        Select dropdown = new Select(driver.findElement(selectServiceLocator));
-        dropdown.selectByVisibleText(option);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(selectServiceLocator));
+
+        Select dropdown = new Select(dropdownElement);
+        dropdown.selectByVisibleText(String.format("%s($%.1f)", service.getName(), service.getPrice()));
     }
 
     public void enterQuantityTextBox(int qty){
@@ -145,40 +150,39 @@ public class BookingDetailPage {
         driver.findElement(submitServiceButtonLocator).click();
     }
 
-    public void addServiceForBooking(String option, int quantity){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(selectServiceLocator));
-        selectService(option);
-        enterQuantityTextBox(quantity);
+
+    public void addService(Service service){
+        selectService(service);
+        enterQuantityTextBox(service.getQuantity());
         clickSubmitServiceButton();
     }
 
-    public boolean isServiceNameDisplayed(String serviceName) {
-        String xpath = String.format("//p[text()='Services']/..//tr/td[3][text()='%s']", serviceName);
-        return driver.findElement(By.xpath(xpath)).isDisplayed();
+    public String getServiceNameByIndex (int i) {
+        String xpathName = String.format("//p[text()='Services']/..//tr[%d]/td[3]", i);
+        return driver.findElement(By.xpath(xpathName)).getText();
     }
 
-    public boolean isServicePriceDisplayed(double price) {
-        String xpath = String.format("//p[text()='Services']/..//tr/td[4][text()='%.1f']", price);
-        return driver.findElement(By.xpath(xpath)).isDisplayed();
+    public double getServicePriceByIndex(int i) {
+        String xpathPrice = String.format("//p[text()='Services']/..//tr[%d]/td[4]", i);
+        return Double.parseDouble(driver.findElement(By.xpath(xpathPrice)).getText());
     }
 
-    public boolean isServiceQuantityDisplayed(int quantity) {
-        String xpath = String.format("//p[text()='Services']/..//tr/td[5][text()='%d']", quantity);
-        return driver.findElement(By.xpath(xpath)).isDisplayed();
+    public int getServiceQuantityByIndex(int i) {
+        String xpathPrice = String.format("//p[text()='Services']/..//tr[%d]/td[5]", i);
+        return Integer.parseInt(driver.findElement(By.xpath(xpathPrice)).getText());
     }
 
-    public boolean isServiceDisplayed(String serviceName, double price, int quantity){
-        if(isServiceNameDisplayed(serviceName) &&
-                isServicePriceDisplayed(price) &&
-                isServiceQuantityDisplayed(quantity)){
-            return true;
-        }
-        return false;
+    public Service getServiceByIndex(int i){
+        Service service = new Service();
+        service.setName(getServiceNameByIndex(i));
+        service.setPrice(getServicePriceByIndex(i));
+        service.setQuantity(getServiceQuantityByIndex(i));
+        return service;
     }
 
-    public double getServiceTotal(){
-        return Double.parseDouble(driver.findElement(totalServiceLocator).getText().substring(1));
+    public double getServiceTotalByIndex(int i){
+        String xpathItemTotal = String.format("//p[text()='Services']/..//tr[%d]/td[6]",i);
+        return Double.parseDouble(driver.findElement(By.xpath(xpathItemTotal)).getText().substring(1));
     }
 
     public double getTotalPaidNight(){
@@ -189,13 +193,40 @@ public class BookingDetailPage {
         return Double.parseDouble(driver.findElement(totalPaidServiceLocator).getText().substring(1));
     }
 
-    //-->TC
-    public boolean checkSubTotalAmount(){
-        double subTotal = Double.parseDouble(driver.findElement(subTotalAmountLocator).getText().replace("Sub - Total amount: $",""));
-        if(subTotal == getTotalPaidNight() + getTotalPaidService()){
-            return true;
-        }
-        return false;
+    public double getSubTotalAmount(){
+        return Double.parseDouble(driver.findElement(subTotalAmountLocator).getText().replace("Sub - Total amount: $",""));
+    }
+
+    public double getDiscount(){
+        return Double.parseDouble(driver.findElement(discountLocator).getText().replace("Discount : $",""));
+    }
+
+    public double getTax(){
+        return Double.parseDouble(driver.findElement(taxLocator).getText().replace("Tax (10%) : $",""));
+    }
+
+    public double getTotalBooking() {
+        // Lấy text node liền kề
+        String text = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].nextSibling.textContent;", driver.findElement(totalBookingLocator));
+
+        // Loại bỏ ký tự '$' và chuyển đổi thành số
+        return Double.parseDouble(text.replace("$", "").strip());
+    }
+
+    public double getTotalPaidBooking(){
+        // Lấy text node liền kề
+        String text = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].nextSibling.textContent;", driver.findElement(totalPaidBookingLocator));
+
+        // Loại bỏ ký tự '$' và chuyển đổi thành số
+        return Double.parseDouble(text.replace("$", "").strip());
+    }
+
+    public double getDueBooking(){
+        // Lấy text node liền kề
+        String text = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].nextSibling.textContent;", driver.findElement(dueBookingLocator));
+
+        // Loại bỏ ký tự '$' và chuyển đổi thành số
+        return Double.parseDouble(text.replace("$", "").strip());
     }
 
     //guest in room

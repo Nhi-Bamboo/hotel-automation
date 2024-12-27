@@ -1,11 +1,9 @@
 package Gwesty.Page.AdminPage;
 
+import Gwesty.Model.Room;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
+import org.openqa.selenium.WebElement;
 
 public class AddRoomPage {
     By roomNumberTextBoxLocator = By.name("roomnumber");
@@ -26,9 +24,9 @@ public class AddRoomPage {
         driver.findElement(roomNumberTextBoxLocator).sendKeys(String.valueOf(rn));
     }
 
-    public void enterRoomType(String rt){
-        String xpath = String.format("//li[@class='mdl-menu__item'][text()='%s']",rt);
+    public void selectRoomType(String roomType){
         driver.findElement(roomTypeTextBoxLocator).click();
+        String xpath = String.format("//li[@class='mdl-menu__item'][text()='%s']",roomType);
         driver.findElement(By.xpath(xpath)).click();
     }
 
@@ -37,8 +35,13 @@ public class AddRoomPage {
         driver.findElement(floorTextBoxLocator).sendKeys(String.valueOf(floor));
     }
 
-    public void clickStatusCheckbox(){
-        driver.findElement(statusCheckBoxLocator).click();
+    public void setStatus(boolean status) {
+        WebElement checkbox = driver.findElement(statusCheckBoxLocator);
+        boolean isCurrentlyActive = checkbox.isSelected();
+
+        if (isCurrentlyActive != status) {
+            checkbox.click();
+        }
     }
 
     public void enterDescription(String desc){
@@ -49,13 +52,16 @@ public class AddRoomPage {
         driver.findElement(submitButtonLocator).click();
     }
 
-    public void addRoomInformation(int roomNo, String type, int floor, String desc){
-        enterRoomNumber(roomNo);
-        enterRoomType(type);
-        enterFloor(floor);
-        clickStatusCheckbox();
-        enterDescription(desc);
+
+    public void addRoomInformation(Room room){
+        enterRoomNumber(room.getRoomNo());
+        selectRoomType(room.getType());
+        enterFloor(room.getFloor());
+        setStatus(room.isStatus());
+        enterDescription(room.getDesc());
         clickSubmitButton();
     }
+
+
 
 }

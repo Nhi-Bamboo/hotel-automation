@@ -12,7 +12,7 @@ public class CreditCard {
     int month;
     int year;
     int cvv;
-    double balance;
+    float balance;
 
 
     public String getNumber() {
@@ -56,11 +56,11 @@ public class CreditCard {
         this.cvv = cvv;
     }
 
-    public double getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -69,8 +69,8 @@ public class CreditCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreditCard creditCard = (CreditCard) o;
-        return Double.compare(balance, creditCard.balance) == 0 &&
-                Integer.compare(cvv, creditCard.cvv) == 0 &&
+        return Float.compare(balance, creditCard.balance) == 0 &&
+                Float.compare(cvv, creditCard.cvv) == 0 &&
                 Objects.equals(number, creditCard.number) &&
                 Objects.equals(name, creditCard.name) &&
                 Integer.compare(month, creditCard.month) == 0 &&

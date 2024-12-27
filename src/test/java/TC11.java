@@ -86,7 +86,7 @@ public class TC11 {
         addCreditCardPage.clickSubmitButton();
 
         //verify
-        viewAllCreditCardPage.searchByCreditCard(creditCardNumber);
+        viewAllCreditCardPage.searchByCreditCardNumber(creditCardNumber);
         CreditCard c = viewAllCreditCardPage.getCreditCardByIndex(1);
 
         softAssert.assertEquals(c,creditCard);

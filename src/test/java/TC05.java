@@ -1,3 +1,4 @@
+import Gwesty.Model.Room;
 import Gwesty.Page.AdminPage.*;
 import Gwesty.Page.UserPage.HomePage;
 import Gwesty.Page.UserPage.LoginPage;
@@ -18,10 +19,14 @@ public class TC05 {
     AddRoomPage addRoomPage;
     SearchOnPage searchOnPage;
     ViewAllRoomsPage viewAllRoomsPage;
+    ViewAllRoomTypePage viewAllRoomTypePage;
     SoftAssert softAssert;
     Random random;
     int randomRoomNumber;
     int randomFloor;
+    String randomRoomType;
+    Room newRoom;
+    Room displayedRoom;
 
 
     @BeforeMethod
@@ -33,36 +38,54 @@ public class TC05 {
         addRoomPage = new AddRoomPage(driver);
         searchOnPage = new SearchOnPage(driver);
         viewAllRoomsPage = new ViewAllRoomsPage(driver);
+        viewAllRoomTypePage = new ViewAllRoomTypePage(driver);
         softAssert = new SoftAssert();
         random = new Random();
+        newRoom = new Room();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
-        //random 6 - 7 chữ số
         randomRoomNumber = 100000 + random.nextInt(9900000);
         randomFloor = 1 + random.nextInt(10);
+
+        homePage.openLoginPage();
+        loginPage.login("admin","123456");
+        homePage.openPageAdmin();
+
+        //get roomType tu ViewRoomTypePage
+        adminPage.openAllRoomTypePage();
+        randomRoomType = viewAllRoomTypePage.getRoomTypesTitleByIndex(1 + random.nextInt(10));
+
+        // Tạo thông tin room mới
+        newRoom.setRoomNo(randomRoomNumber);
+        newRoom.setType(randomRoomType);
+        newRoom.setFloor(randomFloor);
+        newRoom.setStatus(random.nextBoolean());
+        newRoom.setDesc("abc123");
 
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+        //driver.quit();
     }
     @Test
     public void Test() {
-        homePage.openLoginPage();
-        loginPage.login("admin","123456");
-        homePage.openPageAdmin();
+
         adminPage.openAddRoomPage();
 
-        //Add room
-        addRoomPage.addRoomInformation(randomRoomNumber,"Junior Suite",randomFloor,"abc123");
+        addRoomPage.addRoomInformation(newRoom);
 
-        //Search room
-        searchOnPage.searchByRoomNumber(randomRoomNumber);
+        // Tìm kiếm
+        searchOnPage.searchByRoomNumber(newRoom.getRoomNo());
 
-        //Kiểm tra room đã tạo có hiển thị đúng thông tin hay không?
-        softAssert.assertTrue(viewAllRoomsPage.isRoomDisplayed(randomRoomNumber,"Junior Suite",randomFloor,1),"failed");
+        // Lấy thông tin phòng sau khi search
+        displayedRoom = viewAllRoomsPage.getRoomByIndex(1);
+
+        newRoom.setDesc(null);
+
+        // Kiểm tra thông tin hiển thị có khớp với phòng vừa tạo
+        softAssert.assertEquals(displayedRoom, newRoom, "Room does not match!");
 
         softAssert.assertAll();
     }

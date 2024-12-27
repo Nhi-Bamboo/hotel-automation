@@ -1,5 +1,8 @@
 package Gwesty.Page.UserPage;
 
+import Gwesty.Model.CreditCard;
+import Gwesty.Model.Room;
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -28,20 +31,33 @@ public class CheckoutPage {
         driver.findElement(expiryDateBoxLocator).sendKeys(date);
     }
 
-    public void enterCvvNumberBox(String cvv){
-        driver.findElement(cvvNumberBoxLocator).sendKeys(cvv);
+    public void enterExpiryDateByMonthAndYear(CreditCard creditCard){
+        driver.findElement(expiryDateBoxLocator).sendKeys(String.format("%02d/%d",creditCard.getMonth(),creditCard.getYear()));
+    }
+
+    public void enterCvvNumberBox(int cvv){
+        driver.findElement(cvvNumberBoxLocator).clear();
+        driver.findElement(cvvNumberBoxLocator).sendKeys(String.valueOf(cvv));
     }
 
     public void clickPayNowButton(){
         driver.findElement(payNowButtonLocator).click();
     }
 
-    public void paymentByCreditCard(String cardNumber, String nameCard, String expiryDate, String cvv){
+    public void paymentByCreditCard(String cardNumber, String nameCard, String expiryDate, int cvv){
          enterCardNumberBox(cardNumber);
          enterNameOnCardBox(nameCard);
          enterExpiryDateBox(expiryDate);
          enterCvvNumberBox(cvv);
          clickPayNowButton();
+    }
+
+    public void enterCreditCardInformation(CreditCard creditCard){
+        enterCardNumberBox(creditCard.getNumber());
+        enterNameOnCardBox(creditCard.getName());
+        enterExpiryDateByMonthAndYear(creditCard);
+        enterCvvNumberBox(creditCard.getCvvCode());
+        clickPayNowButton();
     }
 
 }

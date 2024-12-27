@@ -35,7 +35,7 @@ public class TC03 {
 
         name =  faker.name().fullName();
         email = faker.internet().emailAddress();
-        phone = faker.phoneNumber().cellPhone();
+        phone = faker.phoneNumber().cellPhone().replace(" ","");
         address = faker.address().fullAddress();
 
     }

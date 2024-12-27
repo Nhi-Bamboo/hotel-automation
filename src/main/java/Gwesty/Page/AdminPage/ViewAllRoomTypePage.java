@@ -10,7 +10,7 @@ public class ViewAllRoomTypePage {
     WebDriver driver;
     By searchTextboxLocator = By.xpath("//input[@type='search']");
     By addNewButtonLocator = By.id("addRow");
-    By roomTypesTitleLocator = By.xpath("//tr[@class='gradeX odd']/td[1]");
+    By roomTypesTitleLocator = By.xpath("//td[1]");
     By adultCapacityLocator = By.xpath("//tr[@class='gradeX odd']/td[2]");
     By childrenCapacityLocator = By.xpath("//tr[@class='gradeX odd']/td[3]");
     By priceLocator = By.xpath("//tr[@class='gradeX odd']/td[4]");
@@ -18,6 +18,7 @@ public class ViewAllRoomTypePage {
     public ViewAllRoomTypePage(WebDriver driver) {
         this.driver = driver;
     }
+
     public void searchByTitle(String keyword) {
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
 
@@ -41,6 +42,11 @@ public class ViewAllRoomTypePage {
         return driver.findElement(roomTypesTitleLocator).getText();
     }
 
+    public String getRoomTypesTitleByIndex(int i) {
+        List<WebElement> list = driver.findElements(roomTypesTitleLocator);
+        return list.get(i-1).getText();
+    }
+
     public int getAdultCapacity() {
         return Integer.parseInt(driver.findElement(adultCapacityLocator).getText());
     }
@@ -52,4 +58,6 @@ public class ViewAllRoomTypePage {
     public float getPrice() {
         return Float.parseFloat(driver.findElement(priceLocator).getText());
     }
+
+
 }

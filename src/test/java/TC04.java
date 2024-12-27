@@ -21,7 +21,7 @@ public class TC04 {
 
     Faker faker;
     String roomTypeTitle;
-    float price;
+    double price;
     int adult;
     int children;
     String description;
@@ -41,7 +41,7 @@ public class TC04 {
 
         faker = new Faker();
         roomTypeTitle = faker.name().title();
-        price = 500.0f;
+        price = 500.0;
         adult = 1;
         children = 1;
         description = "Phong tieu chuan";
@@ -70,7 +70,7 @@ public class TC04 {
         //4. Enter information
         addRoomTypePage.enterRoomTypeInformation(roomTypeTitle, price, adult, children, description);
 
-       //5. Click button [Submit]
+        //5. Click button [Submit]
         addRoomTypePage.clickSubmitButton();
 
         // tìm room type vừa tạo

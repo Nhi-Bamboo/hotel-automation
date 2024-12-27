@@ -54,7 +54,7 @@ public class TC06 {
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
-        checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10","999");
+        checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10",999);
 
         idBooking = confirmPage.getIDBooking();
         homePage.Logout();

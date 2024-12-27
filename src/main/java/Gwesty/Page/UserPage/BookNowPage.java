@@ -66,5 +66,6 @@ public class BookNowPage {
         enterEmailTextBox(email);
         enterPhoneTextBox(phone);
         enterAddressTextBox(address);
+
     }
 }
