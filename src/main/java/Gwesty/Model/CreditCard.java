@@ -12,8 +12,7 @@ public class CreditCard {
     int month;
     int year;
     int cvv;
-    float balance;
-
+    double balance;
 
     public String getNumber() {
         return number;
@@ -31,8 +30,7 @@ public class CreditCard {
         this.name = name;
     }
 
-
-    public Integer getMonth() {
+    public int getMonth() {
         return month;
     }
 
@@ -40,7 +38,7 @@ public class CreditCard {
         this.month = month;
     }
 
-    public Integer getYear() {
+    public int getYear() {
         return year;
     }
 
@@ -56,11 +54,11 @@ public class CreditCard {
         this.cvv = cvv;
     }
 
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -68,13 +66,8 @@ public class CreditCard {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreditCard creditCard = (CreditCard) o;
-        return Float.compare(balance, creditCard.balance) == 0 &&
-                Float.compare(cvv, creditCard.cvv) == 0 &&
-                Objects.equals(number, creditCard.number) &&
-                Objects.equals(name, creditCard.name) &&
-                Integer.compare(month, creditCard.month) == 0 &&
-                Integer.compare(year, creditCard.year) == 0;
+        CreditCard that = (CreditCard) o;
+        return month == that.month && year == that.year && cvv == that.cvv && Double.compare(balance, that.balance) == 0 && Objects.equals(number, that.number) && Objects.equals(name, that.name);
     }
 
     @Override
@@ -97,15 +90,4 @@ public class CreditCard {
         return number;
     }
 
-    @Override
-    public String toString() {
-        return "CreditCard{" +
-                "number='" + number + '\'' +
-                ", name='" + name + '\'' +
-                ", month=" + month +
-                ", year=" + year +
-                ", cvv=" + cvv +
-                ", balance=" + balance +
-                '}';
-    }
 }
