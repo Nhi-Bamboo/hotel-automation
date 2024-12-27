@@ -214,7 +214,7 @@ public class BookingDetailPage {
     }
 
     public int getIdentifyNumber(int i) {
-        return Integer.parseInt(driver.findElements(roomNumberLocator).get(i-1).getText());
+        return Integer.parseInt(driver.findElements(idNumberLocator).get(i-1).getText());
     }
 
     public String getFullName(int i) {

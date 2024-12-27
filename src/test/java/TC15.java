@@ -74,7 +74,7 @@ public class TC15 {
 
         fullName = faker.name().fullName();
         gender= faker.demographic().sex();
-        address = faker.address().fullAddress();
+        address = faker.address().country();
         idNumber = faker.number().numberBetween(100,999);
 
         guestInRoom = new GuestInRoom();
