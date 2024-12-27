@@ -43,7 +43,7 @@ public class AddCreditCardPage {
         String c = String.valueOf(cvv);
         driver.findElement(cvvCodeTextboxLocator).sendKeys(c);
     }
-    public void enterBalance(float number) {
+    public void enterBalance(double number) {
         driver.findElement(balanceTextboxLocator).clear();
         String n = String.valueOf(number);
         driver.findElement(balanceTextboxLocator).sendKeys(n);

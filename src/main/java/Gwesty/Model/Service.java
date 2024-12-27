@@ -6,7 +6,7 @@ public class Service {
     //name + price
     String name;
     String unit;
-    float price;
+    double price;
     String description;
 
     public String getName() {
@@ -25,11 +25,11 @@ public class Service {
         this.unit = unit;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -46,7 +46,7 @@ public class Service {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
-        return Float.compare(price, service.price) == 0 &&
+        return Double.compare(price, service.price) == 0 &&
                 Objects.equals(name, service.name) &&
                 Objects.equals(unit, service.unit) &&
                 Objects.equals(description, service.description);

@@ -25,7 +25,7 @@ public class AddServicePage {
         driver.findElement(unitTextboxLocator).sendKeys(unit);
     }
 
-    private void enterPrice(float price) {
+    private void enterPrice(double price) {
         String p = String.valueOf(price);
         driver.findElement(priceTextboxLocator).sendKeys(p);
     }
@@ -34,7 +34,7 @@ public class AddServicePage {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
     }
 
-    public void enterServiceInformation(String name, String unit, int price, String description) {
+    public void enterServiceInformation(String name, String unit, double price, String description) {
         enterServiceName(name);
         enterUnit(unit);
         enterPrice(price);

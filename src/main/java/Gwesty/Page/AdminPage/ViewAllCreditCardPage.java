@@ -50,8 +50,8 @@ public class ViewAllCreditCardPage {
         return Integer.parseInt(date.split("/")[1]); // Extract year
     }
 
-    public float getBalance(int i) {
-        return Float.parseFloat(driver.findElements(balanceLocator).get(i-1).getText());
+    public double getBalance(int i) {
+        return Double.parseDouble(driver.findElements(balanceLocator).get(i-1).getText());
     }
 
     public void clickAddNewButton () {

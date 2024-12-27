@@ -43,7 +43,7 @@ public class ViewAllServicesPage {
         return driver.findElements(unitServiceLocator).get(i-1).getText();
     }
 
-    public float getPrice(int i) {
+    public double getPrice(int i) {
         return Float.parseFloat(driver.findElements(priceServiceLocator).get(i-1).getText());
     }
 

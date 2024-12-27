@@ -23,7 +23,7 @@ public class TC14 {
 
     String serviceName;
     String unit;
-    int price;
+    double price;
     String description;
     @BeforeMethod
     public void initData() {
