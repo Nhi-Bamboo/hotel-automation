@@ -1,5 +1,4 @@
 import Gwesty.Model.Booking;
-import Gwesty.Model.CreditCard;
 import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.AdminPage.BookingDetailPage;
 import Gwesty.Page.AdminPage.BookingPage;

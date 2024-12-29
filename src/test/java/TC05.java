@@ -77,7 +77,7 @@ public class TC05 {
         addRoomPage.addRoomInformation(newRoom);
 
         // Tìm kiếm
-        searchOnPage.searchByRoomNumber(newRoom.getRoomNo());
+        searchOnPage.searchByNumber(newRoom.getRoomNo());
 
         // Lấy thông tin phòng sau khi search
         displayedRoom = viewAllRoomsPage.getRoomByIndex(1);

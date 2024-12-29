@@ -63,7 +63,7 @@ public class TC01 {
         checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);
 
         softAssert.assertTrue(confirmPage.isPageNameDisplayed());
-        softAssert.assertTrue(confirmPage.isMessageDisplayed());
+        softAssert.assertEquals(confirmPage.getMessageSucessfully(),"Thank you! Your booking has been placed. We will contact you to confirm the booking soon.");
 
         softAssert.assertAll();
 

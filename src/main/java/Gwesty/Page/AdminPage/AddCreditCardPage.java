@@ -12,13 +12,12 @@ public class AddCreditCardPage {
     WebDriver driver;
     By creditCardNumberTextboxLocator = By.id("number");
     By ownerNameTextboxLocator = By.id("ownerName");
-    By expiryMonthSelectorBoxLocator = By.id("list1");
-    By expiryYearSelectorBoxLocator = By.id("expiryYear");
+    By expiryMonthSelectorBoxLocator = By.xpath("//input[@name='expiryMonth']");
+    By expiryYearTextBoxLocator = By.id("expiryYear");
     By cvvCodeTextboxLocator = By.id("cvvcode");
     By balanceTextboxLocator = By.id("balance");
     By submitButtonLocator = By.xpath("//button[text()='Submit']");
     By pageTitleLocator = By.xpath("//div[text()='All CreditCard']");
-    By allCreditCardTabLocator = By.xpath("//a[@class='parent-item'][text()='CreditCard']");
 
     public AddCreditCardPage(WebDriver driver) {
         this.driver = driver;
@@ -32,25 +31,21 @@ public class AddCreditCardPage {
         driver.findElement(ownerNameTextboxLocator).sendKeys(name);
     }
 
-    private void selectExpiryMonth(int month) {
-        String m = String.valueOf(month);
-        String xpathMonth = String.format("//ul[@data-mdl-for='list1']/li[@data-val='%s']",m);
-        driver.findElement(expiryMonthSelectorBoxLocator).click();
-        driver.findElement(By.xpath(xpathMonth)).click();
+    private void enterExpiryMonth(int month) {
+        driver.findElement(expiryMonthSelectorBoxLocator).clear();
+        driver.findElement(expiryMonthSelectorBoxLocator).sendKeys(String.valueOf(month));
     }
-    private void selectExpiryYear(int year) {
-        driver.findElement(expiryYearSelectorBoxLocator).clear();
-        String y = String.valueOf(year);
-        driver.findElement(expiryYearSelectorBoxLocator).sendKeys(y);
+    private void enterExpiryYear(int year) {
+        driver.findElement(expiryYearTextBoxLocator).clear();
+        driver.findElement(expiryYearTextBoxLocator).sendKeys(String.valueOf(year));
     }
     private void enterCVVCode(int cvv) {
-        String c = String.valueOf(cvv);
-        driver.findElement(cvvCodeTextboxLocator).sendKeys(c);
+        driver.findElement(cvvCodeTextboxLocator).clear();
+        driver.findElement(cvvCodeTextboxLocator).sendKeys(String.valueOf(cvv));
     }
-    private void enterBalance(double number) {
+    private void enterBalance(double balance) {
         driver.findElement(balanceTextboxLocator).clear();
-        String n = String.valueOf(number);
-        driver.findElement(balanceTextboxLocator).sendKeys(n);
+        driver.findElement(balanceTextboxLocator).sendKeys(String.valueOf(balance));
     }
 
     public void clickSubmitButton() {
@@ -62,36 +57,12 @@ public class AddCreditCardPage {
     public void addCreditCardInformation(CreditCard card) {
         enterCreditCardNumber(card.getNumber());
         enterOwnerName(card.getName());
-        selectExpiryMonth(card.getMonth());
-        selectExpiryYear(card.getYear());
+        enterExpiryMonth(card.getMonth());
+        enterExpiryYear(card.getYear());
+        enterCVVCode(card.getCvv());
         enterBalance(card.getBalance());
-    }
-    //get attribute
-    public String getCreditCardNumber(){
-        return driver.findElement(creditCardNumberTextboxLocator).getAttribute("value");
+        clickSubmitButton();
     }
 
-    public String getOwnerName(){
-        return driver.findElement(ownerNameTextboxLocator).getAttribute("value");
-    }
 
-    public int getExpiryMonth(){
-        return Integer.parseInt(driver.findElement(expiryMonthSelectorBoxLocator).getAttribute("value"));
-    }
-
-    public int getExpiryYear(){
-        return Integer.parseInt(driver.findElement(expiryYearSelectorBoxLocator).getAttribute("value"));
-    }
-
-    public int getCvvCode(){
-        return Integer.parseInt(driver.findElement(cvvCodeTextboxLocator).getAttribute("value"));
-    }
-
-    public double getBalance(){
-        return Double.parseDouble(driver.findElement(balanceTextboxLocator).getAttribute("value"));
-    }
-
-    public void openAllCreditCardTab(){
-        driver.findElement(allCreditCardTabLocator).click();
-    }
 }

@@ -15,7 +15,7 @@ public class ViewAllCreditCardPage {
     By expiryDateLocator = By.xpath("//tr/td[3]");
     By balanceLocator = By.xpath("//tr/td[4]");
     By addNewButtonLocator = By.id("addRow");
-    By editButtonLocator = By.xpath("//tr/td[5]/a");
+    By allCreditCardTabLocator = By.xpath("//a[@class='parent-item'][text()='CreditCard']");
 
     public ViewAllCreditCardPage(WebDriver driver) {
         this.driver = driver;
@@ -25,10 +25,6 @@ public class ViewAllCreditCardPage {
         driver.findElement(searchTextboxLocator).sendKeys(number);
     }
 
-    public boolean isCreditCardNumberDisplayed(String number) {
-        String xpathNumber = String.format("//td[text()='%s']",number);
-        return driver.findElement(By.xpath(xpathNumber)).isDisplayed();
-    }
 
     //get in All CreditCard
     public String getCreditCardNumber(int i) {
@@ -39,17 +35,13 @@ public class ViewAllCreditCardPage {
         return driver.findElements(ownerNameLocator).get(i-1).getText();
     }
 
-    public String getExpiryDate(int i) {
-        return driver.findElements(expiryDateLocator).get(i-1).getText();
-    }
-
-    // Method to get expiry month
+    // get expiry month
     public int getExpiryMonth(int i) {
         String date = driver.findElements(expiryDateLocator).get(i-1).getText();
         return Integer.parseInt(date.split("/")[0]); // Extract month
     }
 
-    // Method to get expiry year
+    // get expiry year
     public int getExpiryYear(int i) {
         String date = driver.findElements(expiryDateLocator).get(i-1).getText();
         return Integer.parseInt(date.split("/")[1]); // Extract year
@@ -63,10 +55,6 @@ public class ViewAllCreditCardPage {
         driver.findElement(addNewButtonLocator).click();
     }
 
-    public void openDetailCreditCardByIndex(int i){
-        List<WebElement> list = driver.findElements(editButtonLocator);
-        list.get(i-1).click();
-    }
 
     public CreditCard getCreditCardByIndex(int i) {
         CreditCard c = new CreditCard();
@@ -76,6 +64,10 @@ public class ViewAllCreditCardPage {
         c.setYear(getExpiryYear(i));
         c.setBalance(getBalance(i));
         return c;
+    }
+
+    public void openAllCreditCardTab(){
+        driver.findElement(allCreditCardTabLocator).click();
     }
 
 

@@ -112,6 +112,7 @@ public class AddPromotionPage {
         driver.findElement(oKButtonLocator).click();
     }
 
+    //locator #
     public void selectEndDate(String date) {
         driver.findElement(endDateFieldLocator).click(); // Mở popup lịch
         selectDateFromCalendar(date);

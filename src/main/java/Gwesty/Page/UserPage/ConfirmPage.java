@@ -1,7 +1,6 @@
 package Gwesty.Page.UserPage;
 
 import Gwesty.Model.Booking;
-import Gwesty.Model.CreditCard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -23,8 +22,8 @@ public class ConfirmPage {
 
     WebDriver driver;
 
-    public boolean isMessageDisplayed(){
-        return driver.findElement(messageSuccessfulLocator).isDisplayed();
+    public String getMessageSucessfully(){
+        return driver.findElement(messageSuccessfulLocator).getText();
     }
 
     public boolean isPageNameDisplayed(){

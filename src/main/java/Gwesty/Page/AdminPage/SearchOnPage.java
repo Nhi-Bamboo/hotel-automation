@@ -16,17 +16,17 @@ public class SearchOnPage {
 
     WebDriver driver;
 
-    public void searchByRoomNumber(int roomNo) {
+    public void searchByNumber(int roomNo) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBoxLocator));
         driver.findElement(searchTextBoxLocator).sendKeys(String.valueOf(roomNo));
 
     }
 
-    public void searchByID(String id) {
+    public void searchByString(String text) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBoxLocator));
-        driver.findElement(searchTextBoxLocator).sendKeys(id);
+        driver.findElement(searchTextBoxLocator).sendKeys(text);
 
     }
 

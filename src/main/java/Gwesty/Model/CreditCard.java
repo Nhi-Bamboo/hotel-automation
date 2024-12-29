@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import java.util.Objects;
 
 public class CreditCard {
-    String number="";
+    String number;
     String name;
     int month;
     int year;
@@ -73,21 +73,6 @@ public class CreditCard {
     @Override
     public int hashCode() {
         return Objects.hash(number, name, month, year, cvv, balance);
-    }
-
-    public String getFormatNumber(String creditCardNumber) {
-        if (creditCardNumber.length() > 16) {
-            creditCardNumber = creditCardNumber.substring(0, 16);
-        }
-        creditCardNumber = creditCardNumber.replaceAll("\\D", "");
-        for (int i = 0; i < creditCardNumber.length(); i = i + 4) {
-            if (i + 4 <= creditCardNumber.length()) {
-                number += creditCardNumber.substring(i, i + 4) + " ";
-            } else {
-                number += creditCardNumber.substring(i); // Xử lý phần dư
-            }
-        }
-        return number;
     }
 
 }

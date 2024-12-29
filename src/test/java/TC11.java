@@ -38,13 +38,10 @@ public class TC11 {
         addCreditCardPage = new AddCreditCardPage(driver);
         viewAllCreditCardPage = new ViewAllCreditCardPage(driver);
 
-        creditCard = new CreditCard();
-
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
-        creditCardNumber = faker.finance().creditCard();
-        creditCardNumber = creditCard.getFormatNumber(creditCardNumber);
+        creditCardNumber = faker.bothify("#### #### #### ####"); //   #: Tạo số ngẫu nhiên (0-9).
         ownerName = faker.name().firstName().toUpperCase();
         month = faker.number().numberBetween(1, 13);
         year = faker.number().numberBetween(2000,2100);
@@ -56,6 +53,7 @@ public class TC11 {
         creditCard.setName(ownerName);
         creditCard.setMonth(month);
         creditCard.setYear(year);
+        creditCard.setCvv(cvv);
         creditCard.setBalance(balance);
     }
     @AfterMethod
@@ -77,11 +75,7 @@ public class TC11 {
 
         //4. Input valid all fields.
 
-
         addCreditCardPage.addCreditCardInformation(creditCard);
-
-        //5. Click the [SUBMIT] button.
-        addCreditCardPage.clickSubmitButton();
 
         //verify
         viewAllCreditCardPage.searchByCreditCardNumber(creditCardNumber);

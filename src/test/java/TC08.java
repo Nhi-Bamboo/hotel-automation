@@ -91,7 +91,7 @@ public class TC08 {
 
         //make confirm booking
         adminPage.openBookingPage();
-        searchOnPage.searchByID(idB);
+        searchOnPage.searchByString(idB);
         bookingPage.openBookingDetail();
         bookingDetailPage.clickMakeConfirmButton();
 
