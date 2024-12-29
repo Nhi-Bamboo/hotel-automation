@@ -1,5 +1,6 @@
 import Gwesty.Model.Promotion;
-import Gwesty.Page.AdminPage.*;
+import Gwesty.Page.AdminPage.AddPromotionPage;
+import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.UserPage.*;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
@@ -12,10 +13,9 @@ import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Random;
 
-public class TC09 {
+public class TC10 {
     WebDriver driver;
     HomePage homePage;
     LoginPage loginPage;
@@ -65,38 +65,38 @@ public class TC09 {
 
         //1. random promotion date
         startYear = 2024;
-            // Lấy ngày hiện tại
+        // Lấy ngày hiện tại
         currentDate = LocalDate.now();
-            // Random ngày bắt đầu (startDate < currentDate)
+        // Random ngày bắt đầu (startDate < currentDate)
         daysUntilNow = (int) currentDate.toEpochDay() - (int) LocalDate.of(startYear, 1, 1).toEpochDay();
         randomDaysBeforeNow = random.nextInt(daysUntilNow) + 1; // Random trong khoảng từ ngày bắt đầu đến hiện tại
         randomStartDatePromotion = currentDate.minusDays(randomDaysBeforeNow);
-            // Random ngày kết thúc sau ngày bắt đầu (endDate > startDate)
+        // Random ngày kết thúc sau ngày bắt đầu (endDate > startDate)
         randomDaysAfterNow = random.nextInt(30) + 1; // Random số ngày từ ngày hiện tại
         randomEndDatePromotion = currentDate.plusDays(randomDaysAfterNow);
-            // Format ngày theo yyyy-MM-dd
+        // Format ngày theo yyyy-MM-dd
         formatterPromotionDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
         //2. random ngày -  search Room
         randomYear = engFaker.number().numberBetween(2025, 2031);  // 2027 không bao gồm
-            //Tạo ngày ngẫu nhiên trong năm
+        //Tạo ngày ngẫu nhiên trong năm
         randomMonth = engFaker.number().numberBetween(1, 13);
         randomDay = engFaker.number().numberBetween(1, 32);
-            //Tạo ngày bắt đầu ngẫu nhiên
+        //Tạo ngày bắt đầu ngẫu nhiên
         startDateCheckIn = LocalDate.of(randomYear, randomMonth, randomDay);
-            //Ngày kết thúc = ngày bắt đầu + 1
+        //Ngày kết thúc = ngày bắt đầu + 1
         endDateCheckOut = startDateCheckIn.plusDays(1);
-            // Định dạng ngày theo format "yyyy/MM/dd"
+        // Định dạng ngày theo format "yyyy/MM/dd"
         formatterSearchRoom = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
 
         promotionAdded = new Promotion();
         promotionAdded.setName(engFaker.company().buzzword() + " Sale!");
-        promotionAdded.setCode(engFaker.bothify("PROMOTION-PERCENTAGE-###??"));  //#: Tạo số ngẫu nhiên (0-9).    ?: Tạo chữ cái ngẫu nhiên (A-Z).
+        promotionAdded.setCode(engFaker.bothify("PROMO-FIXED-###??"));  //#: Tạo số ngẫu nhiên (0-9).    ?: Tạo chữ cái ngẫu nhiên (A-Z).
         promotionAdded.setStartDate(randomStartDatePromotion.format(formatterPromotionDate));
         promotionAdded.setEndDate(randomEndDatePromotion.format(formatterPromotionDate));
-        promotionAdded.setType("PERCENTAGE");
+        promotionAdded.setType("FIXED");
         promotionAdded.setValue(1 + random.nextInt(101));
         promotionAdded.setDescription("Booking Promotion");
     }
@@ -132,13 +132,11 @@ public class TC09 {
         roomDetailPage.bookingRoom(startDateCheckIn.format(formatterSearchRoom), endDateCheckOut.format(formatterSearchRoom), 1,0);
         bookNowPage.addPromotionCode(promotionAdded.getCode());
 
-        softAssert.assertEquals(bookNowPage.getDiscount(),
-                        (promotionAdded.getValue() * bookNowPage.getSubTotal()) / 100.0,
-                        "The discount value is incorrect!");
+        softAssert.assertEquals((int) bookNowPage.getDiscount(), promotionAdded.getValue(), "The discount value is incorrect!");
 
         softAssert.assertEquals(bookNowPage.getGrandTotal(),
-                        bookNowPage.getSubTotal() + bookNowPage.getTax() - bookNowPage.getDiscount(),
-                        "The Grand Total is incorrect!");
+                bookNowPage.getSubTotal() + bookNowPage.getTax() - bookNowPage.getDiscount(),
+                "The Grand Total is incorrect!");
 
         driver.close();
 
@@ -146,3 +144,4 @@ public class TC09 {
 
     }
 }
+

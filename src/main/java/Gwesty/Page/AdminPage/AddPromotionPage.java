@@ -16,8 +16,7 @@ public class AddPromotionPage {
     By endDateFieldLocator = By.name("enddate");
     By typeDropdownLocator = By.name("type");
     By valueFieldLocator = By.name("value");
-    By descriptionFieldLocator = By.name("description");
-    By calendarPopupLocator = By.xpath("//table[@class='table dtp-picker-days']//tbody"); // Popup chọn ngày
+    By descriptionFieldLocator = By.xpath("//textarea[@name='description']");
     By monthLocator = By.xpath("//div[@class='dtp']//div[@class='dtp-actual-month p80']");
     By chevronLeftMonthLocator = By.xpath("//div[@class='dtp']//a[@class='dtp-select-month-before']//i[text()='chevron_left']");
     By chevronRightMonthLocator = By.xpath("//div[@class='dtp']//a[@class='dtp-select-month-after']//i[text()='chevron_right']");
@@ -40,12 +39,6 @@ public class AddPromotionPage {
     public void enterCodePromotion(String code){
         driver.findElement(codeFieldLocator).sendKeys(code);
     }
-
-    public void selectStartDate(String date) {
-        driver.findElement(startDateFieldLocator).click(); // Mở popup lịch
-        selectDateFromCalendar(date);
-    }
-
 
     private int getMonthNumberFromAbbreviation(String monthAbbreviation) {
         switch (monthAbbreviation) {
@@ -105,16 +98,20 @@ public class AddPromotionPage {
 
         // Chọn ngày
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[normalize-space()='" + targetDay + "']")));
-        driver.findElement(By.xpath("//td[normalize-space()='" + targetDay + "']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='dtp']//td[@data-date='" + targetDay + "']")));
+        driver.findElement(By.xpath("//div[@class='dtp']//td[@data-date='" + targetDay + "']")).click();
 
         // Nhấn OK để xác nhận
         driver.findElement(oKButtonLocator).click();
     }
 
-    //locator #
+    public void selectStartDate(String date) {
+        driver.findElement(startDateFieldLocator).click();
+        selectDateFromCalendar(date);
+    }
+
     public void selectEndDate(String date) {
-        driver.findElement(endDateFieldLocator).click(); // Mở popup lịch
+        driver.findElement(endDateFieldLocator).click();
         selectDateFromCalendar(date);
     }
 
@@ -125,6 +122,7 @@ public class AddPromotionPage {
     }
 
     public void enterValue(int value) {
+        driver.findElement(valueFieldLocator).clear();
         driver.findElement(valueFieldLocator).sendKeys(String.valueOf(value));
     }
 

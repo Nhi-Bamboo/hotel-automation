@@ -11,6 +11,13 @@ public class BookNowPage {
     By checkBoxAgreeLocator = By.xpath("//*[@class='custom-control custom-checkbox']");
     By submitButtonLocator = By.xpath("//input[@value='Submit']");
     By bookNowLabelLocator = By.xpath("//h2[text()='Book Now']");
+    By radioIHavePromotionLocator = By.xpath("//label[@class='custom-control custom-radio m-0']");
+    By promotionCodeTextBoxLocator = By.name("promoCode");
+    By applyButtonLocator = By.xpath("//button[text()='Apply']");
+    By subTotalLocator = By.xpath("//tr[2]//strong[contains(text(),'$')]");
+    By taxLocator = By.xpath("//tr[3]//td[contains(text(),'$')]");
+    By discountLocator = By.xpath("//tr[4]//td[contains(text(),'$')]");
+    By grandTotalLocator = By.xpath("//tr[5]//strong[contains(text(),'$')]");
 
     public BookNowPage(WebDriver driver) {
         this.driver = driver;
@@ -67,5 +74,39 @@ public class BookNowPage {
         enterPhoneTextBox(phone);
         enterAddressTextBox(address);
 
+    }
+
+    public void clickRadioIHavePromotion(){
+        driver.findElement(radioIHavePromotionLocator).click();
+    }
+
+    public void enterPromotionCode(String code){
+        driver.findElement(promotionCodeTextBoxLocator).sendKeys(code);
+    }
+
+    public void clickApplyButton(){
+        driver.findElement(applyButtonLocator).click();
+    }
+
+    public void addPromotionCode(String promoCode){
+        clickRadioIHavePromotion();
+        enterPromotionCode(promoCode);
+        clickApplyButton();
+    }
+
+    public double getSubTotal(){
+        return Double.parseDouble(driver.findElement(subTotalLocator).getText().substring(1));
+    }
+
+    public double getTax(){
+        return Double.parseDouble(driver.findElement(taxLocator).getText().substring(1));
+    }
+
+    public double getDiscount(){
+        return Double.parseDouble(driver.findElement(discountLocator).getText().substring(1));
+    }
+
+    public double getGrandTotal(){
+        return Double.parseDouble(driver.findElement(grandTotalLocator).getText().substring(1));
     }
 }

@@ -1,4 +1,5 @@
 import Gwesty.Page.UserPage.*;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
@@ -6,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class TC01 {
@@ -19,6 +22,13 @@ public class TC01 {
     LoginPage loginPage;
     SoftAssert softAssert;
     Random random;
+    Faker engFaker;
+    int randomYear;
+    int randomMonth;
+    int randomDay;
+    LocalDate startDate;
+    LocalDate endDate;
+    DateTimeFormatter formatter;
 
     @BeforeMethod
     public void initData() {
@@ -32,9 +42,26 @@ public class TC01 {
         loginPage = new LoginPage(driver);
         softAssert = new SoftAssert();
         random = new Random();
+        engFaker = new Faker();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
+
+        //Tạo năm ngẫu nhiên từ 2024 đến 2030
+        randomYear = engFaker.number().numberBetween(2025, 2031);  // 2027 không bao gồm
+
+        //Tạo ngày ngẫu nhiên trong năm
+        randomMonth = engFaker.number().numberBetween(1, 13);
+        randomDay = engFaker.number().numberBetween(1, 32);
+
+        //Tạo ngày bắt đầu ngẫu nhiên
+        startDate = LocalDate.of(randomYear, randomMonth, randomDay);
+
+        //Ngày kết thúc = ngày bắt đầu + 1
+        endDate = startDate.plusDays(1);
+
+        // Định dạng ngày theo format "yyyy/MM/dd"
+        formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     }
 
     @AfterMethod
@@ -53,7 +80,7 @@ public class TC01 {
         roomPage.openDetailRoomByIndex(1 + random.nextInt(10));
         softAssert.assertTrue(roomDetailPage.isRoomsDetailLabelDisplayed());
 
-        roomDetailPage.bookingRoom("2025/01/25","2025/01/26",1,0);
+        roomDetailPage.bookingRoom(startDate.format(formatter), endDate.format(formatter),1,0);
 
         softAssert.assertTrue(bookNowPage.isBookNowLabelDisplayed());
 
@@ -63,7 +90,7 @@ public class TC01 {
         checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);
 
         softAssert.assertTrue(confirmPage.isPageNameDisplayed());
-        softAssert.assertEquals(confirmPage.getMessageSucessfully(),"Thank you! Your booking has been placed. We will contact you to confirm the booking soon.");
+        softAssert.assertEquals(confirmPage.getMessageSucessfully(),"Thank you! Your booking has been placed. We will contact you to confirm about the booking soon.");
 
         softAssert.assertAll();
 

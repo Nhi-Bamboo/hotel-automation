@@ -139,9 +139,6 @@ public class TC12 {
 
         roomDetailPage.bookingRoom(startDate.format(formatter), endDate.format(formatter), 1,0);
 
-        System.out.println(startDate.format(formatter));
-        System.out.println(endDate.format(formatter));
-
         bookNowPage.addGuestInformation(vnFaker.name().fullName(),
                 engFaker.internet().emailAddress(),
                 vnFaker.phoneNumber().cellPhone().replace(" ",""),
