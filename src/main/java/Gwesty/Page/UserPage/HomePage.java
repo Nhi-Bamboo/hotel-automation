@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class HomePage {
-    By loginButtonLocator = By.linkText("Login");
+    By loginButtonLocator = By.xpath("//a[@data-toggle='modal'][text()='Login']");
     By roomsMenuLocator = By.linkText("Rooms");
     By userNameTextBoxLocator = By.name("email");
     By goToAdminButtonLocator = By.linkText("Go to Admin");

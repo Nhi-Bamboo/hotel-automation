@@ -23,13 +23,13 @@ public class TC02 {
     ConfirmPage confirmPage;
     SoftAssert softAssert;
     Random random;
+    Faker engFaker;
     int randomYear;
     int randomMonth;
     int randomDay;
     LocalDate startDate;
     LocalDate endDate;
     DateTimeFormatter formatter;
-    Faker engFaker;
     String idB;
 
     @BeforeMethod
@@ -45,31 +45,22 @@ public class TC02 {
         confirmPage = new ConfirmPage(driver);
         softAssert = new SoftAssert();
         random = new Random();
+        engFaker = new Faker();
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
-
-        //Tạo năm ngẫu nhiên từ 2024 đến 2030
-        randomYear = engFaker.number().numberBetween(2025, 2031);  // 2027 không bao gồm
-
-        //Tạo ngày ngẫu nhiên trong năm
+        randomYear = engFaker.number().numberBetween(2026, 2031);
         randomMonth = engFaker.number().numberBetween(1, 13);
         randomDay = engFaker.number().numberBetween(1, 32);
-
-        //Tạo ngày bắt đầu ngẫu nhiên
         startDate = LocalDate.of(randomYear, randomMonth, randomDay);
-
-        //Ngày kết thúc = ngày bắt đầu + 1
         endDate = startDate.plusDays(1);
-
-        // Định dạng ngày theo format "yyyy/MM/dd"
         formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
         homePage.openLoginPage();
         loginPage.login("yennhi","123456");
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1 + random.nextInt(10));
-        roomDetailPage.bookingRoom("2025/01/01","2025/01/02",1,0);
+        roomDetailPage.bookingRoom(startDate.format(formatter), endDate.format(formatter),1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
         checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);

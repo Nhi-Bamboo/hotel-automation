@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
 
@@ -37,6 +39,12 @@ public class TC08 {
     double servicePrice;
     Service serviceAdded;
     Service displayedService;
+    int randomYear;
+    int randomMonth;
+    int randomDay;
+    LocalDate startDate;
+    LocalDate endDate;
+    DateTimeFormatter formatter;
 
     @BeforeMethod
     public void initData() {
@@ -61,9 +69,16 @@ public class TC08 {
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
+        randomYear = engFaker.number().numberBetween(2026, 2031);
+        randomMonth = engFaker.number().numberBetween(1, 13);
+        randomDay = engFaker.number().numberBetween(1, 32);
+        startDate = LocalDate.of(randomYear, randomMonth, randomDay);
+        endDate = startDate.plusDays(1);
+        formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1 + random.nextInt(10));
-        roomDetailPage.bookingRoom("2025/01/09","2025/01/10",1,0);
+        roomDetailPage.bookingRoom(startDate.format(formatter), endDate.format(formatter),1,0);
         bookNowPage.addBookerInformation(vnFaker.name().fullName(),
                                         engFaker.internet().emailAddress(),
                                         vnFaker.phoneNumber().cellPhone().replace(" ",""),

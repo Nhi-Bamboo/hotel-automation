@@ -1,1 +1,0 @@
-{"uuid":"c4662cfc-8db9-4418-9edb-acc2028bd1bd","name":"TC02.cleanUp","children":["cce2ca39-a41a-4d78-9d2b-c1d333936e54"],"description":"","befores":[],"afters":[{"name":"cleanUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1732539580435,"stop":1732539580437}],"start":1732539580434,"stop":1732539580437}

@@ -75,20 +75,12 @@ public class TC12 {
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
-        //Tạo năm ngẫu nhiên từ 2024 đến 2030
-        randomYear = engFaker.number().numberBetween(2025, 2031);  // 2027 không bao gồm
-
-        //Tạo ngày ngẫu nhiên trong năm
+        //random ngày
+        randomYear = engFaker.number().numberBetween(2026, 2031);
         randomMonth = engFaker.number().numberBetween(1, 13);
         randomDay = engFaker.number().numberBetween(1, 32);
-
-        //Tạo ngày bắt đầu ngẫu nhiên
         startDate = LocalDate.of(randomYear, randomMonth, randomDay);
-
-        //Ngày kết thúc = ngày bắt đầu + 1
         endDate = startDate.plusDays(1);
-
-        // Định dạng ngày theo format "yyyy/MM/dd"
         formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
         homePage.openLoginPage();

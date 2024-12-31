@@ -47,8 +47,8 @@ public class TC01 {
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
-        //Tạo năm ngẫu nhiên từ 2024 đến 2030
-        randomYear = engFaker.number().numberBetween(2025, 2031);  // 2027 không bao gồm
+        //Tạo năm ngẫu nhiên từ 2026 đến 2030
+        randomYear = engFaker.number().numberBetween(2026, 2031);
 
         //Tạo ngày ngẫu nhiên trong năm
         randomMonth = engFaker.number().numberBetween(1, 13);

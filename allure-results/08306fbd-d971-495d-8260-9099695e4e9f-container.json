@@ -1,1 +1,0 @@
-{"uuid":"08306fbd-d971-495d-8260-9099695e4e9f","name":"TC01.initData","children":["5a8e758f-3699-46ad-b085-bce4864c491f"],"description":"","befores":[{"name":"initData","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1732535612544,"stop":1732535617125}],"afters":[],"start":1732535612543,"stop":1732535617125}

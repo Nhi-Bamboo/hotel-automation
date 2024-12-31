@@ -1,1 +1,0 @@
-{"uuid":"89fd5fbd-7af4-4913-85f4-d13c7ee5451f","name":"TC02.initData","children":["d5c23c9b-2717-4833-add0-077f0e67d043"],"description":"","befores":[{"name":"initData","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1732706855650,"stop":1732706863929}],"afters":[],"start":1732706855649,"stop":1732706863930}
