@@ -83,5 +83,6 @@ public class TC14 {
         // verify
         softAssert.assertEquals(searchService,service,"Thong tin khong trung khop");
         softAssert.assertEquals(latestQuantity-initialQuantity,1,"Tao moi khong thanh cong!");
+        softAssert.assertAll();
     }
 }

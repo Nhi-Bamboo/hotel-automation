@@ -1,5 +1,6 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,6 +32,7 @@ public class LoginPage {
     }
 
     public void login(String username, String password){
+        Allure.step("Login");
         enterUserName(username);
         enterPassword(password);
         clickSignInButton();

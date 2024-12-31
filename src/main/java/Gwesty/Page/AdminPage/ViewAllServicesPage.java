@@ -2,6 +2,7 @@ package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.CreditCard;
 import Gwesty.Model.Service;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,6 +33,7 @@ public class ViewAllServicesPage {
     }
 
     public void searchServiceByName(String keyword) {
+        Allure.step("Search Service By Name: "+keyword);
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
     }
 

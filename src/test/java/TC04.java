@@ -28,6 +28,8 @@ public class TC04 {
     int adult;
     int children;
     String description;
+    int latestQuantity;
+    int initialQuantity;
 
     @BeforeMethod
     public void initData() {
@@ -73,7 +75,7 @@ public class TC04 {
         homePage.openPageAdmin();
         adminPage.openAllRoomTypePage();
         viewAllRoomTypePage.searchByTitle(roomTypeTitle);
-        int initialQuantity = viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle);
+        initialQuantity = viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle);
 
         //3. add new
         viewAllRoomTypePage.clickAddNewButton();
@@ -88,7 +90,7 @@ public class TC04 {
         // tìm room type vừa tạo
         viewAllRoomTypePage.searchByTitle(roomTypeTitle);
         RoomType room = viewAllRoomTypePage.getRoomTypeByIndex(1);
-        int latestQuantity = viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle);
+        latestQuantity = viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle);
 
         //assert equal
         softAssert.assertEquals(viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle) - initialQuantity,1, "Room type tao khong thanh cong!");

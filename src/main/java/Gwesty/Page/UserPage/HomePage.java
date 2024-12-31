@@ -1,5 +1,6 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +36,7 @@ public class HomePage {
     WebDriver driver;
 
     public void openLoginPage(){
+        Allure.step("Open Login Page");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.findElement(loginButtonLocator).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(userNameTextBoxLocator));
@@ -74,6 +76,7 @@ public class HomePage {
         driver.findElement(roomsMenuLocator).click();
     }
     public void openPageAdmin() {
+        Allure.step("Open page Admin");
         driver.findElement(accountAndSettingLocator).click();
         driver.findElement(goToAdminButtonLocator).click();
     }
@@ -87,9 +90,11 @@ public class HomePage {
     }
 
     public void openMyAccountPage(){
+        Allure.step("Open My Account Page");
         driver.findElement(myAccountLocator).click();
     }
     public void Logout() {
+        Allure.step("Logout");
         clickAccountSetting();
         driver.findElement(logOutButtonLocator).click();
     }
@@ -99,10 +104,12 @@ public class HomePage {
     }
 
     public void openHomePage() {
+        Allure.step("Open HomePage");
         driver.findElement(homeNavBarLocator).click();
     }
 
     public void searchByBookingId(String booking) {
+        Allure.step("Search By Booking ID");
         driver.findElement(searchBookingIdButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBookingIdTextboxLocator));

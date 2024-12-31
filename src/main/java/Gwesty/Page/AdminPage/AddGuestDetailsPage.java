@@ -1,35 +1,39 @@
 package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.GuestInRoom;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class AddGuestDetailsPage {
     WebDriver driver;
     WebDriverWait wait;
-    String month="";
-    String year="";
     int room;
-    String date="";
-    GuestInRoom guestInRoom;
 
     By fullNameTextBoxLocator = By.id("name");
     By genderTextBoxLocator = By.name("sex");
     By dateOfBirthDatepickerLocator = By.id("dateOfBirth");
-    By okButtonOfDatePickerLocator = By.xpath("//div[@class='dtp-buttons']/button[text()='OK']");
     By roomNumberTextBoxLocator = By.name("roomNum");
     By firstRoomNumberLocator = By.xpath("//ul[@data-mdl-for='sample2']/li");
     By addressTextBoxLocator = By.name("address");
     By identifyTypeLocator = By.name("idType");
     By identifyNumberTextBoxLocator = By.name("idNo");
     By submitButtonLocator = By.xpath("//button[@type='submit']");
-    By monthOfCalendarLocator = By.xpath("//div[@class='dtp-picker-month']");
-    By dateOfCalendarLocator = By.xpath("//div[@class='dtp-actual-num']");
+
+    By monthAndYearLocator = By.xpath("//div[@class='dtp-picker-month']");
+    By yearLocator = By.xpath("//div[@class='dtp']//div[@class='dtp-actual-year p80']");
     By guestInRoomNavLocator = By.xpath("//ul[@id='nav']/li/a[text()='Guest In Room']");
+    By chevronLeftYearLocator = By.xpath("//div[@class='dtp']//a[@class='dtp-select-year-before']//i[text()='chevron_left']");
+    By chevronRightYearLocator = By.xpath("//div[@class='dtp']//a[@class='dtp-select-year-after']//i[text()='chevron_right']");
+    By chevronLeftMonthLocator = By.xpath("//div[@class='dtp']//a[@class='dtp-select-month-before']//i[text()='chevron_left']");
+    By chevronRightMonthLocator = By.xpath("//div[@class='dtp']//a[@class='dtp-select-month-after']//i[text()='chevron_right']");
+    By oKButtonLocator = By.xpath("//div[@class='dtp']//button[text()='OK']");
 
 
     public AddGuestDetailsPage(WebDriver driver) {
@@ -45,19 +49,55 @@ public class AddGuestDetailsPage {
         driver.findElement(By.xpath(xpath)).click();
     }
 
-    public void selectCurrentDate() {
+    public int getMonthNumberFromAbbreviation(String month) {
+        // Chuyển đổi trực tiếp từ tên tháng đầy đủ (viết hoa) sang giá trị tháng
+        return Month.valueOf(month).getValue();
+    }
+
+    public void selectCurrentDate(String date) {
+        // Chia nhỏ ngày, tháng, năm từ chuỗi "yyyy-MM-dd"
+        String[] parts = date.split("-");
+        int targetYear = Integer.parseInt(parts[0]);
+        int targetMonth = Integer.parseInt(parts[1]);
+        int targetDay = Integer.parseInt(parts[2]);
         driver.findElement(dateOfBirthDatepickerLocator).click();
-//        String d = String.valueOf(date);
-//        String xpath = String.format("//td[@data-date='%s']",d);
+        while (true) {
+            // Lấy năm và tháng hiện tại từ popup
+            int currentYear = Integer.parseInt(driver.findElement(yearLocator).getText());
+            String currentMonthString = driver.findElement(monthAndYearLocator).getText();
+            currentMonthString = currentMonthString.replaceAll("\\d", "").trim();
+            int currentMonth = getMonthNumberFromAbbreviation(currentMonthString);
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(monthOfCalendarLocator));
-        month = driver.findElement(monthOfCalendarLocator).getText().replaceAll("\\d", "");
-        year = driver.findElement(monthOfCalendarLocator).getText().replaceAll("\\D", "");
-        date = driver.findElement(dateOfCalendarLocator).getText();
+            // Kiểm tra nếu cần điều chỉnh năm
+            if (currentYear != targetYear) {
+                if (currentYear > targetYear) {
+                    driver.findElement(chevronLeftYearLocator).click(); // Nút "<" của năm
+                } else {
+                    driver.findElement(chevronRightYearLocator).click(); // Nút ">" của năm
+                }
+            }
 
-//        driver.findElement(By.xpath(xpath)).click();
-        driver.findElement(okButtonOfDatePickerLocator).click();
+            // Kiểm tra nếu cần điều chỉnh tháng
+            else if (currentMonth != targetMonth) {
+                if (currentMonth > targetMonth) {
+                    driver.findElement(chevronLeftMonthLocator).click(); // Nút "<" của tháng
+                } else {
+                    driver.findElement(chevronRightMonthLocator).click(); // Nút ">" của tháng
+                }
+            }
+            // Nếu năm và tháng đã đúng, thoát vòng lặp
+            else {
+                break;
+            }
+        }
+
+        // Chọn ngày
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='dtp']//td[@data-date='" + targetDay + "']")));
+        driver.findElement(By.xpath("//div[@class='dtp']//td[@data-date='" + targetDay + "']")).click();
+
+        // Nhấn OK để xác nhận
+        driver.findElement(oKButtonLocator).click();
 
     }
 
@@ -84,43 +124,25 @@ public class AddGuestDetailsPage {
         driver.findElement(identifyNumberTextBoxLocator).sendKeys(number);
     }
 
-    public void enterGuestInRoomInformation(String name, String gender, int date, String address, String type, int num) {
-        enterFullName(name);
-        selectGender(gender);
-        selectCurrentDate();
-        selectFirstRoomNumber();
-        enterAddress(address);
-        selectIdentifyType(type);
-        enterIdentifyNumber(num);
-    }
+
 
     public void clickSubmitButton() {
+        Allure.step("Click Submit Button");
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(guestInRoomNavLocator));
     }
 
-    public String getMonth() {
-        guestInRoom = new GuestInRoom();
-        return guestInRoom.convertMonthToNumber(month);
-    }
-
-    public String getYear() {
-        return year.trim();
-    }
 
     public int getRoom() {
         return room;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public void addGuestInRoomInformation(GuestInRoom guest) {
+        Allure.step("Enter Guest In Room information");
         enterFullName(guest.getFullName());
         selectGender(guest.getGender());
-        selectCurrentDate();
+        selectCurrentDate(guest.getDateOfBirth());
         selectFirstRoomNumber();
         enterAddress(guest.getAddress());
         selectIdentifyType(guest.getType());

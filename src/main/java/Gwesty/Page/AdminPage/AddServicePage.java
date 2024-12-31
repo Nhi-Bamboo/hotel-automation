@@ -2,6 +2,7 @@ package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.CreditCard;
 import Gwesty.Model.Service;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,7 +15,7 @@ public class AddServicePage {
     By serviceNameTextBoxLocator = By.name("serviceName");
     By unitTextboxLocator = By.name("unit");
     By priceTextboxLocator = By.name("price");
-    By descriptionTextboxLocator = By.name("description");
+    By descriptionTextboxLocator = By.xpath("//textarea[@name='description']");
     By submitButtonLocator = By.xpath("//button[@type='submit']");
 
     public AddServicePage(WebDriver driver) {
@@ -32,8 +33,6 @@ public class AddServicePage {
     private void enterPrice(double price) {
         String p = String.valueOf(price);
         driver.findElement(priceTextboxLocator).sendKeys(p);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(descriptionTextboxLocator));
     }
 
     private void enterDescription(String description) {
@@ -45,6 +44,7 @@ public class AddServicePage {
     }
 
     public void addServiceInformation(Service service) {
+        Allure.step("Add Service information");
         enterServiceName(service.getName());
         enterUnit(service.getUnit());
         enterPrice(service.getPrice());

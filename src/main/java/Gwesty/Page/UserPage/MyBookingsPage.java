@@ -1,5 +1,6 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,13 +20,13 @@ public class MyBookingsPage {
     }
 
     WebDriver driver;
-
+    @Step("Click Cancel Booking")
     public void clickCancelButtonById(String id){
         String xpathValue = String.format("//strong[contains(text(),'#%s')]/ancestor::div//a[@class='btn btn-danger']", id);
         dynamicCancelButtonLocator = By.xpath(xpathValue);
         driver.findElement(dynamicCancelButtonLocator).click();
     }
-
+    @Step("Cancel Booking")
     public void cancelBooking(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cancelBookingButtonLocator));

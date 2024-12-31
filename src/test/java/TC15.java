@@ -9,6 +9,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class TC15 {
     WebDriver driver;
     SoftAssert softAssert;
@@ -31,6 +36,8 @@ public class TC15 {
     String address;
     int idNumber;
     String gender;
+    String dateOfBirth;
+    Date date;
 
     @BeforeMethod
     public void initData() {
@@ -59,7 +66,7 @@ public class TC15 {
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1);
 
-        roomDetailPage.bookingRoom("2025/12/25","2025/12/26",1,0);
+        roomDetailPage.bookingRoom("2025/12/30","2025/12/31",1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
@@ -72,20 +79,22 @@ public class TC15 {
         gender= faker.demographic().sex();
         address = faker.address().country();
         idNumber = faker.number().numberBetween(100,999);
+        date =  faker.date().past(3650, java.util.concurrent.TimeUnit.DAYS);
+        dateOfBirth = String.valueOf(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
         guestInRoom = new GuestInRoom();
         guestInRoom.setRoom(0);
         guestInRoom.setId(idNumber);
         guestInRoom.setFullName(fullName);
         guestInRoom.setGender(gender);
-        guestInRoom.setDateOfBirth(null);
+        guestInRoom.setDateOfBirth(dateOfBirth);
         guestInRoom.setAddress(address);
         guestInRoom.setType("ID CARD");
 
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+//        driver.quit();
     }
     @Test
     public void Test() {
@@ -109,11 +118,10 @@ public class TC15 {
         bookingDetailPage.clickAddNewGuestInRoomButtonLocator();
 
         //6. Input valid all fields.
+        System.out.println(dateOfBirth);
         addGuestDetailsPage.addGuestInRoomInformation(guestInRoom);
         guestInRoom.setRoom(addGuestDetailsPage.getRoom());
         guestInRoom.setType(null);
-        guestInRoom.setDateOfBirth(addGuestDetailsPage.getYear()+"-"+addGuestDetailsPage.getMonth()+"-"+addGuestDetailsPage.getDate());
-        System.out.println(addGuestDetailsPage.getYear()+"-"+addGuestDetailsPage.getMonth()+"-"+addGuestDetailsPage.getDate());
         //7. Click the [SUBMIT] button.
         addGuestDetailsPage.clickSubmitButton();
 

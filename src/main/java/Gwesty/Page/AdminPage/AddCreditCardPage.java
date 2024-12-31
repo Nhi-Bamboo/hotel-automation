@@ -1,6 +1,8 @@
 package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.CreditCard;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -47,13 +49,13 @@ public class AddCreditCardPage {
         driver.findElement(balanceTextboxLocator).clear();
         driver.findElement(balanceTextboxLocator).sendKeys(String.valueOf(balance));
     }
-
+    @Step("Click Submit Button")
     public void clickSubmitButton() {
         driver.findElement(submitButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated((pageTitleLocator)));
     }
-
+    @Step("Enter credit card information")
     public void addCreditCardInformation(CreditCard card) {
         enterCreditCardNumber(card.getNumber());
         enterOwnerName(card.getName());

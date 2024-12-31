@@ -10,6 +10,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 public class TC07 {
     WebDriver driver;
     SoftAssert softAssert;
@@ -25,6 +29,11 @@ public class TC07 {
     ConfirmPage confirmPage;
     Faker faker;
     String idBooking;
+
+    Date date;
+    LocalDate startDate;
+    String checkin;
+    String checkout;
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -39,8 +48,13 @@ public class TC07 {
         bookNowPage = new BookNowPage(driver);
         checkoutPage = new CheckoutPage(driver);
         confirmPage = new ConfirmPage(driver);
-
         faker = new Faker();
+
+        date =  faker.date().past(3650, java.util.concurrent.TimeUnit.DAYS);
+        startDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        checkin = String.valueOf(startDate).replace("-","/");
+        checkout = String.valueOf(startDate.plusDays(1)).replace("-","/");
+
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 //        /Pre-condition: Users have been booked and checkin a room
@@ -50,7 +64,7 @@ public class TC07 {
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1);
 
-        roomDetailPage.bookingRoom("2025/12/15","2025/12/16",1,0);
+        roomDetailPage.bookingRoom(checkin,checkout,1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
@@ -77,7 +91,7 @@ public class TC07 {
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+//        driver.quit();
     }
     @Test
     public void Test() {
@@ -95,9 +109,9 @@ public class TC07 {
         //4. Select and input valid values in the Payment Method form
         bookingDetailPage.selectPaymentMethod("CreditCard");
 
-        bookingDetailPage.enterPaymentInformation("9999999999999999","THUONG","10/10",999);
+        bookingDetailPage.enterPaymentInformation("9999999999999999","THUONG","10 / 10",999);
         //5. Click button [SUBMIT]bookingDetailPage.clickSubMitButtonOfPaymentForm();
-
+        bookingDetailPage.clickSubMitButtonOfPaymentForm();
         //kiểm tra button success
         softAssert.assertTrue(bookingDetailPage.isSuccessButtonDisplayed(),"Khong hien thi status Success");
 
