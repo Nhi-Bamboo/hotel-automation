@@ -75,4 +75,15 @@ public class CreditCard {
         return Objects.hash(number, name, month, year, cvv, balance);
     }
 
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "number='" + number + '\'' +
+                ", name='" + name + '\'' +
+                ", month=" + month +
+                ", year=" + year +
+                ", cvv=" + cvv +
+                ", balance=" + balance +
+                '}';
+    }
 }

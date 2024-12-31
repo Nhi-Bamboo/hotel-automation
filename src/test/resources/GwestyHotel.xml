@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Gwesty Automation" parallel="classes" thread-count="1">
+    <test name="TC04">
+        <classes>
+            <class name="TC04"></class>
+<!--            <class name="Bai2v3"></class>-->
+<!--            <class name="Bai3v3"></class>-->
+<!--            <class name="Bai4v3"></class>-->
+<!--            <class name="Bai5v3"></class>-->
+<!--            <class name="Bai6v3"></class>-->
+        </classes>
+    </test>
+</suite>
