@@ -1,5 +1,7 @@
 package Gwesty.Page.UserPage;
 
+import com.beust.ah.A;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -35,22 +37,25 @@ public class RoomDetailPage {
         driver.findElement(childrenLocator).clear();
         driver.findElement(childrenLocator).sendKeys(String.valueOf(children));
     }
-    public void enterBookingInformation(String checkin, String checkout, int adult, int children) {
-        enterCheckInDay(checkin);
-        enterCheckOutDay(checkout);
-        enterAdult(adult);
-        enterChildren(children);
-    }
 
     public void clickBookNowButton(){
         driver.findElement(bookNowButtonLocator).click();
     }
 
-    public void bookingRoom(String ci, String co, int a, int c){
-        enterCheckInDay(ci);
-        enterCheckOutDay(co);
-        enterAdult(a);
-        enterChildren(c);
+    public void bookingRoom(String checkInDay, String checkOutDay, int adult, int children){
+        Allure.step(String.format("Enter check in day: %s",checkInDay));
+        enterCheckInDay(checkInDay);
+
+        Allure.step(String.format("Enter check out day: %s",checkOutDay));
+        enterCheckOutDay(checkOutDay);
+
+        Allure.step(String.format("Enter adult: %d",adult));
+        enterAdult(adult);
+
+        Allure.step(String.format("Enter children: %d",children));
+        enterChildren(children);
+
+        Allure.step("Click Book Now Button");
         clickBookNowButton();
     }
 

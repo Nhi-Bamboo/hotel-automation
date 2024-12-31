@@ -32,7 +32,7 @@ public class LoginPage {
     }
 
     public void login(String username, String password){
-        Allure.step("Login");
+        Allure.step(String.format("Login with %s and %s", username, password));
         enterUserName(username);
         enterPassword(password);
         clickSignInButton();

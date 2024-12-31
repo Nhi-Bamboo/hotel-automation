@@ -1,5 +1,6 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class RoomPage {
         return driver.findElement(roomLocator).isDisplayed();
     }
 
+    @Step("Open Room Detail Page")
     public void openDetailRoomByIndex(int n){
         List<WebElement> list = driver.findElements(viewDetailRoomLocator);
         list.get(n-1).click();
@@ -28,10 +30,6 @@ public class RoomPage {
 
     public boolean isRoomsLabelDisplayed(){
         return driver.findElement(roomsLabelLocator).isDisplayed();
-    }
-
-    public void clickViewDetailByIndex(int i) {
-        driver.findElements(viewDetailButtonLocator).get(i-1).click();
     }
 
 }

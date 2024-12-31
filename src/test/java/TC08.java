@@ -64,13 +64,12 @@ public class TC08 {
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1 + random.nextInt(10));
         roomDetailPage.bookingRoom("2025/01/09","2025/01/10",1,0);
-        bookNowPage.addGuestInformation(vnFaker.name().fullName(),
+        bookNowPage.addBookerInformation(vnFaker.name().fullName(),
                                         engFaker.internet().emailAddress(),
                                         vnFaker.phoneNumber().cellPhone().replace(" ",""),
                                         vnFaker.address().country());
         checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);
         idB = confirmPage.getIDBooking();
-        System.out.println(idB);
 
         homePage.openLoginPage();
         loginPage.login("admin","123456");
@@ -104,9 +103,7 @@ public class TC08 {
 
     @Test
     public void test() {
-        bookingDetailPage.clickAddServiceButton();
-
-        bookingDetailPage.addService(serviceAdded);
+         bookingDetailPage.addService(serviceAdded);
 
         displayedService = bookingDetailPage.getServiceByIndex(1);
 

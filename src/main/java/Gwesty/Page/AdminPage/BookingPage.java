@@ -1,5 +1,6 @@
 package Gwesty.Page.AdminPage;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -11,13 +12,11 @@ public class BookingPage {
         this.driver = driver;
     }
 
-//    public void openBookingDetailOnlinePendingLocator(String id) {
-//        String xpathViewBookingDetailByID = String.format("//td[text()='%s']/following-sibling::td/a/i",id);
-//        driver.findElement(By.xpath(xpathViewBookingDetailByID)).click();
-//    }
     public void searchByID(String id) {
         driver.findElement(searchTextboxLocator).sendKeys(id);
     }
+
+    @Step("Open Booking Detail")
     public void openBookingDetail() {
         driver.findElement(iconViewDetailLocator).click();
     }

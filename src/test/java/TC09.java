@@ -67,10 +67,11 @@ public class TC09 {
         startYear = 2024;
             // Lấy ngày hiện tại
         currentDate = LocalDate.now();
-            // Random ngày bắt đầu (startDate < currentDate)
+            // Tính số ngày từ ngày 1/1/startYear đến ngày hiện tại
         daysUntilNow = (int) currentDate.toEpochDay() - (int) LocalDate.of(startYear, 1, 1).toEpochDay();
         randomDaysBeforeNow = random.nextInt(daysUntilNow) + 1; // Random trong khoảng từ ngày bắt đầu đến hiện tại
         randomStartDatePromotion = currentDate.minusDays(randomDaysBeforeNow);
+
             // Random ngày kết thúc sau ngày bắt đầu (endDate > startDate)
         randomDaysAfterNow = random.nextInt(30) + 1; // Random số ngày từ ngày hiện tại
         randomEndDatePromotion = currentDate.plusDays(randomDaysAfterNow);

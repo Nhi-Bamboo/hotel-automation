@@ -49,7 +49,6 @@ public class TC03 {
     public void test() {
         homePage.openLoginPage();
         loginPage.login("yennhi","123456");
-        homePage.clickAccountSetting();
         homePage.openMyAccountPage();
 
         myAccountPage.editAccountInformation(name, email, phone, address);

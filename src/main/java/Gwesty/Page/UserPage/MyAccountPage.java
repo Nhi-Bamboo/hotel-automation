@@ -1,5 +1,7 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -47,11 +49,21 @@ public class MyAccountPage {
         driver.findElement(updateButtonLocator).click();
     }
 
+    @Step("Edit Account Information")
     public void editAccountInformation( String name, String email, String phone, String address) {
+        Allure.step(String.format("Update Full Name: %s",name));
         enterFullName(name);
+
+        Allure.step(String.format("Update Email: %s",email));
         enterEmail(email);
+
+        Allure.step(String.format("Update Phone: %s",phone));
         enterPhone(phone);
+
+        Allure.step(String.format("Update Address: %s",address));
         enterAddress(address);
+
+        Allure.step("Click Update Button");
         clickUpdateButton();
     }
 

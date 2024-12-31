@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Gwesty Automation" parallel="classes" thread-count="1">
-    <test name="TC04">
+<suite name="Gwesty Automation" parallel="classes" thread-count="2">
+    <test name="User TestCase">
         <classes>
-            <class name="TC04"></class>
-<!--            <class name="Bai2v3"></class>-->
-<!--            <class name="Bai3v3"></class>-->
-<!--            <class name="Bai4v3"></class>-->
-<!--            <class name="Bai5v3"></class>-->
-<!--            <class name="Bai6v3"></class>-->
+            <class name="TC01"></class>
+            <class name="TC02"></class>
+            <class name="TC03"></class>
+            <class name="TC12"></class>
+<!--            <class name="TC13"></class>-->
+        </classes>
+    </test>
+
+    <test name="Admin TestCase">
+        <classes>
+            <class name="TC05"></class>
+            <class name="TC08"></class>
+            <class name="TC09"></class>
+            <class name="TC10"></class>
         </classes>
     </test>
 </suite>

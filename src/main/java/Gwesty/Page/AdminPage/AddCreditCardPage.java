@@ -57,12 +57,25 @@ public class AddCreditCardPage {
     }
     @Step("Enter credit card information")
     public void addCreditCardInformation(CreditCard card) {
+        Allure.step(String.format("Enter Credit Card Number: %s",card.getNumber()));
         enterCreditCardNumber(card.getNumber());
+
+        Allure.step(String.format("Enter Owner Name: %s",card.getName()));
         enterOwnerName(card.getName());
+
+        Allure.step(String.format("Enter Expiry Month: %d",card.getMonth()));
         enterExpiryMonth(card.getMonth());
+
+        Allure.step(String.format("Enter Expiry Year: %d",card.getYear()));
         enterExpiryYear(card.getYear());
+
+        Allure.step(String.format("Enter CVV Code: %d",card.getCvv()));
         enterCVVCode(card.getCvv());
+
+        Allure.step(String.format("Enter Balance: %f",card.getBalance()));
         enterBalance(card.getBalance());
+
+        Allure.step("Click Submit Button");
         clickSubmitButton();
     }
 

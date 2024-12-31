@@ -1,6 +1,7 @@
 package Gwesty.Page.UserPage;
 
 import Gwesty.Model.CreditCard;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -43,18 +44,36 @@ public class CheckoutPage {
     }
 
     public void paymentByCreditCard(String cardNumber, String nameCard, String expiryDate, int cvv){
-         enterCardNumberBox(cardNumber);
-         enterNameOnCardBox(nameCard);
-         enterExpiryDateBox(expiryDate);
-         enterCvvNumberBox(cvv);
-         clickPayNowButton();
+        Allure.step(String.format("Enter Card Number: %s",cardNumber));
+        enterCardNumberBox(cardNumber);
+
+        Allure.step(String.format("Enter Name On Card: %s",nameCard));
+        enterNameOnCardBox(nameCard);
+
+        Allure.step(String.format("Enter Expiry Date: %s",expiryDate));
+        enterExpiryDateBox(expiryDate);
+
+        Allure.step(String.format("Enter Cvv Number: %s",cvv));
+        enterCvvNumberBox(cvv);
+
+        Allure.step("Click Pay Now Button");
+        clickPayNowButton();
     }
 
     public void enterCreditCardInformation(CreditCard creditCard){
+        Allure.step(String.format("Enter Card Number: %s",creditCard.getNumber()));
         enterCardNumberBox(creditCard.getNumber());
+
+        Allure.step(String.format("Enter Name On Card: %s",creditCard.getName()));
         enterNameOnCardBox(creditCard.getName());
+
+        Allure.step(String.format("Enter Expiry Date: %s",creditCard));
         enterExpiryDateByMonthAndYear(creditCard);
+
+        Allure.step(String.format("Enter Cvv Number: %s",creditCard.getCvv()));
         enterCvvNumberBox(creditCard.getCvv());
+
+        Allure.step("Click Pay Now Button");
         clickPayNowButton();
     }
 

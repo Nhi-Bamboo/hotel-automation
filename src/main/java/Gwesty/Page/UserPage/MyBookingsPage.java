@@ -20,14 +20,16 @@ public class MyBookingsPage {
     }
 
     WebDriver driver;
-    @Step("Click Cancel Booking")
+
     public void clickCancelButtonById(String id){
         String xpathValue = String.format("//strong[contains(text(),'#%s')]/ancestor::div//a[@class='btn btn-danger']", id);
         dynamicCancelButtonLocator = By.xpath(xpathValue);
         driver.findElement(dynamicCancelButtonLocator).click();
     }
+
     @Step("Cancel Booking")
-    public void cancelBooking(){
+    public void cancelBooking(String id){
+        clickCancelButtonById(id);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cancelBookingButtonLocator));
         driver.findElement(cancelBookingButtonLocator).click();

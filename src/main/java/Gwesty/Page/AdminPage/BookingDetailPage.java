@@ -2,6 +2,8 @@ package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.GuestInRoom;
 import Gwesty.Model.Service;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -59,6 +61,7 @@ public class BookingDetailPage {
         this.driver = driver;
     }
 
+    @Step("Click Make Confirm Button")
     public void clickMakeConfirmButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(makeConfirmButtonLocator));
@@ -126,6 +129,7 @@ public class BookingDetailPage {
         return driver.findElement(bookingStatusLocator).getText().trim();
     }
 
+
     public void clickAddServiceButton(){
         driver.findElement(addServiceButtonLocator).click();
     }
@@ -152,8 +156,16 @@ public class BookingDetailPage {
 
 
     public void addService(Service service){
+        Allure.step("Click Add Service Button");
+        clickAddServiceButton();
+
+        Allure.step(String.format("Select Service: %s($%.1f)",service.getName(), service.getPrice()));
         selectService(service);
+
+        Allure.step(String.format("Enter Quantity: %d",service.getQuantity()));
         enterQuantityTextBox(service.getQuantity());
+
+        Allure.step("Click Submit Button");
         clickSubmitServiceButton();
     }
 

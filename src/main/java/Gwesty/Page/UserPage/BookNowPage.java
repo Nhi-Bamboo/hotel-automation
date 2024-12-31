@@ -1,5 +1,7 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -45,22 +47,36 @@ public class BookNowPage {
         driver.findElement(addressTextBoxLocator).sendKeys(address);
     }
 
+    @Step("Click CheckBox 'I agree with Terms and Conditions'")
     public void checkCheckBoxAgree(){
         if (!driver.findElement(checkBoxAgreeLocator).isSelected()){
             driver.findElement(checkBoxAgreeLocator).click();
         }
     }
 
+    @Step("Click Submit Button")
     public void clickSubmitButton(){
         driver.findElement(submitButtonLocator).click();
     }
 
-    public void addGuestInformation(String name, String e, String phone, String address){
+    @Step("Add Booker Information")
+    public void addBookerInformation(String name, String e, String phone, String address){
+        Allure.step(String.format("Enter Name: %s",name));
         enterNameTextBox(name);
+
+        Allure.step(String.format("Enter Email: %s",e));
         enterEmailTextBox(e);
+
+        Allure.step(String.format("Enter Phone: %s",phone));
         enterPhoneTextBox(phone);
+
+        Allure.step(String.format("Enter Address: %s",address));
         enterAddressTextBox(address);
+
+        Allure.step("Click 'I agree with Terms and Conditions'");
         checkCheckBoxAgree();
+
+        Allure.step("Click Submit Button");
         clickSubmitButton();
     }
 
@@ -89,8 +105,13 @@ public class BookNowPage {
     }
 
     public void addPromotionCode(String promoCode){
+        Allure.step("Click Radio 'I Have Promotion'");
         clickRadioIHavePromotion();
+
+        Allure.step(String.format("Enter Promotion Code: %s",promoCode));
         enterPromotionCode(promoCode);
+
+        Allure.step("Click Apply Button");
         clickApplyButton();
     }
 

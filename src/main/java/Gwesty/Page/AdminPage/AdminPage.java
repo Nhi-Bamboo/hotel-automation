@@ -1,6 +1,7 @@
 package Gwesty.Page.AdminPage;
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -33,6 +34,7 @@ public class AdminPage {
         clickSubMenu("View All Room Types");
     }
 
+    @Step("Open Booking Page")
     public void openBookingPage() {
         clickMenu("Booking");
     }
@@ -43,12 +45,6 @@ public class AdminPage {
         clickSubMenu("Add Room");
     }
 
-    public void openViewAllCreditCard() {
-        Allure.step("Open View All Credit Card Page");
-        clickMenu("CreditCard");
-        clickSubMenu("View All CreditCard");
-    }
-
     public void openViewAllServices() {
         Allure.step("Open View All Services Page");
         clickMenu("Service");
@@ -56,7 +52,7 @@ public class AdminPage {
     }
 
     public void openAddPromotionPage() {
-        Allure.step("Open View All Promotion Page");
+        Allure.step("Open Add Promotion Page");
         clickMenu("Promotion");
         clickSubMenu("Add Promotion");
     }
@@ -65,5 +61,11 @@ public class AdminPage {
         Allure.step("Open Add Credit Card Page");
         clickMenu("CreditCard");
         clickSubMenu("Add CreditCard");
+    }
+
+    public void openViewAllCreditCard() {
+        Allure.step("Open View All Credit Card Page");
+        clickMenu("CreditCard");
+        clickSubMenu("View All CreditCard");
     }
 }

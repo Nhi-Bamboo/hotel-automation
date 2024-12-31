@@ -1,6 +1,7 @@
 package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.Promotion;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -115,7 +116,7 @@ public class AddPromotionPage {
         selectDateFromCalendar(date);
     }
 
-    public void selectTypePercentage(String type) {
+    public void selectPromotionType(String type) {
         driver.findElement(typeDropdownLocator).click();
         String xpathType = String.format("//li[@class='mdl-menu__item'][text()='%s']",type);
         driver.findElement(By.xpath(xpathType)).click();
@@ -135,13 +136,28 @@ public class AddPromotionPage {
     }
 
     public void addPromotion(Promotion promotion){
+        Allure.step(String.format("Enter Name Promotion: %s",promotion.getName()));
         enterNamePromotion(promotion.getName());
+
+        Allure.step(String.format("Enter Code Promotion: %s",promotion.getCode()));
         enterCodePromotion(promotion.getCode());
+
+        Allure.step(String.format("Select Start Date Promotion: %s",promotion.getStartDate()));
         selectStartDate(promotion.getStartDate());
+
+        Allure.step(String.format("Select End Date Promotion: %s",promotion.getEndDate()));
         selectEndDate(promotion.getEndDate());
-        selectTypePercentage(promotion.getType());
+
+        Allure.step(String.format("Select Promotion Type: %s",promotion.getType()));
+        selectPromotionType(promotion.getType());
+
+        Allure.step(String.format("Enter Value: %d",promotion.getValue()));
         enterValue(promotion.getValue());
+
+        Allure.step(String.format("Enter Description: %s",promotion.getDescription()));
         enterDescription(promotion.getDescription());
+
+        Allure.step("Click Submit Button");
         clickSubmitButton();
     }
 

@@ -30,6 +30,7 @@ public class TC02 {
     LocalDate endDate;
     DateTimeFormatter formatter;
     Faker engFaker;
+    String idB;
 
     @BeforeMethod
     public void initData() {
@@ -72,6 +73,7 @@ public class TC02 {
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
         checkoutPage.paymentByCreditCard("2222333344445555","JOHN HENRY","1225",123);
+        idB = confirmPage.getIDBooking();
     }
 
     @AfterMethod
@@ -81,12 +83,8 @@ public class TC02 {
 
     @Test
     public void test() {
-        String idB = confirmPage.getIDBooking();
-        System.out.println(idB);
-        homePage.clickAccountSetting();
         homePage.openMyBookingsPage();
-        myBookingsPage.clickCancelButtonById(idB);
-        myBookingsPage.cancelBooking();
+        myBookingsPage.cancelBooking(idB);
         softAssert.assertFalse(myBookingsPage.isIdBookingDisplayed(idB),"Booking is displayed");
         softAssert.assertAll();
 

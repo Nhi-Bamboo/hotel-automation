@@ -139,7 +139,7 @@ public class TC12 {
 
         roomDetailPage.bookingRoom(startDate.format(formatter), endDate.format(formatter), 1,0);
 
-        bookNowPage.addGuestInformation(vnFaker.name().fullName(),
+        bookNowPage.addBookerInformation(vnFaker.name().fullName(),
                 engFaker.internet().emailAddress(),
                 vnFaker.phoneNumber().cellPhone().replace(" ",""),
                 vnFaker.address().country());
@@ -160,8 +160,6 @@ public class TC12 {
         //Search card
         viewAllCreditCardPage.openAllCreditCardTab();
         searchOnPage.searchByString(creditCardNumber + " " + ownerName);
-
-        System.out.println(viewAllCreditCardPage.getBalance(1));
 
         softAssert.assertEquals(viewAllCreditCardPage.getBalance(1),balance - totalCharge,"Balance is incorrect!!!");
 
