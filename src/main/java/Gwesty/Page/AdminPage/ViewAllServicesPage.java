@@ -7,7 +7,10 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class ViewAllServicesPage {
@@ -36,6 +39,8 @@ public class ViewAllServicesPage {
 
     public void searchServiceByName(String keyword) {
         Allure.step("Search Service By Name: "+keyword);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextboxLocator));
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
     }
 

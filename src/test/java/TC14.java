@@ -18,9 +18,9 @@ public class TC14 {
     AdminPage adminPage;
     AddServicePage addServicePage;
     ViewAllServicesPage viewAllServicesPage;
+    SearchOnPage searchOnPage;
     Faker faker;
     Service service;
-    Service searchService;
 
     String serviceName;
     String unit;
@@ -28,7 +28,7 @@ public class TC14 {
     String description;
     int initialQuantity;
     int latestQuantity;
-
+    Service searchService;
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -55,7 +55,7 @@ public class TC14 {
     }
     @AfterMethod
     public void cleanUp() {
-        driver.quit();
+        //driver.quit();
     }
     @Test
     public void Test() {
@@ -66,7 +66,7 @@ public class TC14 {
 
         //2. Click [Service]
         homePage.openPageAdmin();
-        adminPage.openViewAllServices();
+        adminPage.openViewAllServices(); //chạy lúc được lúc không
         viewAllServicesPage.searchServiceByName(serviceName);
         initialQuantity = viewAllServicesPage.countServiceByName(serviceName);
 
