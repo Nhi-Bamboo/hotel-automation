@@ -53,6 +53,7 @@ public class SearchPage {
         b.setTitle(getRoomTypeTitle());
         b.setNumberOfRoom(getNumberOfRoom());
         b.setCheckIn(getCheckIn());
+        b.setCheckOut(getCheckOut());
         b.setChidren(getCheckOut());
         b.setAdult(getAdult());
         b.setChidren(getChildren());

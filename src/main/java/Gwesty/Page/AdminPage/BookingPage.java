@@ -1,5 +1,6 @@
 package Gwesty.Page.AdminPage;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,11 +14,13 @@ public class BookingPage {
     }
 
     public void searchByID(String id) {
+        Allure.step("Search By Booking ID: " +id);
         driver.findElement(searchTextboxLocator).sendKeys(id);
     }
 
-    @Step("Open Booking Detail")
+
     public void openBookingDetail() {
+        Allure.step("Search By Booking ID");
         driver.findElement(iconViewDetailLocator).click();
     }
 }

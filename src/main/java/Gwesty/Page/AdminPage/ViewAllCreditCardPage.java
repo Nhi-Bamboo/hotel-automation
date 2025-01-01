@@ -1,6 +1,7 @@
 package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.CreditCard;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ public class ViewAllCreditCardPage {
     }
 
     public void searchByCreditCardNumber(String number) {
+        Allure.step("Search Credit Card by number: "+number);
         driver.findElement(searchTextboxLocator).sendKeys(number);
     }
 
@@ -53,6 +55,7 @@ public class ViewAllCreditCardPage {
     }
 
     public void clickAddNewButton () {
+        Allure.step("Click Add New Button");
         driver.findElement(addNewButtonLocator).click();
     }
 
@@ -67,8 +70,9 @@ public class ViewAllCreditCardPage {
         return c;
     }
 
-    @Step("Open All CreditCard Tab")
+
     public void openAllCreditCardTab(){
+        Allure.step("Open All CreditCard Tab");
         driver.findElement(allCreditCardTabLocator).click();
     }
 

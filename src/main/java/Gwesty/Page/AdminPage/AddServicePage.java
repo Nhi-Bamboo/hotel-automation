@@ -3,6 +3,7 @@ package Gwesty.Page.AdminPage;
 import Gwesty.Model.CreditCard;
 import Gwesty.Model.Service;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -40,14 +41,19 @@ public class AddServicePage {
     }
 
     public void clickSubmitButton() {
+        Allure.step("Click submit button");
         driver.findElement(submitButtonLocator).click();
     }
 
+    @Step("Add Service information")
     public void addServiceInformation(Service service) {
-        Allure.step("Add Service information");
+        Allure.step(String.format("Enter Service name: %s",service.getName()));
         enterServiceName(service.getName());
+        Allure.step(String.format("Enter Service unit: %s",service.getUnit()));
         enterUnit(service.getUnit());
+        Allure.step(String.format("Enter Service price: %s",service.getPrice()));
         enterPrice(service.getPrice());
+        Allure.step(String.format("Enter Service description: %s",service.getDescription()));
         enterDescription(service.getDescription());
     }
 }

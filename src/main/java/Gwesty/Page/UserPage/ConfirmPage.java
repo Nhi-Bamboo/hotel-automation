@@ -4,6 +4,9 @@ import Gwesty.Model.Booking;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ConfirmPage {
     By messageSuccessfulLocator = By.xpath("//div[@class='alert alert-success']");
     By pageNameLocator = By.xpath("//h2[text()='Confirm']");
@@ -63,8 +66,9 @@ public class ConfirmPage {
         b.setIdBooking(getIDBooking());
         b.setTitle(getRoomTypeTitle());
         b.setNumberOfRoom(getNumberOfRoom());
-        b.setCheckIn(getCheckIn());
-        b.setChidren(getCheckOut());
+        b.setCheckIn(convertDate(getCheckIn()));
+        b.setCheckOut(convertDate(getCheckOut()));
+        b.setChidren(getChildren());
         b.setAdult(getAdult());
         b.setChidren(getChildren());
         return b;
@@ -72,5 +76,21 @@ public class ConfirmPage {
 
     public double getTotalCharge(){
         return Double.parseDouble(driver.findElement(totalChargeLocator).getText().substring(1));
+    }
+
+    public String convertDate(String dateStr) {
+        try {
+            // Định dạng đầu vào
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd yyyy");
+            // Định dạng đầu ra
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd");
+
+            // Phân tích chuỗi ngày tháng đầu vào thành đối tượng Date
+            Date date = inputFormat.parse(dateStr);
+            // Trả về định dạng mong muốn
+            return outputFormat.format(date);
+        } catch (Exception e) {
+            return null; // Trả về null nếu có lỗi
+        }
     }
 }

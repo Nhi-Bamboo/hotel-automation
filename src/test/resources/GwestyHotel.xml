@@ -7,16 +7,22 @@
             <class name="TC02"></class>
             <class name="TC03"></class>
             <class name="TC12"></class>
-<!--            <class name="TC13"></class>-->
+            <class name="TC13"></class>
         </classes>
     </test>
 
     <test name="Admin TestCase">
         <classes>
+            <class name="TC04"></class>
             <class name="TC05"></class>
+            <class name="TC06"></class>
+            <class name="TC07"></class>
             <class name="TC08"></class>
             <class name="TC09"></class>
             <class name="TC10"></class>
+            <class name="TC11"></class>
+            <class name="TC14"></class>
+            <class name="TC15"></class>
         </classes>
     </test>
 </suite>

@@ -139,13 +139,19 @@ public class AddGuestDetailsPage {
     }
 
     public void addGuestInRoomInformation(GuestInRoom guest) {
-        Allure.step("Enter Guest In Room information");
+        Allure.step("Enter Fullname: "+guest.getFullName());
         enterFullName(guest.getFullName());
+        Allure.step("Enter Gender: "+guest.getGender());
         selectGender(guest.getGender());
+        Allure.step("Enter Date of Birth: "+guest.getDateOfBirth());
         selectCurrentDate(guest.getDateOfBirth());
+        Allure.step("Select room number");
         selectFirstRoomNumber();
+        Allure.step("Enter Address: "+guest.getAddress());
         enterAddress(guest.getAddress());
+        Allure.step("Select identify types: "+guest.getType());
         selectIdentifyType(guest.getType());
+        Allure.step("Enter Identify number: "+guest.getId());
         enterIdentifyNumber(guest.getId());
     }
 

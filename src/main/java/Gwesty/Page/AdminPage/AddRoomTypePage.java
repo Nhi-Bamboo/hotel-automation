@@ -3,6 +3,7 @@ package Gwesty.Page.AdminPage;
 import Gwesty.Model.CreditCard;
 import Gwesty.Model.RoomType;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -44,6 +45,8 @@ public class AddRoomTypePage {
     private void enterDescription(String description) {
         driver.findElement(descriptionTextboxLocator).sendKeys(description);
     }
+
+
     public void clickSubmitButton() {
         Allure.step("Click Submit Button");
         driver.findElement(submitButtonLocator).click();
@@ -51,12 +54,17 @@ public class AddRoomTypePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextboxLocator));
     }
 
+
     public void addRoomTypeInformation(RoomType roomType) {
-        Allure.step("Enter room type information");
+        Allure.step("Enter room type title: "+roomType.getRoomTypeTitle());
         enterTitle(roomType.getRoomTypeTitle());
+        Allure.step("Enter room type price: "+roomType.getPrice());
         enterPrice(roomType.getPrice());
+        Allure.step("Enter the number of adults: "+roomType.getAdult());
         enterAdultCapacity(roomType.getAdult());
+        Allure.step("Enter the number of childrens: "+roomType.getChildren());
         enterChildrenCapacity(roomType.getChildren());
+        Allure.step("Enter description: "+roomType.getDescription());
         enterDescription(roomType.getDescription());
     }
 }

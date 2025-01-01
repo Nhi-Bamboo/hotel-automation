@@ -3,6 +3,7 @@ package Gwesty.Page.AdminPage;
 import Gwesty.Model.CreditCard;
 import Gwesty.Model.Service;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,7 @@ public class ViewAllServicesPage {
     }
 
     public void clickAddRowButton() {
+        Allure.step("Click Add New Button");
         driver.findElement(addRowButtonLocator).click();
     }
 

@@ -1,5 +1,6 @@
 package Gwesty.Page.UserPage;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,8 +23,9 @@ public class RoomPage {
         return driver.findElement(roomLocator).isDisplayed();
     }
 
-    @Step("Open Room Detail Page")
+
     public void openDetailRoomByIndex(int n){
+        Allure.step("Open Room Detail Page");
         List<WebElement> list = driver.findElements(viewDetailRoomLocator);
         list.get(n-1).click();
     }

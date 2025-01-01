@@ -118,7 +118,6 @@ public class TC15 {
         bookingDetailPage.clickAddNewGuestInRoomButtonLocator();
 
         //6. Input valid all fields.
-        System.out.println(dateOfBirth);
         addGuestDetailsPage.addGuestInRoomInformation(guestInRoom);
         guestInRoom.setRoom(addGuestDetailsPage.getRoom());
         guestInRoom.setType(null);

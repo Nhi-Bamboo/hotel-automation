@@ -4,6 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.devtools.v127.network.model.AlternateProtocolUsage;
 
 public class BookNowPage {
     By nameTextBoxLocator = By.id("name");
@@ -47,15 +48,15 @@ public class BookNowPage {
         driver.findElement(addressTextBoxLocator).sendKeys(address);
     }
 
-    @Step("Click CheckBox 'I agree with Terms and Conditions'")
     public void checkCheckBoxAgree(){
+        Allure.step("Click CheckBox 'I agree with Terms and Conditions'");
         if (!driver.findElement(checkBoxAgreeLocator).isSelected()){
             driver.findElement(checkBoxAgreeLocator).click();
         }
     }
 
-    @Step("Click Submit Button")
     public void clickSubmitButton(){
+        Allure.step("Click Submit Button");
         driver.findElement(submitButtonLocator).click();
     }
 

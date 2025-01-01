@@ -2,6 +2,9 @@ package Gwesty.Page.AdminPage;
 
 import Gwesty.Model.CreditCard;
 import Gwesty.Model.RoomType;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +24,9 @@ public class ViewAllRoomTypePage {
         this.driver = driver;
     }
 
+
     public void searchByTitle(String keyword) {
+        Allure.step("Search By Title: "+keyword);
         driver.findElement(searchTextboxLocator).sendKeys(keyword);
 
     }
@@ -36,7 +41,9 @@ public class ViewAllRoomTypePage {
         List<WebElement> items = driver.findElements(By.xpath(xpathTitle));
         return items.size();
     }
+
     public void clickAddNewButton() {
+        Allure.step("Click Add New Button");
         driver.findElement(addNewButtonLocator).click();
     }
 

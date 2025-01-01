@@ -3,6 +3,7 @@ import Gwesty.Page.AdminPage.BookingDetailPage;
 import Gwesty.Page.AdminPage.BookingPage;
 import Gwesty.Page.UserPage.*;
 import com.github.javafaker.Faker;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
@@ -62,6 +63,7 @@ public class TC06 {
         driver.get("http://14.176.232.213:8084/");
 
         //"Pre-condition: Users have been booked a room
+        Allure.step("Users have been booked a room");
         homePage.openLoginPage();
         loginPage.login("thuongnth","123456");
 

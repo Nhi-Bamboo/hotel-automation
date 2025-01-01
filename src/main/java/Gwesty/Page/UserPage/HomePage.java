@@ -29,18 +29,18 @@ public class HomePage {
 
     WebDriver driver;
 
-    @Step("Open Login Page")
     public void openLoginPage(){
+        Allure.step("Open Login Page");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.findElement(loginButtonLocator).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(userNameTextBoxLocator));
     }
 
-    @Step("Open Room Page")
     public void selectRoomPage(){
+        Allure.step("Open Room Page");
         driver.findElement(roomsMenuLocator).click();
     }
-    @Step("Open Admin Page")
+
     public void openPageAdmin() {
         Allure.step("Open dropdown menu: Account & Settings ");
         clickAccountSetting();
@@ -66,19 +66,22 @@ public class HomePage {
         driver.findElement(myAccountLocator).click();
     }
 
+
     public void Logout() {
         Allure.step("Logout");
         clickAccountSetting();
         driver.findElement(logOutButtonLocator).click();
     }
 
-    @Step("Open Home Page")
+
     public void openHomePage() {
+        Allure.step("Open Home Page");
         driver.findElement(homeNavBarLocator).click();
     }
 
+
     public void searchByBookingId(String booking) {
-        Allure.step("Search By Booking ID");
+        Allure.step("Search By Booking ID: "+booking);
         driver.findElement(searchBookingIdButtonLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBookingIdTextboxLocator));

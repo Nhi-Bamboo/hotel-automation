@@ -3,12 +3,17 @@ import Gwesty.Page.AdminPage.AdminPage;
 import Gwesty.Page.AdminPage.BookingDetailPage;
 import Gwesty.Page.AdminPage.BookingPage;
 import Gwesty.Page.UserPage.*;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class TC13 {
     WebDriver driver;
@@ -24,12 +29,14 @@ public class TC13 {
     CheckoutPage checkoutPage;
     ConfirmPage confirmPage;
     SearchPage searchPage;
+    Faker faker;
 
     String idBooking;
-    String roomType;
-    String numberOfRoom;
-    String checkIn;
-    String checkOut;
+    Date date;
+    LocalDate startDate;
+    String checkin;
+    String checkout;
+
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -45,6 +52,12 @@ public class TC13 {
         roomPage = new RoomPage(driver);
         checkoutPage = new CheckoutPage(driver);
         searchPage = new SearchPage(driver);
+        faker = new Faker();
+
+        date =  faker.date().past(3650, java.util.concurrent.TimeUnit.DAYS);
+        startDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        checkin = String.valueOf(startDate).replace("-","/");
+        checkout = String.valueOf(startDate.plusDays(1)).replace("-","/");
 
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
@@ -57,16 +70,13 @@ public class TC13 {
 
         roomPage.openDetailRoomByIndex(1);
 
-        roomDetailPage.bookingRoom("2025/12/18","2025/12/19",1,0);
+        roomDetailPage.bookingRoom(checkin,checkout,1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
         checkoutPage.paymentByCreditCard("9999 9999 9999 9999","THUONG","10 / 10",999);
         idBooking = confirmPage.getIDBooking();
-//        roomType = confirmPage.getRoomTypeTitle();
-//        numberOfRoom = confirmPage.getNumberOfRoom();
-//        checkIn = confirmPage.getCheckIn();
-//        checkOut = confirmPage.getCheckOut();
+
     }
     @AfterMethod
     public void cleanUp() {

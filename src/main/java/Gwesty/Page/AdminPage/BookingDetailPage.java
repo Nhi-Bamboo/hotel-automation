@@ -61,8 +61,9 @@ public class BookingDetailPage {
         this.driver = driver;
     }
 
-    @Step("Click Make Confirm Button")
+
     public void clickMakeConfirmButton() {
+        Allure.step("Click Make Confirm Button");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(makeConfirmButtonLocator));
         driver.findElement(makeConfirmButtonLocator).click();
@@ -73,24 +74,29 @@ public class BookingDetailPage {
     }
 
     public void clickCheckOutButton() {
+        Allure.step("Click Check Out Button");
         driver.findElement(checkOutButtonLocator).click();
-       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-       wait.until(ExpectedConditions.visibilityOfElementLocated((submitButtonLocator)));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated((submitButtonLocator)));
     }
 
     public void checkFirstRoom() {
+        Allure.step("Select first room");
         driver.findElement(roomCheckBoxLocator).click();
     }
 
+
     public void clickNextButton() {
+        Allure.step("Click Next Button");
         driver.findElement(nextButtonLocator).click();
     }
 
     public void selectPaymentMethod(String option) {
-       Select dropdown = new Select(driver.findElement(payMethodLocator));
-       dropdown.selectByVisibleText(option);
-       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-       wait.until(ExpectedConditions.visibilityOfElementLocated((cardNumberTextboxLocator)));
+        Allure.step("Select Payment method: "+option);
+        Select dropdown = new Select(driver.findElement(payMethodLocator));
+        dropdown.selectByVisibleText(option);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated((cardNumberTextboxLocator)));
     }
 
     public void enterCardNumber(String number){
@@ -111,13 +117,18 @@ public class BookingDetailPage {
     }
 
     public void enterPaymentInformation(String number, String name, String date, int cvv) {
+        Allure.step("Enter Card Number: "+number);
         enterCardNumber(number);
+        Allure.step("Enter Name on Card: "+name);
         enterName(name);
+        Allure.step("Enter Expiry Date: "+date);
         enterExpiryDate(date);
+        Allure.step("Enter CVV Number: "+cvv);
         enterCVVNumber(cvv);
     }
 
     public void clickSubMitButtonOfPaymentForm() {
+        Allure.step("Click Submit button");
         driver.findElement(submitButtonOfPaymentFormLocator).click();
     }
 
@@ -243,12 +254,14 @@ public class BookingDetailPage {
 
     //guest in room
     public void clickGuestInRoom() {
+        Allure.step("Click tab Guest in Room");
         driver.findElement(guestInRoomNavLocator).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(addNewButtonLocator));
     }
 
     public void clickAddNewGuestInRoomButtonLocator() {
+        Allure.step("Click Add new button");
         driver.findElement(addNewButtonLocator).click();
     }
 
