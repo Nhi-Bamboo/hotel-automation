@@ -100,6 +100,7 @@ public class TC09 {
         promotionAdded.setType("PERCENTAGE");
         promotionAdded.setValue(1 + random.nextInt(101));
         promotionAdded.setDescription("Booking Promotion");
+
     }
 
     @AfterMethod
@@ -137,12 +138,12 @@ public class TC09 {
                         (promotionAdded.getValue() * bookNowPage.getSubTotal()) / 100.0,
                         "The discount value is incorrect!");
 
-        softAssert.assertEquals(bookNowPage.getGrandTotal(),
-                        bookNowPage.getSubTotal() + bookNowPage.getTax() - bookNowPage.getDiscount(),
+        softAssert.assertEquals(Double.parseDouble(String.format("%.2f",bookNowPage.getGrandTotal())),
+                                Double.parseDouble(String.format("%.2f", bookNowPage.getSubTotal() + bookNowPage.getTax() - bookNowPage.getDiscount())),
                         "The Grand Total is incorrect!");
 
-        driver.close();
 
+        driver.close();
         softAssert.assertAll();
 
     }

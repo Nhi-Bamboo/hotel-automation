@@ -55,7 +55,7 @@ public class TC14 {
     }
     @AfterMethod
     public void cleanUp() {
-        //driver.quit();
+        driver.quit();
     }
     @Test
     public void Test() {
