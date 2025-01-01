@@ -36,6 +36,8 @@ public class TC13 {
     LocalDate startDate;
     String checkin;
     String checkout;
+    Booking confirm;
+    Booking search;
 
     @BeforeMethod
     public void initData() {
@@ -84,10 +86,10 @@ public class TC13 {
     }
     @Test
     public void Test() {
-        Booking confirm = confirmPage.getConfirmBookingInformation();
+        confirm = confirmPage.getConfirmBookingInformation();
         homePage.openHomePage();
         homePage.searchByBookingId(idBooking);
-        Booking search = searchPage.getSearchBookingInformation();
+        search = searchPage.getSearchBookingInformation();
 
         softAssert.assertEquals(search,confirm,"Thong tin khong trung khop!");
         softAssert.assertAll();

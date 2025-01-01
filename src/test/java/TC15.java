@@ -30,6 +30,7 @@ public class TC15 {
     ConfirmPage confirmPage;
     Faker faker;
     GuestInRoom guestInRoom;
+    GuestInRoom viewGuestInRoom;
 
     String idBooking;
     String fullName;
@@ -128,7 +129,7 @@ public class TC15 {
         bookingDetailPage.clickGuestInRoom();
 
         //9.Click [Guest In Room] in siderbar menu
-        GuestInRoom viewGuestInRoom = bookingDetailPage.getGuestInRoomByIndex(1);
+        viewGuestInRoom = bookingDetailPage.getGuestInRoomByIndex(1);
 
         softAssert.assertEquals(viewGuestInRoom,guestInRoom,"Khong trung khop!");
         softAssert.assertAll();
