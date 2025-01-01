@@ -20,11 +20,15 @@ public class TC14 {
     ViewAllServicesPage viewAllServicesPage;
     Faker faker;
     Service service;
+    Service searchService;
 
     String serviceName;
     String unit;
     double price;
     String description;
+    int initialQuantity;
+    int latestQuantity;
+
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -62,9 +66,9 @@ public class TC14 {
 
         //2. Click [Service]
         homePage.openPageAdmin();
-        adminPage.openViewAllServices(); //chạy lúc được lúc không
+        adminPage.openViewAllServices();
         viewAllServicesPage.searchServiceByName(serviceName);
-        int initialQuantity = viewAllServicesPage.countServiceByName(serviceName);
+        initialQuantity = viewAllServicesPage.countServiceByName(serviceName);
 
         //3. Click [Add Service]
         viewAllServicesPage.clickAddRowButton();
@@ -76,9 +80,9 @@ public class TC14 {
         addServicePage.clickSubmitButton();
 
         viewAllServicesPage.searchServiceByName(serviceName);
-        int latestQuantity = viewAllServicesPage.countServiceByName(serviceName);
+        latestQuantity = viewAllServicesPage.countServiceByName(serviceName);
 
-        Service searchService = viewAllServicesPage.getServiceByIndex(1);
+        searchService = viewAllServicesPage.getServiceByIndex(1);
 
         // verify
         softAssert.assertEquals(searchService,service,"Thong tin khong trung khop");

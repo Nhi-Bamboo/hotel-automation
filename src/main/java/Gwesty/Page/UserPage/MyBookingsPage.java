@@ -12,8 +12,6 @@ public class MyBookingsPage {
     By dynamicCancelButtonLocator;
     By cancelBookingButtonLocator = By.xpath("//div[@id='cancel-booking'][@style='display: block;']//input[@value='Cancel']");
     By dynamicIdBookingLocator;
-    By idBookingLocator = By.className("widget_ratting");
-    By noBookingsMessageLocator = By.xpath("//h1[text()='You have no bookings here.']");
 
     public MyBookingsPage(WebDriver driver) {
         this.driver = driver;
@@ -43,15 +41,6 @@ public class MyBookingsPage {
         return driver.findElements(dynamicIdBookingLocator).size() > 0;
     }
 
-    public int getBookingCount() {
-        return driver.findElements(idBookingLocator).size();
-    }
-
-    public boolean isNoBookingMessageDisplayed(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(cancelBookingButtonLocator));
-        return driver.findElement(noBookingsMessageLocator).isDisplayed();
-    }
 
 
 }
