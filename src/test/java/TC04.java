@@ -1,4 +1,3 @@
-import Gwesty.Model.CreditCard;
 import Gwesty.Model.RoomType;
 import Gwesty.Page.AdminPage.AddRoomTypePage;
 import Gwesty.Page.AdminPage.AdminPage;
@@ -21,7 +20,7 @@ public class TC04 {
     ViewAllRoomTypePage viewAllRoomTypePage;
     SoftAssert softAssert;
     RoomType roomType;
-    RoomType room;
+    RoomType viewAllRoomType;
 
     Faker faker;
     String roomTypeTitle;
@@ -90,12 +89,12 @@ public class TC04 {
 
         // tìm room type vừa tạo
         viewAllRoomTypePage.searchByTitle(roomTypeTitle);
-        room = viewAllRoomTypePage.getRoomTypeByIndex(1);
+        viewAllRoomType = viewAllRoomTypePage.getRoomTypeByIndex(1);
         latestQuantity = viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle);
 
         //assert equal
-        softAssert.assertEquals(viewAllRoomTypePage.countRoomTypesByTitle(roomTypeTitle) - initialQuantity,1, "Room type tao khong thanh cong!");
-        softAssert.assertEquals(room,roomType,"Thong tin khong trung khop!");
+        softAssert.assertEquals(latestQuantity - initialQuantity,1, "Room type tao khong thanh cong!");
+        softAssert.assertEquals(viewAllRoomType,roomType,"Thong tin khong trung khop!");
         softAssert.assertAll();
     }
 }

@@ -20,7 +20,7 @@ public class BookingPage {
 
 
     public void openBookingDetail() {
-        Allure.step("Search By Booking ID");
+        Allure.step("Open Booking Detail");
         driver.findElement(iconViewDetailLocator).click();
     }
 }
