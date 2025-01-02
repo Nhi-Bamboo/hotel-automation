@@ -22,6 +22,7 @@ public class TC11 {
     String ownerName;
 
     CreditCard creditCard;
+    CreditCard viewAllCreditCard;
     int month;
     int year;
     int cvv;
@@ -80,7 +81,7 @@ public class TC11 {
 
         //verify
         viewAllCreditCardPage.searchByCreditCardNumber(creditCardNumber);
-        CreditCard viewAllCreditCard = viewAllCreditCardPage.getCreditCardByIndex(1);
+        viewAllCreditCard = viewAllCreditCardPage.getCreditCardByIndex(1);
 
         softAssert.assertEquals(viewAllCreditCard,creditCard);
 
