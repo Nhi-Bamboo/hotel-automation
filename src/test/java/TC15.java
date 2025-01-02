@@ -40,6 +40,10 @@ public class TC15 {
     String dateOfBirth;
     Date date;
 
+    LocalDate startDate;
+    String checkin;
+    String checkout;
+
     @BeforeMethod
     public void initData() {
         driver = new EdgeDriver();
@@ -57,6 +61,12 @@ public class TC15 {
         bookNowPage = new BookNowPage(driver);
         checkoutPage = new CheckoutPage(driver);
         confirmPage = new ConfirmPage(driver);
+
+        date =  faker.date().past(3650, java.util.concurrent.TimeUnit.DAYS);
+        startDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        checkin = String.valueOf(startDate).replace("-","/");
+        checkout = String.valueOf(startDate.plusDays(1)).replace("-","/");
+
         driver.manage().window().maximize();
         driver.get("http://14.176.232.213:8084/");
 
@@ -67,7 +77,7 @@ public class TC15 {
         homePage.selectRoomPage();
         roomPage.openDetailRoomByIndex(1);
 
-        roomDetailPage.bookingRoom("2025/12/30","2025/12/31",1,0);
+        roomDetailPage.bookingRoom(checkin,checkout,1,0);
         bookNowPage.checkCheckBoxAgree();
         bookNowPage.clickSubmitButton();
 
@@ -80,7 +90,6 @@ public class TC15 {
         gender= faker.demographic().sex();
         address = faker.address().country();
         idNumber = faker.number().numberBetween(100,999);
-        date =  faker.date().past(3650, java.util.concurrent.TimeUnit.DAYS);
         dateOfBirth = String.valueOf(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
         guestInRoom = new GuestInRoom();
